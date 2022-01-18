@@ -1,12 +1,44 @@
-import type { NextPage } from 'next'
+import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { Icon } from "@/components/Icon";
-import PizzaImage from "@/assets/5-margharita.png";
+import { PizzaItem } from "@/components/PizzaItem";
 
 const Home: NextPage = () => {
+	let pizzas: PizzaItemType[] = [
+		{
+			name: "Margherita",
+			subName: "",
+			price: 9,
+			imageUrl: "/images/pizzas/margherita.png",
+		},
+		{
+			name: "Capricciosa",
+			subName: "",
+			price: 12,
+			imageUrl: "/images/pizzas/capricciosa.png",
+		},
+		{
+			name: "Quattro Stagioni",
+			subName: "",
+			price: 14,
+			imageUrl: "/images/pizzas/quattro-stagioni.png",
+		},
+		{
+			name: "Hawaii",
+			subName: "",
+			price: 16,
+			imageUrl: "/images/pizzas/hawaii.png",
+		},
+		{
+			name: "Pugliese",
+			subName: "",
+			price: 17,
+			imageUrl: "/images/pizzas/pugliese.png",
+		},
+	];
 	return (
-		<div className="min-h-scree p-1">
+		<div>
 			<Head>
 				<title>Pizzorder</title>
 				<meta
@@ -16,56 +48,36 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<div className="bg-primary-deemLight rounded-md">
-				<header className="p-2 flex flex-row justify-between">
-					<Icon icon="pizzaSlice" />
-					<Icon icon="shoppingCart" />
+			<div className="bg-classy-deemLight min-h-screen">
+				{/* Header */}
+				<header className="py-4 px-2 flex flex-row justify-between border-b border-slate-200 bg-glassmorphic sticky top-0 bg-glassmorphic z-50">
+					<Icon icon="pizzaSlice" className="cursor-pointer" />
+					<Icon icon="shoppingCart" className="cursor-pointer" />
 				</header>
-				<main>
-					<h1>Pizza's that makes your meal delightfull</h1>
+				{/* Content */}
+				<main className="space-y-6 py-2 px-4">
+					{/* Shoutout */}
+					<h1 className="font-semibold text-3xl md:text-4xl">
+						Pizza's that makes <br /> your meal delightfull
+					</h1>
+					{/* Search */}
 					<div className="flex flex-row w-full items-center">
-						<div className="flex flex-row bg-primary-white items-center rounded-3xl border-2 border-primary-deemLight h-12 flex-grow">
+						<div className="flex flex-row bg-classy-white items-center rounded-3xl border-2 border-classy-deemLight h-12 flex-grow focus-within:ring-1 ring-classy-golden transition-all duration-300 focus-within:border-classy-golden">
 							<Icon icon="search" className="m-2" size="sm" />
 							<input
 								type="search"
-								className="w-full flex-grow bg-primary-white h-full py-1 px-2 outline-none rounded-r-3xl"
+								className="w-full flex-grow bg-classy-white h-full p-1 focus:outline-none focus:placeholder-transparent focus:ring-0 rounded-r-3xl"
 								placeholder="Search for pizza's"
 							/>
 						</div>
 						<Icon icon="adjustments" className="m-2" size="sm" />
 					</div>
-					<div className="grid grid-cols-3 space-y-2 space-x-2 p-2">
+					{/* Listing */}
+					<div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
 						{/* Pizza */}
-						<div className="bg-primary-white rounded-md drop-shadow-lg">
-							<div className="p-2 text-center">
-								<Image
-									src={PizzaImage}
-									height={200}
-									width={200}
-									className="drop-shadow-xl m-1"
-								/>
-							</div>
-							<div className="p-2">
-								<div className="flex flex-row w-full">
-									<div className="flex flex-col flex-grow">
-										<h3 className="font-semibold text-3xl">
-											Black Papper Club
-										</h3>
-										<h4 className="text-2xl font-medium">
-											<span className="text-sm text-primary-golden align-top">
-												$
-											</span>
-											199
-										</h4>
-									</div>
-									<Icon
-										icon="plus"
-										className="m-2 text-primary-golden"
-									/>
-								</div>
-								<p>Cheeze pizza with black papper crust</p>
-							</div>
-						</div>
+						{pizzas.map((pizza, i) => (
+							<PizzaItem pizza={pizza} key={i} />
+						))}
 					</div>
 				</main>
 			</div>
@@ -73,4 +85,4 @@ const Home: NextPage = () => {
 	);
 };
 
-export default Home
+export default Home;

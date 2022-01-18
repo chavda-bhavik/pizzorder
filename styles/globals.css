@@ -2,8 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+	font-family: "Archivo";
+	src: url("/fonts/Archivo.ttf");
+}
+
 @layer components {
-    .link {
-        @apply hover:underline;
-    }
+	body {
+		@apply font-archivo;
+	}
+	.bg-glassmorphic {
+		@apply bg-gray-50 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-75;
+	}
+	.link {
+		@apply hover:underline;
+	}
+	.shadowed {
+		-webkit-filter: drop-shadow(3px 3px 10px #222);
+		filter: drop-shadow(3px 3px 5px #222);
+	}
+	.shadow-bold {
+		-webkit-box-shadow: 0px 1px 3px 1px rgb(0 0 0 / 60%);
+		-moz-box-shadow: 0px 1px 3px 1px rgb(0 0 0 / 60%);
+		box-shadow: 0px 1px 3px 1px rgb(0 0 0 / 60%);
+	}
+	.shadow-bolder {
+		-webkit-box-shadow: 0px 1px 5px 2px rgb(0 0 0 / 60%);
+		-moz-box-shadow: 0px 1px 5px 2px rgb(0 0 0 / 60%);
+		box-shadow: 0px 1px 5px 2px rgb(0 0 0 / 60%);
+	}
 }

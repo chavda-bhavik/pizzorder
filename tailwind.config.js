@@ -6,7 +6,7 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				primary: {
+				classy: {
 					white: "#FAFAFA",
 					deemLight: "#F5F2EE",
 					lightGolden: "#ECD397",
@@ -19,6 +19,9 @@ module.exports = {
 					// light: '#E8EDDF',
 					// lighter: '#CFDBD5',
 				},
+			},
+			fontFamily: {
+				archivo: ["Archivo", "sans"],
 			},
 		},
 	},
