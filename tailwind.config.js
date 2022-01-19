@@ -21,7 +21,11 @@ module.exports = {
 				},
 			},
 			fontFamily: {
+				"archivo-light": ["Archivo Light", "sans"],
 				archivo: ["Archivo", "sans"],
+				"archivo-semibold": ["Archivo Semibold", "sans"],
+				"archivo-bold": ["Archivo Bold", "sans"],
+				"archivo-bolder": ["Archivo Bolder", "sans"],
 			},
 		},
 	},
