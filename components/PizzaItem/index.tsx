@@ -8,7 +8,7 @@ interface PizzaProps {
 
 export const PizzaItem: React.FC<PizzaProps> = ({ pizza }) => {
 	return (
-		<div className="bg-classy-white drop p-2 flex flex-col cursor-pointer rounded-md group shadow-bold hover:shadow-bolder transition-all">
+		<div className="bg-classy-white drop px-2 py-4 flex flex-col cursor-pointer rounded-md group shadow-bold hover:shadow-bolder transition-all">
 			<div className="flex items-center justify-center rounded-t-lg flex-grow">
 				<img
 					src={pizza.imageUrl}
@@ -19,12 +19,12 @@ export const PizzaItem: React.FC<PizzaProps> = ({ pizza }) => {
 					className="shadowed w-36"
 				/>
 			</div>
-			<div className="">
+			<div className="pt-4">
 				<div className="flex flex-col flex-grow text-center">
 					<h3 className="font-semibold text-xl text-classy-golden">
 						{pizza.name}
 					</h3>
-					<h4 className="text-lg md:text-xl font-base my-2">
+					<h4 className="text-lg md:text-xl font-base">
 						${parseFloat("" + pizza.price).toFixed(2)}
 					</h4>
 				</div>
