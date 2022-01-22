@@ -8,6 +8,12 @@ const icons: any = {
 			<path d="M8.9 6.9v-5a1 1 0 1 0-2 0v5h-5a1 1 0 1 0 0 2h5v5a1 1 0 1 0 2 0v-5h5a1 1 0 1 0 0-2h-5z"></path>
 		),
 	},
+	plusCircle: {
+		viewBox: "-2 -2 24 24",
+		path: (
+			<path d="M11 11h4a1 1 0 0 0 0-2h-4V5a1 1 0 0 0-2 0v4H5a1 1 0 1 0 0 2h4v4a1 1 0 0 0 2 0v-4zm-1 9C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10-4.477 10-10 10z"></path>
+		)
+	},
 	close: {
 		viewBox: "-6 -6 24 24",
 		path: (
