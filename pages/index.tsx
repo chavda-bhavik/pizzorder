@@ -60,7 +60,7 @@ const Home: NextPage = () => {
 					<Search />
 
 					{/* Listing */}
-					<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+					<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
 						{/* Pizza */}
 						{pizzas.map((pizza, i) => (
 							<PizzaItem pizza={pizza} key={i} />

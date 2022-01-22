@@ -8,7 +8,7 @@ interface PizzaProps {
 
 export const PizzaItem: React.FC<PizzaProps> = ({ pizza }) => {
 	return (
-		<div className="bg-classy-white drop px-2 py-4 flex flex-col cursor-pointer rounded-md group shadow-bold hover:shadow-bolder transition-all">
+		<div className="bg-classy-white drop px-2 py-4 flex flex-col cursor-pointer rounded-md group shadow-bolder transition-all hover:-translate-y-2">
 			<div className="flex items-center justify-center rounded-t-lg flex-grow">
 				<img
 					src={pizza.imageUrl}
