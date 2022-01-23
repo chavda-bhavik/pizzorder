@@ -1,6 +1,8 @@
 type IconsType =
 	| "plus"
 	| "plusCircle"
+	| "minus"
+	| "check"
 	| "close"
 	| "shoppingCart"
 	| "pizzaSlice"
@@ -12,10 +14,11 @@ type IconsSizesType = "sm" | "md" | "lg";
 type PizzaItemType = {
 	id?: number;
 	name: string;
-	subName: string;
+	subName?: string;
 	imageUrl: string;
 	price: number;
 	description?: string;
+	ingredients?: IngredientItemType[];
 };
 
 type IngredientItemType = {
@@ -25,3 +28,10 @@ type IngredientItemType = {
 	price: number;
 	description?: string;
 };
+
+type CartItemType = {
+	id?: number;
+	pizza: PizzaItemType;
+	ingredients?: IngredientItemType[];
+	quantity: number;
+}

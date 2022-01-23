@@ -81,7 +81,7 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ }) => {
 					</div>
 
 					{/* Ingredients */}
-					<h4 className="font-semibold text-lg md:text-xl mt-8 mb-3">Ingredients</h4>
+					<h4 className="title mt-8 mb-3">Ingredients</h4>
 					<div className="flex flex-row gap-x-1 md:gap-x-2 overflow-auto">
 						{
 							ingredients.map((ingredient, index) => <Ingredient content={ingredient} key={index} />)
@@ -90,7 +90,7 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ }) => {
 					</div>
 
 					{/* About */}
-					<h4 className="font-semibold text-lg md:text-xl mt-8 mb-3">About</h4>
+					<h4 className="title mt-8 mb-3">About</h4>
 					<div>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eget fringilla lectus. Aenean ut lectus gravida, suscipit lacus vitae, pretium ex. Donec eget libero sit amet ex malesuada vestibulum.</p>
 						<p>Morbi pellentesque nulla justo, ut posuere odio gravida quis. Mauris tempus sem sed lectus euismod fringilla. Donec vitae nisl non purus maximus tempor egestas non orci. Ut rhoncus sit amet magna id elementum. Vivamus euismod rhoncus suscipit. Phasellus volutpat scelerisque dolor sit amet rutrum. Duis sed viverra neque.</p>
