@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import { Icon } from "@/components/Icon";
 
 interface PizzaProps {
 	pizza: PizzaItemType;
@@ -8,15 +7,16 @@ interface PizzaProps {
 
 export const PizzaItem: React.FC<PizzaProps> = ({ pizza }) => {
 	return (
-		<div className="bg-classy-white drop px-2 py-4 flex flex-col cursor-pointer rounded-md group shadow-bolder transition-all hover:-translate-y-2">
+		<div className="bg-classy-white drop px-2 py-4 flex flex-col cursor-pointer rounded-md group shadow-bolder">
 			<div className="flex items-center justify-center rounded-t-lg flex-grow">
-				<img
+				<Image
 					src={pizza.imageUrl}
 					height={200}
 					width={200}
 					loading="lazy"
 					// layout="responsive"
 					className="shadowed w-36"
+					alt={pizza.name}
 				/>
 			</div>
 			<div className="pt-4">

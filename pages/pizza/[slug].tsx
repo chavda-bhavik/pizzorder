@@ -60,6 +60,7 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ }) => {
 							loading="lazy"
 							// layout="responsive"
 							className="shadowed object-scale-down"
+							alt="Pizza Image"
 						/>
 					</div>
 				</div>
