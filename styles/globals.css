@@ -122,4 +122,10 @@
 	.position-unset {
 		position: unset;
 	}
+	.btn {
+		@apply p-2 text-center font-archivo-bold text-lg flex flex-row justify-center items-center gap-x-1 rounded-2xl;
+	}
+	.btn-primary {
+		@apply bg-classy-golden text-black w-full;
+	}
 }

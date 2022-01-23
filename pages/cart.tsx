@@ -1,6 +1,7 @@
 import { Header } from '@/components/Header';
 import { CartItem } from '@/components/CartItem';
 import { Icon } from '@/components/Icon';
+import { Button } from '@/components/Button';
 
 interface CartProps {
 
@@ -94,7 +95,7 @@ const Cart: React.FC<CartProps> = ({ }) => {
                         }
                     </div>
                 </div>
-                <div className='fixed bottom-0 md:bottom-auto md:left-[50%] p-2 w-full md:w-[50%] bg-classy-deemLight'>
+                <div className='fixed bottom-0 md:bottom-auto md:left-[50%] p-2 w-full md:w-[50%] bg-classy-deemLight border-t-4 border-classy-lightBrown md:border-transparent'>
                     <div className='flex justify-between p-1'>
                         <p className='font-archivo-light'>Item Total:</p>
                         <p className='font-archivo-semibold'>$77.00</p>
@@ -112,9 +113,7 @@ const Cart: React.FC<CartProps> = ({ }) => {
                         <p>Total:</p>
                         <p>$78.50</p>
                     </div>
-                    <button className="rounded-2xl bg-classy-golden text-black p-2 text-center w-full font-archivo-bold text-lg flex flex-row justify-center items-center gap-x-1">
-                        Checkout <Icon icon="check" size="sm" />
-                    </button>
+                    <Button text='Checkout' icon='check' />
                 </div>
             </main>
         </div>
