@@ -9,20 +9,28 @@ interface ButtonProps {
     icon?: IconsType;
     iconSize?: IconsSizesType;
     variant?: 'primary'
-    block?: boolean
+    block?: boolean,
+    loading?: boolean;
+    disabled?: boolean;
+    className?: string;
 }
 
-export const Button: React.FC<ButtonProps> = ({ text, onClick, type, icon, iconSize, variant = 'primary', block = false }) => {
+export const Button: React.FC<ButtonProps> = ({ text, onClick, type, icon, iconSize, variant = 'primary', block = false, loading, disabled, className }) => {
+    let iconContent = null;
+    if (icon) iconContent = <Icon icon={icon} size={iconSize} />;
+    if (loading) iconContent = <Icon icon="loader" size={iconSize} />;
     return (
         <button
             className={classNames("btn", {
                 'btn-primary': variant === 'primary',
+                'btn-disabled': disabled || loading,
                 'w-full': block
-            })}
+            }, className)}
+            disabled={loading || disabled}
             type={type}
             onClick={onClick}
         >
-            {text} {icon ? <Icon icon={icon} size={iconSize} /> : null}
+            {text} {iconContent}
         </button>
     );
 }
