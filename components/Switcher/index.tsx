@@ -13,13 +13,19 @@ interface SwitchProps {
     className?: string;
 }
 
-const Switch: React.FC<SwitchProps> = ({ onClick = () => { }, active = false, title, subTitle, className }) => {
+const Switch: React.FC<SwitchProps> = ({
+    onClick = () => {},
+    active = false,
+    title,
+    subTitle,
+    className,
+}) => {
     return (
         <div
             className={classNames(
-                "p-1 rounded-2xl md:rounded-full text-center hover:bg-classy-golden transition-colors duration-300",
+                'p-2 rounded text-center hover:bg-classy-golden transition-colors duration-300 flex flex-col justify-center',
                 {
-                    "bg-classy-golden": active
+                    'bg-classy-golden': active,
                 },
                 className
             )}
@@ -28,18 +34,30 @@ const Switch: React.FC<SwitchProps> = ({ onClick = () => { }, active = false, ti
             <p className="mb-0 font-archivo-bold">
                 {title}
             </p>
-            {subTitle ? <p className="mb-0 text-sm font-archivo">{subTitle}</p> : null}
+            {subTitle ? (
+                <p className="mb-0 text-sm font-archivo">
+                    {subTitle}
+                </p>
+            ) : null}
         </div>
-    )
-}
+    );
+};
 
-const Switcher: React.FC<SwitcherProps> = ({ className, children }) => {
+const Switcher: React.FC<SwitcherProps> = ({
+    className,
+    children,
+}) => {
     return (
-        <div className={classNames("bg-classy-deemLight rounded-2xl md:rounded-full grid grid-cols-3 gap-1 p-1 cursor-pointer border-2 border-classy-slate", className)}>
+        <div
+            className={classNames(
+                'bg-classy-deemLight rounded grid grid-cols-3 gap-1 p-1 cursor-pointer border-2 border-classy-slate',
+                className
+            )}
+        >
             {children}
         </div>
     );
-}
+};
 
 export default Object.assign(Switcher, {
     Switch

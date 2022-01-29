@@ -42,41 +42,52 @@ const Home: NextPage = () => {
 		},
 	];
 	return (
-		<div>
-			<Head>
-				<title>Pizzorder</title>
-				<meta
-					name="description"
-					content="Get your faviourite pizza delivered to your door step in just a few minutes with Pizzorder"
-				/>
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
+        <div>
+            <Head>
+                <title>Pizzorder</title>
+                <meta
+                    name="description"
+                    content="Get your faviourite pizza delivered to your door step in just a few minutes with Pizzorder"
+                />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
 
-			<div className="bg-classy-deemLight min-h-screen">
-				<Header />
+            <div className="bg-classy-deemLight min-h-screen">
+                <Header />
 
-				{/* Content */}
-				<main className="space-y-6 py-2 px-4">
-					{/* Shoutout */}
-					<h1 className="text-3xl md:text-4xl font-archivo-bold my-2 md:my-4">
-						Pizza&apos;s that makes your meal delightfull
-					</h1>
-					<Search />
+                {/* Content */}
+                <main className="space-y-6 py-2 px-4">
+                    {/* Shoutout */}
+                    <h1 className="text-3xl md:text-4xl font-archivo-bold my-2 md:my-4">
+                        Pizza&apos;s that makes your meal
+                        delightfull
+                    </h1>
+                    <Search />
 
-					{/* Listing */}
-					<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-						{/* Pizza */}
-						{pizzas.map((pizza, i) => (
-							<PizzaItem pizza={pizza} key={i} onClick={() => setOpen(!open)} />
-						))}
-					</div>
-				</main>
-			</div>
-			<PizzaDetails onClose={() => setOpen(false)} show={open} pizza={pizzas[0]} />
-			{/* <Drawer open={open} onClose={() => setOpen(false)}>
+                    {/* Listing */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
+                        {/* Pizza */}
+                        {pizzas.map((pizza, i) => (
+                            <PizzaItem
+                                pizza={pizza}
+                                key={i}
+                                onClick={() =>
+                                    setOpen(!open)
+                                }
+                            />
+                        ))}
+                    </div>
+                </main>
+            </div>
+            <PizzaDetails
+                onClose={() => setOpen(false)}
+                show={open}
+                pizza={pizzas[0]}
+            />
+            {/* <Drawer open={open} onClose={() => setOpen(false)}>
 			</Drawer> */}
-		</div>
-	);
+        </div>
+    );
 };
 
 export default Home;
