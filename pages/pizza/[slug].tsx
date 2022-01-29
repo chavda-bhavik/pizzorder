@@ -87,7 +87,6 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ }) => {
 						{
 							ingredients.map((ingredient, index) => <Ingredient content={ingredient} key={index} />)
 						}
-						<Ingredient content="plusCircle" />
 					</div>
 
 					{/* About */}

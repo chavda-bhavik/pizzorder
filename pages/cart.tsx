@@ -31,21 +31,21 @@ const Cart: React.FC<CartProps> = ({ }) => {
                 imageUrl: '/images/pizzas/hawaii.png',
                 price: 199,
             },
-            quantity: 1,
+            quantity: 2,
         }, {
             pizza: {
                 name: 'Hawaii',
                 imageUrl: '/images/pizzas/hawaii.png',
                 price: 199,
             },
-            quantity: 1,
+            quantity: 3,
         }, {
             pizza: {
                 name: 'Hawaii',
                 imageUrl: '/images/pizzas/hawaii.png',
                 price: 199,
             },
-            quantity: 1,
+            quantity: 5,
         }, {
             pizza: {
                 name: 'Hawaii',

@@ -179,4 +179,34 @@
             transform: rotate(360deg);
         }
     }
+
+    .text-shadow {
+        text-shadow: 0px 0px 8px black;
+    }
+    .text-shadow-md {
+        text-shadow: 4px 4px 8px black;
+    }
+    .text-shadow-lg {
+        text-shadow: 15px 15px 30px black;
+    }
+    .text-shadow-none {
+        text-shadow: none;
+    }
+    /* PizzaItem */
+    .bg-shadow {
+        background-image: url(https://pizzaonline.dominos.co.in/static/assets/icons/shadow.svg);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+    /* Drawer */
+    .drawer {
+        transition: all 330ms ease-out;
+    }
+
+    .drawer-open {
+        transform: translateX(0%);
+    }
+    .drawer-close {
+        transform: translateX(-100%);
+    }
 }

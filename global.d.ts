@@ -10,7 +10,9 @@ type IconsType =
     | 'loader'
     | 'adjustments'
     | 'chevronUp'
-    | 'chevronDown';
+    | 'chevronDown'
+    | 'trash'
+    | 'heart';
 
 type IconsSizesType = 'sm' | 'md' | 'lg';
 
