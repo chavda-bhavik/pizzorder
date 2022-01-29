@@ -3,8 +3,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { PizzaItem } from "@/components/PizzaItem";
 import { Header } from "@/components/Header";
-import { Search } from "@/components/Search";
-import { Drawer } from "@/components/Drawer";
+import { Search } from '@/components/Search';
 import { PizzaDetails } from '@/components/PizzaDetails';
 
 const Home: NextPage = () => {

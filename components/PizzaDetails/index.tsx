@@ -126,10 +126,10 @@ export const PizzaDetails: React.FC<PizzaDetailsProps> = ({
                                 size="sm"
                                 className="text-green-700"
                             />
-                            <div className="flex-grow pl-2">
+                            <div className="flex-grow px-2">
                                 <p>
                                     I want to add extra
-                                    cheese
+                                    cheese @ 75.00
                                 </p>
                             </div>
                             <button className="border border-classy-slate px-2 py-1 rounded-md bg-classy-slate hover:bg-classy-golden transition-colors duration-400">
@@ -149,7 +149,7 @@ export const PizzaDetails: React.FC<PizzaDetailsProps> = ({
                                 each
                             </h5>
                         </div>
-                        <div className="flex flex-row gap-x-3 pb-3 px-3 md:gap-x-4 overflow-x-scroll">
+                        <div className="flex flex-row gap-x-3 pb-3 px-1 md:gap-x-4 overflow-x-scroll">
                             {ingredients.map(
                                 (ingredient, index) => (
                                     <Ingredient
