@@ -145,6 +145,9 @@
     .title {
         @apply font-semibold text-lg md:text-xl;
     }
+    .subtitle {
+        @apply font-medium text-lg md:text-xl;
+    }
     .title-lg {
         @apply font-archivo-semibold text-2xl md:text-3xl my-3;
     }

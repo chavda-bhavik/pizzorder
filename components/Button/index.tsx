@@ -21,16 +21,20 @@ export const Button: React.FC<ButtonProps> = ({ text, onClick, type, icon, iconS
     if (loading) iconContent = <Icon icon="loader" size={iconSize} />;
     return (
         <button
-            className={classNames("btn", {
-                'btn-primary': variant === 'primary',
-                'btn-disabled': disabled || loading,
-                'w-full': block
-            }, className)}
+            className={classNames(
+                'btn',
+                {
+                    'btn-primary': variant === 'primary',
+                    'btn-disabled': disabled || loading,
+                    'w-full': block,
+                },
+                className
+            )}
             disabled={loading || disabled}
             type={type}
             onClick={onClick}
         >
-            {text} {iconContent}
+            {text}&nbsp;&nbsp;{iconContent}
         </button>
     );
 }

@@ -12,7 +12,7 @@ type IconsType =
     | 'chevronUp'
     | 'chevronDown'
     | 'trash'
-    | 'heart';
+    | 'heart' | 'checkFill' | 'shoppingCartCheckFill';
 
 type IconsSizesType = 'sm' | 'md' | 'lg';
 
