@@ -3,33 +3,31 @@ import Image from "next/image";
 
 interface PizzaProps {
 	pizza: PizzaItemType;
+	onClick?: () => void;
 }
 
-export const PizzaItem: React.FC<PizzaProps> = ({ pizza }) => {
+export const PizzaItem: React.FC<PizzaProps> = ({ pizza, onClick }) => {
 	return (
-		<div className="bg-classy-white drop px-2 py-4 flex flex-col cursor-pointer rounded-md group shadow-bolder">
-			<div className="flex items-center justify-center rounded-t-lg flex-grow">
-				<Image
+		<div className="bg-classy-white flex flex-col cursor-pointer rounded shadow-bold hover:shadow-bolder transition-shadow duration-300" onClick={onClick}>
+			<div className="relative w-full">
+				<img
 					src={pizza.imageUrl}
 					height={200}
 					width={200}
 					loading="lazy"
-					// layout="responsive"
-					className="shadowed w-36"
+					className="rounded-t-md w-full h-44"
 					alt={pizza.name}
 				/>
+				<div className="absolute bottom-0 left-0 w-20 h-11 bg-shadow" />
+				<h4 className="absolute bottom-0 left-0 text-lg font-archivo-semibold text-classy-white pl-1 pb-1 leading-4">
+					${pizza.price}
+				</h4>
 			</div>
-			<div className="pt-4">
-				<div className="flex flex-col flex-grow text-center">
-					<h3 className="font-semibold text-xl text-classy-golden">
-						{pizza.name}
-					</h3>
-					<h4 className="text-lg md:text-xl font-base">
-						${parseFloat("" + pizza.price).toFixed(2)}
-					</h4>
-				</div>
-				{/* <Icon icon="plus" className="ml-1 text-primary-golden" /> */}
-				{/* <p className="text-base">{pizza.subName}</p> */}
+			<div className="text-left bg-classy-deemLight p-3 rounded-b-md flex-grow">
+				<h3 className="font-archivo-semibold text-lg">
+					{pizza.name}
+				</h3>
+				<p className="text-gray-900 font-sans text-sm leading-4">{pizza.subName}</p>
 			</div>
 		</div>
 	);

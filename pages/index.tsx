@@ -1,38 +1,42 @@
+import { useState } from 'react';
 import type { NextPage } from "next";
 import Head from "next/head";
 import { PizzaItem } from "@/components/PizzaItem";
 import { Header } from "@/components/Header";
 import { Search } from "@/components/Search";
+import { Drawer } from "@/components/Drawer";
+import { PizzaDetails } from '@/components/PizzaDetails';
 
 const Home: NextPage = () => {
+	const [open, setOpen] = useState(false);
 	let pizzas: PizzaItemType[] = [
 		{
 			name: "Margherita",
-			subName: "",
+			subName: "A classic delight with 100% Real mozzarella cheese",
 			price: 9,
 			imageUrl: "/images/pizzas/margherita.png",
 		},
 		{
 			name: "Capricciosa",
-			subName: "",
+			subName: "Veg delight - onion, capsicum, grilled mushroom, corn & paneer",
 			price: 12,
-			imageUrl: "/images/pizzas/capricciosa.png",
+			imageUrl: "/images/pizzas/capricciosa.jpg",
 		},
 		{
 			name: "Quattro Stagioni",
-			subName: "",
+			subName: "Black olives, capsicum, onion, grilled mushroom, corn, tomato, jalapeno & extra cheese",
 			price: 14,
 			imageUrl: "/images/pizzas/quattro-stagioni.png",
 		},
 		{
 			name: "Hawaii",
-			subName: "",
+			subName: "Mexican herbs sprinkled on onion, capsicum, tomato & jalapeno",
 			price: 16,
 			imageUrl: "/images/pizzas/hawaii.png",
 		},
 		{
 			name: "Pugliese",
-			subName: "",
+			subName: "The awesome foursome! Golden corn, black olives, capsicum, red paprika",
 			price: 17,
 			imageUrl: "/images/pizzas/pugliese.png",
 		},
@@ -63,11 +67,14 @@ const Home: NextPage = () => {
 					<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
 						{/* Pizza */}
 						{pizzas.map((pizza, i) => (
-							<PizzaItem pizza={pizza} key={i} />
+							<PizzaItem pizza={pizza} key={i} onClick={() => setOpen(!open)} />
 						))}
 					</div>
 				</main>
 			</div>
+			<PizzaDetails onClose={() => setOpen(false)} show={open} pizza={pizzas[0]} />
+			{/* <Drawer open={open} onClose={() => setOpen(false)}>
+			</Drawer> */}
 		</div>
 	);
 };
