@@ -16,10 +16,10 @@ export const CartItem: React.FC<CartItemProps> = ({ item, onQuantityChange }) =>
     return (
         <div className="flex flex-row w-full bg-classy-white rounded-lg border-2 border-classy-slate p-2 gap-2">
             <div className='flex-shrink-0 flex items-center'>
-                <Image src={item.pizza.imageUrl} width={70} height={70} className='shadowed' alt={item.pizza.name} />
+                <Image src={item.pizza.imageUrl} width={70} height={70} className='shadowed' alt={item.pizza.title} />
             </div>
             <div className='flex flex-col justify-center flex-grow'>
-                <h3 className='text-lg font-archivo-semibold'>{item.pizza.name}</h3>
+                <h3 className='text-lg font-archivo-semibold'>{item.pizza.title}</h3>
                 <p className='text-base'>$199.00</p>
             </div>
             <div className='flex flex-row items-center'>

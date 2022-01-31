@@ -14,48 +14,39 @@ interface PizzaDetailsProps {
 const ingredients: IngredientItemType[] = [
     {
         imageUrl: '/images/ingredients/tomato.png',
-        name: 'Tomato',
-        price: 1.5,
+        name: 'Tomato'
     },
     {
         imageUrl: '/images/ingredients/capsicum.png',
-        name: 'Capsicum',
-        price: 1.5,
+        name: 'Capsicum'
     },
     {
         imageUrl: '/images/ingredients/golden-corn.png',
-        name: 'Corn',
-        price: 1.5,
+        name: 'Corn'
     },
     {
         imageUrl: '/images/ingredients/jalapeno.png',
-        name: 'Jalapeno',
-        price: 1.5,
+        name: 'Jalapeno'
     },
     {
         imageUrl: '/images/ingredients/mashroom.png',
-        name: 'Mashroom',
-        price: 1.5,
+        name: 'Mashroom'
     },
     {
         imageUrl: '/images/ingredients/olives.png',
-        name: 'Olives',
-        price: 1.5,
+        name: 'Olives'
     },
     {
         imageUrl: '/images/ingredients/onion.png',
-        name: 'Onion',
-        price: 1.5,
+        name: 'Onion'
     },
     {
         imageUrl: '/images/ingredients/paneer.png',
-        name: 'Paneer',
-        price: 1.5,
+        name: 'Paneer'
     },
     {
         imageUrl: '/images/ingredients/paprika.png',
-        name: 'Paprika',
-        price: 1.5,
+        name: 'Paprika'
     },
 ];
 

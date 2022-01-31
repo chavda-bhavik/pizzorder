@@ -1,46 +1,19 @@
 import { useState } from 'react';
-import type { NextPage } from "next";
+import type { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
 import { PizzaItem } from "@/components/PizzaItem";
 import { Header } from "@/components/Header";
 import { Search } from '@/components/Search';
 import { PizzaDetails } from '@/components/PizzaDetails';
+import { getPizzas } from '@/api';
 
-const Home: NextPage = () => {
-	const [open, setOpen] = useState(false);
-	let pizzas: PizzaItemType[] = [
-		{
-			name: "Margherita",
-			subName: "A classic delight with 100% Real mozzarella cheese",
-			price: 9,
-			imageUrl: "/images/pizzas/margherita.png",
-		},
-		{
-			name: "Capricciosa",
-			subName: "Veg delight - onion, capsicum, grilled mushroom, corn & paneer",
-			price: 12,
-			imageUrl: "/images/pizzas/capricciosa.jpg",
-		},
-		{
-			name: "Quattro Stagioni",
-			subName: "Black olives, capsicum, onion, grilled mushroom, corn, tomato, jalapeno & extra cheese",
-			price: 14,
-			imageUrl: "/images/pizzas/quattro-stagioni.png",
-		},
-		{
-			name: "Hawaii",
-			subName: "Mexican herbs sprinkled on onion, capsicum, tomato & jalapeno",
-			price: 16,
-			imageUrl: "/images/pizzas/hawaii.png",
-		},
-		{
-			name: "Pugliese",
-			subName: "The awesome foursome! Golden corn, black olives, capsicum, red paprika",
-			price: 17,
-			imageUrl: "/images/pizzas/pugliese.png",
-		},
-	];
-	return (
+interface HomeProps {
+    pizzas?: PizzaItemType[];
+}
+
+const Home: NextPage<HomeProps> = ({ pizzas }) => {
+    const [open, setOpen] = useState(false);
+    return (
         <div>
             <Head>
                 <title>Pizzorder</title>
@@ -66,7 +39,7 @@ const Home: NextPage = () => {
                     {/* Listing */}
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
                         {/* Pizza */}
-                        {pizzas.map((pizza, i) => (
+                        {pizzas && pizzas.map((pizza, i) => (
                             <PizzaItem
                                 pizza={pizza}
                                 key={i}
@@ -78,15 +51,31 @@ const Home: NextPage = () => {
                     </div>
                 </main>
             </div>
-            <PizzaDetails
-                onClose={() => setOpen(false)}
-                show={open}
-                pizza={pizzas[0]}
-            />
-            {/* <Drawer open={open} onClose={() => setOpen(false)}>
-			</Drawer> */}
+            {
+                pizzas && <PizzaDetails
+                    onClose={() => setOpen(false)}
+                    show={open}
+                    pizza={pizzas[0]}
+                />
+            }
         </div>
     );
+};
+
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+    let data = await getPizzas();
+    if (data) {
+        return {
+            props: {
+                pizzas: data
+            }
+        }
+    }
+    return {
+        props: {
+
+        }
+    };
 };
 
 export default Home;
