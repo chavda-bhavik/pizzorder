@@ -12,17 +12,18 @@ type IconsType =
     | 'chevronUp'
     | 'chevronDown'
     | 'trash'
-    | 'heart' | 'checkFill' | 'shoppingCartCheckFill';
+    | 'heart'
+    | 'checkFill'
+    | 'shoppingCartCheckFill';
 
 type IconsSizesType = 'sm' | 'md' | 'lg';
 
 type PizzaItemType = {
-    id?: number;
-    name: string;
-    subName?: string;
+    id?: string;
+    title: string;
+    subtitle?: string;
     imageUrl: string;
     price: number;
-    description?: string;
     ingredients?: IngredientItemType[];
 };
 
@@ -30,16 +31,13 @@ type IngredientItemType = {
     id?: number;
     name: string;
     imageUrl: string;
-    price: number;
-    description?: string;
 };
 
 type CartItemType = {
     id?: number;
     pizza: PizzaItemType;
-    ingredients?: IngredientItemType[];
+    ingredients?: IngredientIngredientItemTypeItemType[];
     quantity: number;
 };
 
-declare module 'react-payment-inputs';
 declare module 'react-credit-card-input';

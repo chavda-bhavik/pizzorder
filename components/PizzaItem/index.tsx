@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 interface PizzaProps {
 	pizza: PizzaItemType;
@@ -16,7 +15,7 @@ export const PizzaItem: React.FC<PizzaProps> = ({ pizza, onClick }) => {
 					width={200}
 					loading="lazy"
 					className="rounded-t-md w-full h-44"
-					alt={pizza.name}
+					alt={pizza.title}
 				/>
 				<div className="absolute bottom-0 left-0 w-20 h-11 bg-shadow" />
 				<h4 className="absolute bottom-0 left-0 text-lg font-archivo-semibold text-classy-white pl-1 pb-1 leading-4">
@@ -25,9 +24,9 @@ export const PizzaItem: React.FC<PizzaProps> = ({ pizza, onClick }) => {
 			</div>
 			<div className="text-left bg-classy-deemLight p-3 rounded-b-md flex-grow">
 				<h3 className="font-archivo-semibold text-lg">
-					{pizza.name}
+					{pizza.title}
 				</h3>
-				<p className="text-gray-900 font-sans text-sm leading-4">{pizza.subName}</p>
+				<p className="text-gray-900 font-sans text-sm leading-4">{pizza.subtitle}</p>
 			</div>
 		</div>
 	);
