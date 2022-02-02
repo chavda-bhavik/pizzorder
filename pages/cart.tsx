@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Header } from '@/components/Header';
-import { CartItem } from '@/components/CartItem';
 import classNames from 'classnames';
+
+import { CartItem } from '@/components/CartItem';
 import { Checkout } from '@/components/Checkout';
+import { Layout } from '@/components/Layout';
 
 interface CartProps { }
 
@@ -13,82 +14,54 @@ const Cart: React.FC<CartProps> = ({ }) => {
     let cartItems: CartItemType[] = [
         {
             pizza: {
-                name: 'Margherita',
+                id: "adsf",
+                subtitle: "",
+                title: 'Margherita',
                 imageUrl: '/images/pizzas/margherita.png',
                 price: 199,
             },
             quantity: 1,
         }, {
             pizza: {
-                name: 'Hawaii',
+                id: "adsf",
+                subtitle: "",
+                title: 'Hawaii',
                 imageUrl: '/images/pizzas/hawaii.png',
                 price: 199,
             },
             quantity: 1,
         }, {
             pizza: {
-                name: 'Hawaii',
+                id: "adsf",
+                subtitle: "",
+                title: 'Hawaii',
                 imageUrl: '/images/pizzas/hawaii.png',
                 price: 199,
             },
             quantity: 2,
         }, {
             pizza: {
-                name: 'Hawaii',
+                id: "adsf",
+                subtitle: "",
+                title: 'Hawaii',
                 imageUrl: '/images/pizzas/hawaii.png',
                 price: 199,
             },
             quantity: 3,
         }, {
             pizza: {
-                name: 'Hawaii',
+                id: "adsf",
+                subtitle: "",
+                title: 'Hawaii',
                 imageUrl: '/images/pizzas/hawaii.png',
                 price: 199,
             },
             quantity: 5,
-        }, {
-            pizza: {
-                name: 'Hawaii',
-                imageUrl: '/images/pizzas/hawaii.png',
-                price: 199,
-            },
-            quantity: 1,
-        }, {
-            pizza: {
-                name: 'Hawaii',
-                imageUrl: '/images/pizzas/hawaii.png',
-                price: 199,
-            },
-            quantity: 1,
-        }, {
-            pizza: {
-                name: 'Hawaii',
-                imageUrl: '/images/pizzas/hawaii.png',
-                price: 199,
-            },
-            quantity: 1,
-        }, {
-            pizza: {
-                name: 'Hawaii',
-                imageUrl: '/images/pizzas/hawaii.png',
-                price: 199,
-            },
-            quantity: 1,
-        }, {
-            pizza: {
-                name: 'Hawaii',
-                imageUrl: '/images/pizzas/hawaii.png',
-                price: 199,
-            },
-            quantity: 1,
         }
     ];
 
     return (
-        <div className="bg-classy-deemLight min-h-screen">
-            <Header />
-
-            {/* Content */}
+        <Layout>
             <main className="py-2 md:grid md:grid-cols-2 relative">
                 <div className={classNames('px-2 md:mb-0', {
                     'mb-72': !collapsed,
@@ -103,7 +76,7 @@ const Cart: React.FC<CartProps> = ({ }) => {
                 </div>
                 <Checkout collapsed={collapsed} setCollapsed={setCollapsed} />
             </main>
-        </div>
+        </Layout>
     );
 }
 

@@ -19,7 +19,7 @@ export const PizzaItem: React.FC<PizzaProps> = ({ pizza, onClick }) => {
 				/>
 				<div className="absolute bottom-0 left-0 w-20 h-11 bg-shadow" />
 				<h4 className="absolute bottom-0 left-0 text-lg font-archivo-semibold text-classy-white pl-1 pb-1 leading-4">
-					${pizza.price}
+					<span className="rupee">{pizza.price}</span>
 				</h4>
 			</div>
 			<div className="text-left bg-classy-deemLight p-3 rounded-b-md flex-grow">

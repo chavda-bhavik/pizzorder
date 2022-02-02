@@ -1,86 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Drawer } from '../Drawer';
 import { Ingredient } from '@/components/Ingredient';
 import Switcher from '@/components/Switcher';
 import { Icon } from '../Icon';
 import { Button } from '../Button';
+import { CheeseSelector } from '../CheeseSelector';
 
 interface PizzaDetailsProps {
     pizza: PizzaItemType;
     show: boolean;
     onClose: () => void;
+    ingredients: IngredientItemType[];
+}
+type SizeTypes = 'small' | 'medium' | 'large';
+interface DetailsProps {
+    extraCheese: boolean;
+    size: SizeTypes;
+    toppings: string[];
 }
 
-const ingredients: IngredientItemType[] = [
-    {
-        imageUrl: '/images/ingredients/tomato.png',
-        name: 'Tomato'
-    },
-    {
-        imageUrl: '/images/ingredients/capsicum.png',
-        name: 'Capsicum'
-    },
-    {
-        imageUrl: '/images/ingredients/golden-corn.png',
-        name: 'Corn'
-    },
-    {
-        imageUrl: '/images/ingredients/jalapeno.png',
-        name: 'Jalapeno'
-    },
-    {
-        imageUrl: '/images/ingredients/mashroom.png',
-        name: 'Mashroom'
-    },
-    {
-        imageUrl: '/images/ingredients/olives.png',
-        name: 'Olives'
-    },
-    {
-        imageUrl: '/images/ingredients/onion.png',
-        name: 'Onion'
-    },
-    {
-        imageUrl: '/images/ingredients/paneer.png',
-        name: 'Paneer'
-    },
-    {
-        imageUrl: '/images/ingredients/paprika.png',
-        name: 'Paprika'
-    },
-];
-
 export const PizzaDetails: React.FC<PizzaDetailsProps> = ({
+    pizza,
     show,
     onClose,
+    ingredients
 }) => {
+    const [details, setDetails] = useState<DetailsProps>({
+        extraCheese: false,
+        size: 'medium',
+        toppings: []
+    });
+
+    const onDetailsChange = (extraCheese: boolean | null, size?: null | SizeTypes, topping?: string | null) => {
+        let newDetails = { ...details };
+        if (extraCheese !== null) {
+            newDetails.extraCheese = extraCheese;
+        }
+        if (size) newDetails.size = size;
+        if (topping) newDetails.toppings?.includes(topping) ? newDetails.toppings.splice(newDetails.toppings.indexOf(topping), 1) : newDetails.toppings?.push(topping);
+        setDetails(newDetails);
+    }
+
     return (
         <Drawer open={show} onClose={onClose}>
             <div className=" h-full relative">
                 {/* Pizza Image */}
                 <img
-                    src="/images/pizzas/capricciosa.jpg"
-                    // layout="responsive"
+                    src={pizza.imageUrl}
                     loading="lazy"
-                    // layout="responsive"
-                    alt="Pizza Image"
+                    alt={pizza.title}
                 />
                 <div className="pt-3 pb-20 px-5 space-y-8 bg-classy-white">
                     {/* Title */}
                     <div className="flex flex-col justify-center">
                         <h3 className="font-semibold font-sans text-xl md:text-2xl">
-                            Black Papper Club&nbsp;
-                            {/* <span className="text-base">
-                                &nbsp;@
-                            </span> */}
+                            {pizza.title}
                             <span className="text-2xl font-archivo-semibold">
-                                ($199)
+                                (<span className='rupee'>{pizza.price}</span>)
                             </span>
                         </h3>
                         <p className="font-sans text-lg">
-                            Veg delight - onion, capsicum,
-                            grilled mushroom, corn &amp;
-                            paneer
+                            {pizza.subtitle}
                         </p>
                     </div>
 
@@ -93,15 +73,20 @@ export const PizzaDetails: React.FC<PizzaDetailsProps> = ({
                             <Switcher.Switch
                                 title="Small ($10)"
                                 subTitle="Serves 2"
+                                active={details.size === 'small'}
+                                onClick={() => onDetailsChange(null, 'small')}
                             />
                             <Switcher.Switch
                                 title="Medium ($12.5)"
                                 subTitle="Serves 4"
-                                active
+                                active={details.size === 'medium'}
+                                onClick={() => onDetailsChange(null, 'medium')}
                             />
                             <Switcher.Switch
                                 title="Large ($17)"
                                 subTitle="Serves 7"
+                                active={details.size === 'large'}
+                                onClick={() => onDetailsChange(null, 'large')}
                             />
                         </Switcher>
                     </div>
@@ -111,29 +96,14 @@ export const PizzaDetails: React.FC<PizzaDetailsProps> = ({
                         <h4 className="title">
                             Extra Cheese
                         </h4>
-                        <div className="p-2 flex flex-row w-full border border-classy-slate rounded items-center">
-                            <Icon
-                                icon="checkFill"
-                                size="sm"
-                                className="text-green-700"
-                            />
-                            <div className="flex-grow px-2">
-                                <p>
-                                    I want to add extra
-                                    cheese @ 75.00
-                                </p>
-                            </div>
-                            <button className="border border-classy-slate px-2 py-1 rounded-md bg-classy-slate hover:bg-classy-golden transition-colors duration-400">
-                                Remove
-                            </button>
-                        </div>
+                        <CheeseSelector added={details.extraCheese} onToggle={(value) => onDetailsChange(value)} />
                     </div>
 
-                    {/* Ingredients */}
+                    {/* Toppings */}
                     <div className="space-y-3">
                         <div>
                             <h4 className="title">
-                                Ingredients
+                                Toppings
                             </h4>
                             <h5>
                                 Add Veg Toppings @ 60.00
@@ -144,8 +114,10 @@ export const PizzaDetails: React.FC<PizzaDetailsProps> = ({
                             {ingredients.map(
                                 (ingredient, index) => (
                                     <Ingredient
-                                        content={ingredient}
+                                        ingredient={ingredient}
                                         key={index}
+                                        added={details.toppings.includes(ingredient.id)}
+                                        onToggle={(value) => onDetailsChange(null, null, value)}
                                     />
                                 )
                             )}

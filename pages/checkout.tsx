@@ -1,15 +1,14 @@
-import { Button } from '@/components/Button';
-import { Header } from '@/components/Header';
-import { Input } from '@/components/Input';
 import CreditCardInput from 'react-credit-card-input';
 
-interface CheckoutProps {}
+import { Button } from '@/components/Button';
+import { Input } from '@/components/Input';
+import { Layout } from '@/components/Layout';
 
-const Checkout: React.FC<CheckoutProps> = ({}) => {
+interface CheckoutProps { }
+
+const Checkout: React.FC<CheckoutProps> = ({ }) => {
     return (
-        <div className="bg-classy-deemLight min-h-screen relative">
-            <Header />
-
+        <Layout>
             <main className="py-5 space-y-7 max-w-lg">
                 {/* Order Details */}
                 <div className="space-y-3 px-2">
@@ -79,7 +78,7 @@ const Checkout: React.FC<CheckoutProps> = ({}) => {
                     className="fixed md:position-unset bottom-0 rounded-none md:rounded-md px-0 md:mx-2"
                 />
             </main>
-        </div>
+        </Layout>
     );
 };
 
