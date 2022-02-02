@@ -212,4 +212,7 @@
     .drawer-close {
         transform: translateX(-100%);
     }
+    .rupee::before {
+        content: '₹';
+    }
 }

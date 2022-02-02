@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import data from './pizzas.json';
+import data from './ingredients.json';
 
 export default function handler(
     req: NextApiRequest,

@@ -19,16 +19,16 @@ type IconsType =
 type IconsSizesType = 'sm' | 'md' | 'lg';
 
 type PizzaItemType = {
-    id?: string;
+    id: string;
     title: string;
-    subtitle?: string;
+    subtitle: string;
     imageUrl: string;
     price: number;
-    ingredients?: IngredientItemType[];
+    ingredients?: Partial<IngredientItemType>[];
 };
 
 type IngredientItemType = {
-    id?: number;
+    id: string;
     name: string;
     imageUrl: string;
 };
