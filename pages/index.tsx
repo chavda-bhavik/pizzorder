@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import type { NextPage, GetStaticProps } from "next";
 
-import { getPizzas, getIngredients, getPizzaDetails } from '@/api';
 import { Search } from '@/components/Search';
 import { Layout } from '@/components/Layout';
 import { PizzaItem } from "@/components/PizzaItem";
 import { PizzaDetails } from '@/components/PizzaDetails';
+import { getPizzas, getIngredients, getPizzaDetails } from '@/api';
+import { PizzaContext } from '@/context/PizzaContext';
 
 interface HomeProps {
     pizzas: PizzaItemType[];
@@ -14,12 +15,17 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ pizzas, ingredients }) => {
     const [open, setOpen] = useState(false);
-    const [pizzaDetails, setPizzaDetails] = useState<PizzaItemType>();
+    const pizzaContext = useContext(PizzaContext);
+
+    useEffect(() => {
+        pizzaContext?.storePizzas(pizzas);
+        pizzaContext?.storeIngredients(ingredients);
+    }, [pizzaContext, pizzas, ingredients])
 
     const handleSelectPizza = async (id: string) => {
         try {
             let pizza = await getPizzaDetails(id);
-            setPizzaDetails(pizza);
+            pizzaContext?.storePizzaDetails(pizza);
             setOpen(true);
         } catch (error) {
 
@@ -52,7 +58,7 @@ const Home: NextPage<HomeProps> = ({ pizzas, ingredients }) => {
                 open && <PizzaDetails
                     onClose={() => setOpen(false)}
                     show={true}
-                    pizza={pizzaDetails!}
+                    pizza={pizzaContext?.pizzaDetails!}
                     ingredients={ingredients}
                 />
             }
