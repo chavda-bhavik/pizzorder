@@ -13,6 +13,7 @@ interface ButtonProps {
     loading?: boolean;
     disabled?: boolean;
     className?: string;
+    customContent?: any;
 }
 
 export const Button: React.FC<ButtonProps> = ({ text, onClick, type, icon, iconSize, variant = 'primary', block = false, loading, disabled, className }) => {

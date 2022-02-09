@@ -1,12 +1,14 @@
 import { useState, useContext, useEffect } from 'react';
 import type { NextPage, GetStaticProps } from "next";
+import dynamic from 'next/dynamic'
 
 import { Search } from '@/components/Search';
 import { Layout } from '@/components/Layout';
 import { PizzaItem } from "@/components/PizzaItem";
-import { PizzaDetails } from '@/components/PizzaDetails';
 import { getPizzas, getIngredients, getPizzaDetails } from '@/api';
 import { PizzaContext } from '@/context/PizzaContext';
+
+const DynamicPizzaDetails = dynamic(() => import('@/components/PizzaDetails'), { ssr: false });
 
 interface HomeProps {
     pizzas: PizzaItemType[];
@@ -55,7 +57,7 @@ const Home: NextPage<HomeProps> = ({ pizzas, ingredients }) => {
                 </div>
             </main>
             {
-                open && <PizzaDetails
+                open && <DynamicPizzaDetails
                     onClose={() => setOpen(false)}
                     show={true}
                     pizza={pizzaContext?.pizzaDetails!}
