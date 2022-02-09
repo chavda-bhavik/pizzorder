@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Drawer } from '../Drawer';
-import { Ingredient } from '@/components/Ingredient';
+import { useContext, useState } from 'react';
+
+import { Button } from '@/components/Button';
+import { Drawer } from '@/components/Drawer';
 import Switcher from '@/components/Switcher';
+import { CartContext } from '@/context/CartContext';
+import { Ingredient } from '@/components/Ingredient';
+import { CheeseSelector } from '@/components/CheeseSelector';
 import { Icon } from '../Icon';
-import { Button } from '../Button';
-import { CheeseSelector } from '../CheeseSelector';
 
 interface PizzaDetailsProps {
     pizza: PizzaItemType;
@@ -12,26 +14,29 @@ interface PizzaDetailsProps {
     onClose: () => void;
     ingredients: IngredientItemType[];
 }
-type SizeTypes = 'small' | 'medium' | 'large';
+
 interface DetailsProps {
     extraCheese: boolean;
-    size: SizeTypes;
+    size: PizzaSizeTypes;
     toppings: string[];
+    price: number;
 }
 
-export const PizzaDetails: React.FC<PizzaDetailsProps> = ({
+const PizzaDetails: React.FC<PizzaDetailsProps> = ({
     pizza,
     show,
     onClose,
     ingredients
 }) => {
+    const cartContext = useContext(CartContext);
     const [details, setDetails] = useState<DetailsProps>({
         extraCheese: false,
         size: 'medium',
-        toppings: []
+        toppings: [],
+        price: pizza.price
     });
 
-    const onDetailsChange = (extraCheese: boolean | null, size?: null | SizeTypes, topping?: string | null) => {
+    const onDetailsChange = (extraCheese: boolean | null, size?: null | PizzaSizeTypes, topping?: string | null) => {
         let newDetails = { ...details };
         if (extraCheese !== null) {
             newDetails.extraCheese = extraCheese;
@@ -39,6 +44,10 @@ export const PizzaDetails: React.FC<PizzaDetailsProps> = ({
         if (size) newDetails.size = size;
         if (topping) newDetails.toppings?.includes(topping) ? newDetails.toppings.splice(newDetails.toppings.indexOf(topping), 1) : newDetails.toppings?.push(topping);
         setDetails(newDetails);
+    }
+    const onAddToCart = () => {
+        cartContext?.addToCart(pizza.id, pizza.imageUrl, pizza.title, details.size, details.extraCheese, details.toppings);
+        onClose();
     }
 
     return (
@@ -55,9 +64,6 @@ export const PizzaDetails: React.FC<PizzaDetailsProps> = ({
                     <div className="flex flex-col justify-center">
                         <h3 className="font-semibold font-sans text-xl md:text-2xl">
                             {pizza.title}
-                            <span className="text-2xl font-archivo-semibold">
-                                (<span className='rupee'>{pizza.price}</span>)
-                            </span>
                         </h3>
                         <p className="font-sans text-lg">
                             {pizza.subtitle}
@@ -125,14 +131,18 @@ export const PizzaDetails: React.FC<PizzaDetailsProps> = ({
                     </div>
                 </div>
                 {/* Add To Cart */}
-                <Button
-                    text="Add To Cart"
-                    block
-                    icon="shoppingCartCheckFill"
-                    iconSize="sm"
-                    className="fixed bottom-0 rounded-none"
-                />
+                <button
+                    className='btn btn-primary w-full fixed bottom-0 rounded-none flex flex-row justify-between py-2 px-3'
+                    onClick={onAddToCart}
+                >
+                    Add To Cart
+                    <div className='border-black px-2 text-xl font-medium font-sans'>
+                        <span className='rupee'>{pizza.price}</span>
+                    </div>
+                </button>
             </div>
         </Drawer>
     );
 };
+
+export default PizzaDetails;

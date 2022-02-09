@@ -18,6 +18,8 @@ type IconsType =
 
 type IconsSizesType = 'sm' | 'md' | 'lg';
 
+type PizzaSizeTypes = 'small' | 'medium' | 'large';
+
 type PizzaItemType = {
     id: string;
     title: string;
@@ -34,10 +36,11 @@ type IngredientItemType = {
 };
 
 type CartItemType = {
-    id?: number;
-    pizza: PizzaItemType;
-    ingredients?: IngredientIngredientItemTypeItemType[];
     quantity: number;
+    pizza: Partial<PizzaItemType>;
+    extraCheese?: Boolean;
+    ingredients?: string[];
+    size?: PizzaSizeTypes;
 };
 
 declare module 'react-credit-card-input';
