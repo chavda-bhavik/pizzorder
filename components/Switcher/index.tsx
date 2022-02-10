@@ -14,7 +14,7 @@ interface SwitchProps {
 }
 
 const Switch: React.FC<SwitchProps> = ({
-    onClick = () => {},
+    onClick = () => { },
     active = false,
     title,
     subTitle,
@@ -31,13 +31,9 @@ const Switch: React.FC<SwitchProps> = ({
             )}
             onClick={onClick}
         >
-            <p className="mb-0 font-archivo-bold">
-                {title}
-            </p>
+            <p className="mb-0 font-archivo-bold" dangerouslySetInnerHTML={{ __html: title }} />
             {subTitle ? (
-                <p className="mb-0 text-sm font-archivo">
-                    {subTitle}
-                </p>
+                <p className="mb-0 text-sm font-archivo" dangerouslySetInnerHTML={{ __html: subTitle }} />
             ) : null}
         </div>
     );

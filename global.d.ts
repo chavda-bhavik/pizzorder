@@ -25,8 +25,10 @@ type PizzaItemType = {
     title: string;
     subtitle: string;
     imageUrl: string;
-    price: number;
-    ingredients?: Partial<IngredientItemType>[];
+    prices: {
+        [key in PizzaSizeTypes]: number;
+    };
+    extraCheeseAvailabe: boolean;
 };
 
 type IngredientItemType = {
