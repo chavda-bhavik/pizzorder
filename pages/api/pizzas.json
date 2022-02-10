@@ -3,35 +3,60 @@
         "id": "7213d56c-26e2-461d-b0dc-39badd7da0e6",
         "title": "Margherita",
         "subtitle": "A classic delight with 100% Real mozzarella cheese",
-        "price": 299,
+        "prices": {
+            "small": 249,
+            "medium": 349,
+            "large": 499
+        },
+        "extraCheeseAvailabe": true,
         "imageUrl": "/images/pizzas/margherita.png"
     },
     {
         "id": "fe610c89-db88-4355-84e6-3ad88196457e",
         "title": "Capricciosa",
         "subtitle": "Veg delight - onion, capsicum, grilled mushroom, corn & paneer",
-        "price": 449,
+        "prices": {
+            "small": 299,
+            "medium": 499,
+            "large": 599
+        },
+        "extraCheeseAvailabe": false,
         "imageUrl": "/images/pizzas/capricciosa.jpg"
     },
     {
         "id": "652bd6e7-e78c-4b59-a5e5-23727ab48b64",
         "title": "Quattro Stagioni",
         "subtitle": "Black olives, capsicum, onion, grilled mushroom, corn, tomato, jalapeno & extra cheese",
-        "price": 349,
+        "prices": {
+            "small": 349,
+            "medium": 449,
+            "large": 599
+        },
+        "extraCheeseAvailabe": false,
         "imageUrl": "/images/pizzas/quattro-stagioni.png"
     },
     {
         "id": "20f21581-ca38-4717-ad28-401b24c5ac6f",
         "title": "Hawaii",
         "subtitle": "Mexican herbs sprinkled on onion, capsicum, tomato & jalapeno",
-        "price": 349,
+        "prices": {
+            "small": 349,
+            "medium": 449,
+            "large": 599
+        },
+        "extraCheeseAvailabe": false,
         "imageUrl": "/images/pizzas/hawaii.png"
     },
     {
         "id": "f7275580-a924-4c4f-ba54-a13e125b00c1",
         "title": "Pugliese",
         "subtitle": "The awesome foursome! Golden corn, black olives, capsicum, red paprika",
-        "price": 399,
+        "prices": {
+            "small": 349,
+            "medium": 449,
+            "large": 699
+        },
+        "extraCheeseAvailabe": true,
         "imageUrl": "/images/pizzas/pugliese.png"
     }
 ]

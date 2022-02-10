@@ -33,17 +33,28 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({
         extraCheese: false,
         size: 'medium',
         toppings: [],
-        price: pizza.price
+        price: pizza.prices.medium
     });
 
     const onDetailsChange = (extraCheese: boolean | null, size?: null | PizzaSizeTypes, topping?: string | null) => {
         let newDetails = { ...details };
+        let newPrice = pizza.prices[size || details.size];
         if (extraCheese !== null) {
             newDetails.extraCheese = extraCheese;
+            newPrice += 75;
         }
         if (size) newDetails.size = size;
-        if (topping) newDetails.toppings?.includes(topping) ? newDetails.toppings.splice(newDetails.toppings.indexOf(topping), 1) : newDetails.toppings?.push(topping);
-        setDetails(newDetails);
+        if (topping) {
+            if (newDetails.toppings.includes(topping))
+                newDetails.toppings.splice(newDetails.toppings.indexOf(topping), 1)
+            else
+                newDetails.toppings.push(topping);
+            newPrice += newDetails.toppings.length * 60;
+        }
+        setDetails({
+            ...newDetails,
+            price: newPrice
+        });
     }
     const onAddToCart = () => {
         cartContext?.addToCart(pizza.id, pizza.imageUrl, pizza.title, details.size, details.extraCheese, details.toppings);
@@ -75,35 +86,45 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({
                         <h4 className="title">
                             Select Size
                         </h4>
-                        <Switcher className="">
-                            <Switcher.Switch
-                                title="Small ($10)"
-                                subTitle="Serves 2"
-                                active={details.size === 'small'}
-                                onClick={() => onDetailsChange(null, 'small')}
-                            />
-                            <Switcher.Switch
-                                title="Medium ($12.5)"
-                                subTitle="Serves 4"
-                                active={details.size === 'medium'}
-                                onClick={() => onDetailsChange(null, 'medium')}
-                            />
-                            <Switcher.Switch
-                                title="Large ($17)"
-                                subTitle="Serves 7"
-                                active={details.size === 'large'}
-                                onClick={() => onDetailsChange(null, 'large')}
-                            />
+                        <Switcher>
+                            {pizza.prices.small && (
+                                <Switcher.Switch
+                                    title={`Small <span class='rupee'>${pizza.prices.small}</span>`}
+                                    subTitle='Serves 2'
+                                    active={details.size === 'small'}
+                                    onClick={() => onDetailsChange(null, 'small')}
+                                />
+                            )}
+                            {pizza.prices.medium && (
+                                <Switcher.Switch
+                                    title={`Medium <span class='rupee'>${pizza.prices.medium}</span>`}
+                                    subTitle='Serves 4'
+                                    active={details.size === 'medium'}
+                                    onClick={() => onDetailsChange(null, 'medium')}
+                                />
+                            )}
+                            {pizza.prices.large && (
+                                <Switcher.Switch
+                                    title={`Large <span class='rupee'>${pizza.prices.large}</span>`}
+                                    subTitle='Serves 7'
+                                    active={details.size === 'large'}
+                                    onClick={() => onDetailsChange(null, 'large')}
+                                />
+                            )}
                         </Switcher>
                     </div>
 
-                    {/* Cheese */}
-                    <div className="space-y-3">
-                        <h4 className="title">
-                            Extra Cheese
-                        </h4>
-                        <CheeseSelector added={details.extraCheese} onToggle={(value) => onDetailsChange(value)} />
-                    </div>
+                    {/* Extra Cheese */}
+                    {
+                        pizza.extraCheeseAvailabe && (
+                            <div className="space-y-3">
+                                <h4 className="title">
+                                    Extra Cheese
+                                </h4>
+                                <CheeseSelector added={details.extraCheese} onToggle={(value) => onDetailsChange(value)} />
+                            </div>
+                        )
+                    }
 
                     {/* Toppings */}
                     <div className="space-y-3">
@@ -137,7 +158,7 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({
                 >
                     Add To Cart
                     <div className='border-black px-2 text-xl font-medium font-sans'>
-                        <span className='rupee'>{pizza.price}</span>
+                        <span className='rupee'>{details.price}</span>
                     </div>
                 </button>
             </div>
