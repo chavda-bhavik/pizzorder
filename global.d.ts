@@ -43,6 +43,21 @@ type CartItemType = {
     extraCheese?: Boolean;
     ingredients?: string[];
     size?: PizzaSizeTypes;
+    price: number;
 };
+
+interface CustomizationDetails {
+    extraCheese: boolean;
+    size: PizzaSizeTypes;
+    toppings: string[];
+    price: number;
+}
+
+interface TotalInfo {
+    total: number;
+    subtotal: number;
+    tax: number;
+    deliveryCharge: number;
+}
 
 declare module 'react-credit-card-input';

@@ -1,66 +1,44 @@
+import { useContext } from 'react';
 import CreditCardInput from 'react-credit-card-input';
 
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { Layout } from '@/components/Layout';
+import { DividedContent } from '@/components/DividedContent';
+import { CartContext } from '@/context/CartContext';
 
-interface CheckoutProps { }
+interface CheckoutProps {}
 
-const Checkout: React.FC<CheckoutProps> = ({ }) => {
+const Checkout: React.FC<CheckoutProps> = ({}) => {
+    const cartContext = useContext(CartContext);
     return (
         <Layout>
             <main className="py-5 space-y-7 max-w-lg">
                 {/* Order Details */}
                 <div className="space-y-3 px-2">
                     <h3 className="title">Order Details</h3>
-                    <div className="space-y-1">
-                        <div className="flex justify-between px-1">
-                            <p className="font-archivo-light">
-                                Item Total:
-                            </p>
-                            <p className="font-archivo-semibold">
-                                $77.00
-                            </p>
+                    <DividedContent>
+                        <div title="Subtotal:">
+                            <span className="rupee">{cartContext?.totalInfo.subtotal}</span>
                         </div>
-                        <div className="flex justify-between px-1">
-                            <p className="font-archivo-light">
-                                Delivery Charge:
-                            </p>
-                            <p className="font-archivo-semibold">
-                                $1.00
-                            </p>
+                        <div title="Delivery Charge:">
+                            <span className="rupee">{cartContext?.totalInfo.deliveryCharge}</span>
                         </div>
-                        <div className="flex justify-between px-1">
-                            <p className="font-archivo-light">
-                                Tax:
-                            </p>
-                            <p className="font-archivo-semibold">
-                                $0.50
-                            </p>
+                        <div title="Tax:">
+                            <span className="rupee">{cartContext?.totalInfo.tax}</span>
                         </div>
-                        <hr />
-                        <div className="flex justify-between text-lg font-archivo-semibold px-1">
-                            <p>Total:</p>
-                            <p>$78.50</p>
+                        <div title="Total">
+                            <span className="rupee">{cartContext?.totalInfo.total}</span>
                         </div>
-                    </div>
+                    </DividedContent>
                 </div>
 
                 {/* Delivery &amp; Payment Details */}
                 <div className="space-y-3 px-2">
-                    <h3 className="title">
-                        Delivery &amp; Payment Details
-                    </h3>
+                    <h3 className="title">Delivery &amp; Payment Details</h3>
                     <div className="space-y-1">
-                        <Input
-                            id="name"
-                            placeholder="Full Name"
-                        />
-                        <Input
-                            id="address"
-                            type="textarea"
-                            placeholder="Address"
-                        />
+                        <Input id="name" placeholder="Full Name" />
+                        <Input id="address" type="textarea" placeholder="Address" />
                         <CreditCardInput
                             className="w-full"
                             // cardNumberInputProps={{ value: cardNumber, onChange: this.handleCardNumberChange }}
@@ -72,11 +50,7 @@ const Checkout: React.FC<CheckoutProps> = ({ }) => {
                 </div>
 
                 {/* Checkout */}
-                <Button
-                    text="Let's Go"
-                    block
-                    className="fixed md:position-unset bottom-0 rounded-none md:rounded-md px-0 md:mx-2"
-                />
+                <Button text="Let's Go" block className="fixed md:position-unset bottom-0 rounded-none md:rounded-md px-0 md:mx-2" />
             </main>
         </Layout>
     );
