@@ -1,0 +1,47 @@
+[
+    {
+        "id": "97bd639e-c7bd-4382-95b8-9121b1da9e73",
+        "imageUrl": "/images/ingredients/tomato.png",
+        "name": "Tomato"
+    },
+    {
+        "id": "54a943e7-29b6-4939-bc60-c29aac3dea91",
+        "imageUrl": "/images/ingredients/capsicum.png",
+        "name": "Capsicum"
+    },
+    {
+        "id": "b254b78b-27d8-41d3-bcca-ed818fbfe713",
+        "imageUrl": "/images/ingredients/golden-corn.png",
+        "name": "Corn"
+    },
+    {
+        "id": "e4c737f2-f62d-495d-b3ee-202eb3e06fe9",
+        "imageUrl": "/images/ingredients/jalapeno.png",
+        "name": "Jalapeno"
+    },
+    {
+        "id": "0872fe64-aaae-40ce-95be-34a9847a9128",
+        "imageUrl": "/images/ingredients/mashroom.png",
+        "name": "Mashroom"
+    },
+    {
+        "id": "72d007b6-08b7-4866-b778-469aa0260162",
+        "imageUrl": "/images/ingredients/olives.png",
+        "name": "Olives"
+    },
+    {
+        "id": "8a7824c8-8de7-42db-8d0a-e5ac8834840d",
+        "imageUrl": "/images/ingredients/onion.png",
+        "name": "Onion"
+    },
+    {
+        "id": "aa0ffa11-9e0f-43dc-82c1-16cebf7fca2f",
+        "imageUrl": "/images/ingredients/paneer.png",
+        "name": "Paneer"
+    },
+    {
+        "id": "a41b8c96-e791-46c0-8383-c646656d014a",
+        "imageUrl": "/images/ingredients/paprika.png",
+        "name": "Paprika"
+    }
+]

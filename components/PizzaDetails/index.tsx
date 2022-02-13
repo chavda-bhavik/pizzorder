@@ -1,175 +1,144 @@
-import React from 'react';
-import { Drawer } from '../Drawer';
-import { Ingredient } from '@/components/Ingredient';
+import { useContext, useState } from 'react';
+
 import Switcher from '@/components/Switcher';
-import { Icon } from '../Icon';
-import { Button } from '../Button';
+import { Drawer } from '@/components/Drawer';
+import { CartContext } from '@/context/CartContext';
+import { Ingredient } from '@/components/Ingredient';
+import { CheeseSelector } from '@/components/CheeseSelector';
+import { ConfigContext } from '@/context/ConfigContext';
 
 interface PizzaDetailsProps {
     pizza: PizzaItemType;
     show: boolean;
     onClose: () => void;
+    ingredients: IngredientItemType[];
 }
 
-const ingredients: IngredientItemType[] = [
-    {
-        imageUrl: '/images/ingredients/tomato.png',
-        name: 'Tomato',
-        price: 1.5,
-    },
-    {
-        imageUrl: '/images/ingredients/capsicum.png',
-        name: 'Capsicum',
-        price: 1.5,
-    },
-    {
-        imageUrl: '/images/ingredients/golden-corn.png',
-        name: 'Corn',
-        price: 1.5,
-    },
-    {
-        imageUrl: '/images/ingredients/jalapeno.png',
-        name: 'Jalapeno',
-        price: 1.5,
-    },
-    {
-        imageUrl: '/images/ingredients/mashroom.png',
-        name: 'Mashroom',
-        price: 1.5,
-    },
-    {
-        imageUrl: '/images/ingredients/olives.png',
-        name: 'Olives',
-        price: 1.5,
-    },
-    {
-        imageUrl: '/images/ingredients/onion.png',
-        name: 'Onion',
-        price: 1.5,
-    },
-    {
-        imageUrl: '/images/ingredients/paneer.png',
-        name: 'Paneer',
-        price: 1.5,
-    },
-    {
-        imageUrl: '/images/ingredients/paprika.png',
-        name: 'Paprika',
-        price: 1.5,
-    },
-];
+const PizzaDetails: React.FC<PizzaDetailsProps> = ({ pizza, show, onClose, ingredients }) => {
+    const configContext = useContext(ConfigContext);
+    const cartContext = useContext(CartContext);
+    const [details, setDetails] = useState<CustomizationDetails>({
+        extraCheese: false,
+        size: 'medium',
+        toppings: [],
+        price: pizza.prices.medium,
+    });
 
-export const PizzaDetails: React.FC<PizzaDetailsProps> = ({
-    show,
-    onClose,
-}) => {
+    const onDetailsChange = (
+        extraCheese: boolean | null,
+        size?: null | PizzaSizeTypes,
+        topping?: string | null
+    ) => {
+        let newDetails = { ...details };
+        let newPrice = pizza.prices[size || details.size];
+        if (extraCheese !== null) {
+            newDetails.extraCheese = extraCheese;
+            newPrice += configContext?.config.extraCheesePrice!;
+        }
+        if (size) newDetails.size = size;
+        if (topping) {
+            if (newDetails.toppings.includes(topping))
+                newDetails.toppings.splice(newDetails.toppings.indexOf(topping), 1);
+            else newDetails.toppings.push(topping);
+            newPrice += newDetails.toppings.length * configContext?.config.toppingPrice!;
+        }
+        setDetails({
+            ...newDetails,
+            price: newPrice,
+        });
+    };
+    const onAddToCart = () => {
+        cartContext?.addToCart(pizza.id, pizza.imageUrl, pizza.title, details);
+        onClose();
+    };
+
     return (
         <Drawer open={show} onClose={onClose}>
             <div className=" h-full relative">
                 {/* Pizza Image */}
-                <img
-                    src="/images/pizzas/capricciosa.jpg"
-                    // layout="responsive"
-                    loading="lazy"
-                    // layout="responsive"
-                    alt="Pizza Image"
-                />
+                <img src={pizza.imageUrl} loading="lazy" alt={pizza.title} />
                 <div className="pt-3 pb-20 px-5 space-y-8 bg-classy-white">
                     {/* Title */}
                     <div className="flex flex-col justify-center">
                         <h3 className="font-semibold font-sans text-xl md:text-2xl">
-                            Black Papper Club&nbsp;
-                            {/* <span className="text-base">
-                                &nbsp;@
-                            </span> */}
-                            <span className="text-2xl font-archivo-semibold">
-                                ($199)
-                            </span>
+                            {pizza.title}
                         </h3>
-                        <p className="font-sans text-lg">
-                            Veg delight - onion, capsicum,
-                            grilled mushroom, corn &amp;
-                            paneer
-                        </p>
+                        <p className="font-sans text-lg">{pizza.subtitle}</p>
                     </div>
 
                     {/* Size */}
                     <div className="space-y-3">
-                        <h4 className="title">
-                            Select Size
-                        </h4>
-                        <Switcher className="">
-                            <Switcher.Switch
-                                title="Small ($10)"
-                                subTitle="Serves 2"
-                            />
-                            <Switcher.Switch
-                                title="Medium ($12.5)"
-                                subTitle="Serves 4"
-                                active
-                            />
-                            <Switcher.Switch
-                                title="Large ($17)"
-                                subTitle="Serves 7"
-                            />
+                        <h4 className="title">Select Size</h4>
+                        <Switcher>
+                            {pizza.prices.small && (
+                                <Switcher.Switch
+                                    title={`Small <span class='rupee'>${pizza.prices.small}</span>`}
+                                    subTitle="Serves 2"
+                                    active={details.size === 'small'}
+                                    onClick={() => onDetailsChange(null, 'small')}
+                                />
+                            )}
+                            {pizza.prices.medium && (
+                                <Switcher.Switch
+                                    title={`Medium <span class='rupee'>${pizza.prices.medium}</span>`}
+                                    subTitle="Serves 4"
+                                    active={details.size === 'medium'}
+                                    onClick={() => onDetailsChange(null, 'medium')}
+                                />
+                            )}
+                            {pizza.prices.large && (
+                                <Switcher.Switch
+                                    title={`Large <span class='rupee'>${pizza.prices.large}</span>`}
+                                    subTitle="Serves 7"
+                                    active={details.size === 'large'}
+                                    onClick={() => onDetailsChange(null, 'large')}
+                                />
+                            )}
                         </Switcher>
                     </div>
 
-                    {/* Cheese */}
-                    <div className="space-y-3">
-                        <h4 className="title">
-                            Extra Cheese
-                        </h4>
-                        <div className="p-2 flex flex-row w-full border border-classy-slate rounded items-center">
-                            <Icon
-                                icon="checkFill"
-                                size="sm"
-                                className="text-green-700"
+                    {/* Extra Cheese */}
+                    {pizza.extraCheeseAvailabe && (
+                        <div className="space-y-3">
+                            <h4 className="title">Extra Cheese</h4>
+                            <CheeseSelector
+                                added={details.extraCheese}
+                                onToggle={(value) => onDetailsChange(value)}
                             />
-                            <div className="flex-grow px-2">
-                                <p>
-                                    I want to add extra
-                                    cheese @ 75.00
-                                </p>
-                            </div>
-                            <button className="border border-classy-slate px-2 py-1 rounded-md bg-classy-slate hover:bg-classy-golden transition-colors duration-400">
-                                Remove
-                            </button>
                         </div>
-                    </div>
+                    )}
 
-                    {/* Ingredients */}
+                    {/* Toppings */}
                     <div className="space-y-3">
                         <div>
-                            <h4 className="title">
-                                Ingredients
-                            </h4>
-                            <h5>
-                                Add Veg Toppings @ 60.00
-                                each
-                            </h5>
+                            <h4 className="title">Toppings</h4>
+                            <h5>Add Veg Toppings @ 60.00 each</h5>
                         </div>
                         <div className="flex flex-row gap-x-3 pb-3 px-1 md:gap-x-4 overflow-x-scroll">
-                            {ingredients.map(
-                                (ingredient, index) => (
-                                    <Ingredient
-                                        content={ingredient}
-                                        key={index}
-                                    />
-                                )
-                            )}
+                            {ingredients.map((ingredient, index) => (
+                                <Ingredient
+                                    ingredient={ingredient}
+                                    key={index}
+                                    added={details.toppings.includes(ingredient.id)}
+                                    onToggle={(value) => onDetailsChange(null, null, value)}
+                                />
+                            ))}
                         </div>
                     </div>
                 </div>
                 {/* Add To Cart */}
-                <Button
-                    text="Add To Cart"
-                    block
-                    icon="shoppingCartCheckFill"
-                    iconSize="sm"
-                    className="fixed bottom-0 rounded-none"
-                />
+                <button
+                    className="btn btn-primary w-full fixed bottom-0 rounded-none flex flex-row justify-between py-2 px-3"
+                    onClick={onAddToCart}
+                >
+                    Add To Cart
+                    <div className="border-black px-2 text-xl font-medium font-sans">
+                        <span className="rupee">{details.price}</span>
+                    </div>
+                </button>
             </div>
         </Drawer>
     );
 };
+
+export default PizzaDetails;

@@ -1,92 +1,85 @@
-import { useState } from 'react';
-import type { NextPage } from "next";
-import Head from "next/head";
-import { PizzaItem } from "@/components/PizzaItem";
-import { Header } from "@/components/Header";
+import { useState, useContext, useEffect } from 'react';
+import type { NextPage, GetStaticProps } from "next";
+import dynamic from 'next/dynamic'
+
 import { Search } from '@/components/Search';
-import { PizzaDetails } from '@/components/PizzaDetails';
+import { Layout } from '@/components/Layout';
+import { PizzaItem } from "@/components/PizzaItem";
+import { getPizzas, getPizzaDetails } from '@/api';
+import { PizzaContext } from '@/context/PizzaContext';
 
-const Home: NextPage = () => {
-	const [open, setOpen] = useState(false);
-	let pizzas: PizzaItemType[] = [
-		{
-			name: "Margherita",
-			subName: "A classic delight with 100% Real mozzarella cheese",
-			price: 9,
-			imageUrl: "/images/pizzas/margherita.png",
-		},
-		{
-			name: "Capricciosa",
-			subName: "Veg delight - onion, capsicum, grilled mushroom, corn & paneer",
-			price: 12,
-			imageUrl: "/images/pizzas/capricciosa.jpg",
-		},
-		{
-			name: "Quattro Stagioni",
-			subName: "Black olives, capsicum, onion, grilled mushroom, corn, tomato, jalapeno & extra cheese",
-			price: 14,
-			imageUrl: "/images/pizzas/quattro-stagioni.png",
-		},
-		{
-			name: "Hawaii",
-			subName: "Mexican herbs sprinkled on onion, capsicum, tomato & jalapeno",
-			price: 16,
-			imageUrl: "/images/pizzas/hawaii.png",
-		},
-		{
-			name: "Pugliese",
-			subName: "The awesome foursome! Golden corn, black olives, capsicum, red paprika",
-			price: 17,
-			imageUrl: "/images/pizzas/pugliese.png",
-		},
-	];
-	return (
-        <div>
-            <Head>
-                <title>Pizzorder</title>
-                <meta
-                    name="description"
-                    content="Get your faviourite pizza delivered to your door step in just a few minutes with Pizzorder"
-                />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+const DynamicPizzaDetails = dynamic(() => import('@/components/PizzaDetails'), { ssr: false });
 
-            <div className="bg-classy-deemLight min-h-screen">
-                <Header />
+interface HomeProps {
+    pizzas: PizzaItemType[];
+}
 
-                {/* Content */}
-                <main className="space-y-6 py-2 px-4">
-                    {/* Shoutout */}
-                    <h1 className="text-3xl md:text-4xl font-archivo-bold my-2 md:my-4">
-                        Pizza&apos;s that makes your meal
-                        delightfull
-                    </h1>
-                    <Search />
+const Home: NextPage<HomeProps> = ({ pizzas }) => {
+    const [open, setOpen] = useState(false);
+    const pizzaContext = useContext(PizzaContext);
 
-                    {/* Listing */}
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
-                        {/* Pizza */}
-                        {pizzas.map((pizza, i) => (
+    useEffect(() => {
+        pizzaContext?.storePizzas(pizzas);
+    }, [pizzaContext, pizzas]);
+
+    const handleSelectPizza = async (id: string) => {
+        try {
+            let pizza = await getPizzaDetails(id);
+            pizzaContext?.storePizzaDetails(pizza);
+            setOpen(true);
+        } catch (error) {}
+    };
+
+    return (
+        <Layout>
+            <main className="space-y-6 py-2 px-4">
+                {/* Shoutout */}
+                <h1 className="text-3xl md:text-4xl font-archivo-bold my-2 md:my-4">
+                    Pizza&apos;s that makes your meal delightfull
+                </h1>
+                <Search />
+
+                {/* Listing */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
+                    {/* Pizza */}
+                    {pizzas &&
+                        pizzas.map((pizza, i) => (
                             <PizzaItem
                                 pizza={pizza}
                                 key={i}
-                                onClick={() =>
-                                    setOpen(!open)
-                                }
+                                onClick={() => handleSelectPizza(pizza.id)}
                             />
                         ))}
-                    </div>
-                </main>
-            </div>
-            <PizzaDetails
-                onClose={() => setOpen(false)}
-                show={open}
-                pizza={pizzas[0]}
-            />
-            {/* <Drawer open={open} onClose={() => setOpen(false)}>
-			</Drawer> */}
-        </div>
+                </div>
+            </main>
+            {open && (
+                <DynamicPizzaDetails
+                    onClose={() => setOpen(false)}
+                    show={true}
+                    pizza={pizzaContext?.pizzaDetails!}
+                    ingredients={pizzaContext?.ingredients!}
+                />
+            )}
+        </Layout>
     );
+};
+
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+    let pizzas: PizzaItemType[] = [];
+    try {
+        pizzas = await getPizzas();
+        return {
+            props: {
+                pizzas,
+            },
+        };
+    } catch (error) {
+        return {
+            props: {
+                pizzas,
+            },
+        };
+    }
 };
 
 export default Home;

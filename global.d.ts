@@ -12,34 +12,79 @@ type IconsType =
     | 'chevronUp'
     | 'chevronDown'
     | 'trash'
-    | 'heart' | 'checkFill' | 'shoppingCartCheckFill';
+    | 'heart'
+    | 'checkFill'
+    | 'shoppingCartCheckFill';
 
 type IconsSizesType = 'sm' | 'md' | 'lg';
 
+type PizzaSizeTypes = 'small' | 'medium' | 'large';
+
 type PizzaItemType = {
-    id?: number;
-    name: string;
-    subName?: string;
+    id: string;
+    title: string;
+    subtitle: string;
     imageUrl: string;
-    price: number;
-    description?: string;
-    ingredients?: IngredientItemType[];
+    prices: {
+        [key in PizzaSizeTypes]: number;
+    };
+    extraCheeseAvailabe: boolean;
 };
 
 type IngredientItemType = {
-    id?: number;
+    id: string;
     name: string;
     imageUrl: string;
-    price: number;
-    description?: string;
 };
 
 type CartItemType = {
-    id?: number;
-    pizza: PizzaItemType;
-    ingredients?: IngredientItemType[];
     quantity: number;
+    pizza: Partial<PizzaItemType>;
+    extraCheese?: Boolean;
+    ingredients?: string[];
+    size?: PizzaSizeTypes;
+    price: number;
 };
 
-declare module 'react-payment-inputs';
+interface CustomizationDetails {
+    extraCheese: boolean;
+    size: PizzaSizeTypes;
+    toppings: string[];
+    price: number;
+}
+
+interface TotalInfo {
+    total: number;
+    subtotal: number;
+    tax: number;
+    deliveryCharge: number;
+}
+
+interface ConfigType {
+    extraCheesePrice: number;
+    deliveryCharge: number;
+    taxRate: number;
+    toppingPrice: number;
+}
+
+interface UserDetails {
+    name: string;
+    phone: string;
+    address: string;
+    cardNumber: string;
+    expiry: string;
+    cvc: string;
+}
+
+interface OrderDataType {
+    id?: string;
+    user: UserDetails;
+    pizzas: {
+        id: string;
+        size: string;
+        extraCheese: boolean;
+        toppings: string[];
+    }[];
+}
+
 declare module 'react-credit-card-input';

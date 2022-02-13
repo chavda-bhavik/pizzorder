@@ -1,85 +1,194 @@
-import { Button } from '@/components/Button';
-import { Header } from '@/components/Header';
-import { Input } from '@/components/Input';
+import React, { useContext, useEffect, useState } from 'react';
 import CreditCardInput from 'react-credit-card-input';
+
+import { Button } from '@/components/Button';
+import { Input } from '@/components/Input';
+import { Layout } from '@/components/Layout';
+import { DividedContent } from '@/components/DividedContent';
+import { CartContext } from '@/context/CartContext';
+import { placeOrder } from '@/api';
 
 interface CheckoutProps {}
 
 const Checkout: React.FC<CheckoutProps> = ({}) => {
-    return (
-        <div className="bg-classy-deemLight min-h-screen relative">
-            <Header />
+    const cartContext = useContext(CartContext);
+    const [formState, setFormState] = useState({
+        submitted: false,
+        submitting: false,
+        error: false,
+        errorMessage: '',
+        disabled: false,
+    });
+    const [userDetails, setUserDetails] = useState({
+        name: '',
+        phone: '',
+        address: '',
+        cardNumber: '',
+        expiry: '',
+        cvc: '',
+    });
 
+    useEffect(() => {
+        if (!cartContext?.items || !cartContext?.items.length) {
+            setFormState({
+                ...formState,
+                disabled: true,
+                error: true,
+                errorMessage: 'Your cart is empty. Please add items to your cart to order.',
+            });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const onInputChange = (e: React.ChangeEvent) => {
+        e.persist();
+        const { name, value } = e.target as HTMLInputElement;
+        setUserDetails({ ...userDetails, [name]: value });
+    };
+    const onCreditCardInputChange = (e: React.ChangeEvent, name: string) => {
+        e.persist();
+        const { value } = e.target as HTMLInputElement;
+        setUserDetails({ ...userDetails, [name]: value });
+    };
+    const formSubmitHandler = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            setFormState({
+                ...formState,
+                submitting: true,
+                error: false,
+                errorMessage: '',
+                submitted: false,
+            });
+            let pizzaDetails = [];
+            pizzaDetails =
+                cartContext?.items.map((item) => {
+                    return {
+                        id: item.pizza.id!,
+                        size: item.size!,
+                        toppings: item.ingredients || [],
+                        extraCheese: !!item.extraCheese,
+                    };
+                }) || [];
+            let response = await placeOrder({
+                user: userDetails,
+                pizzas: pizzaDetails,
+            });
+            console.log(response);
+            setFormState({
+                ...formState,
+                submitted: true,
+                submitting: false,
+            });
+        } catch (error) {
+            setFormState({
+                ...formState,
+                error: true,
+                errorMessage: (error as Error).message,
+            });
+        }
+    };
+
+    return (
+        <Layout>
             <main className="py-5 space-y-7 max-w-lg">
                 {/* Order Details */}
                 <div className="space-y-3 px-2">
                     <h3 className="title">Order Details</h3>
-                    <div className="space-y-1">
-                        <div className="flex justify-between px-1">
-                            <p className="font-archivo-light">
-                                Item Total:
-                            </p>
-                            <p className="font-archivo-semibold">
-                                $77.00
-                            </p>
+                    <DividedContent>
+                        <div title="Subtotal:">
+                            <span className="rupee">{cartContext?.totalInfo.subtotal}</span>
                         </div>
-                        <div className="flex justify-between px-1">
-                            <p className="font-archivo-light">
-                                Delivery Charge:
-                            </p>
-                            <p className="font-archivo-semibold">
-                                $1.00
-                            </p>
+                        <div title="Delivery Charge:">
+                            <span className="rupee">{cartContext?.totalInfo.deliveryCharge}</span>
                         </div>
-                        <div className="flex justify-between px-1">
-                            <p className="font-archivo-light">
-                                Tax:
-                            </p>
-                            <p className="font-archivo-semibold">
-                                $0.50
-                            </p>
+                        <div title="Tax:">
+                            <span className="rupee">{cartContext?.totalInfo.tax}</span>
                         </div>
-                        <hr />
-                        <div className="flex justify-between text-lg font-archivo-semibold px-1">
-                            <p>Total:</p>
-                            <p>$78.50</p>
+                        <div title="Total">
+                            <span className="rupee">{cartContext?.totalInfo.total}</span>
                         </div>
-                    </div>
+                    </DividedContent>
                 </div>
 
                 {/* Delivery &amp; Payment Details */}
                 <div className="space-y-3 px-2">
-                    <h3 className="title">
-                        Delivery &amp; Payment Details
-                    </h3>
-                    <div className="space-y-1">
+                    <h3 className="title">Delivery &amp; Payment Details</h3>
+                    <form className="space-y-1" onSubmit={formSubmitHandler}>
                         <Input
                             id="name"
+                            name="name"
                             placeholder="Full Name"
+                            value={userDetails.name}
+                            onChange={onInputChange}
+                            autoFocus
+                            autoComplete="on"
+                            required
+                        />
+                        <Input
+                            id="phone"
+                            name="phone"
+                            type="text"
+                            placeholder="Phone Number"
+                            value={userDetails.phone}
+                            onChange={onInputChange}
+                            autoComplete="on"
+                            required
                         />
                         <Input
                             id="address"
+                            name="address"
                             type="textarea"
                             placeholder="Address"
+                            value={userDetails.address}
+                            onChange={onInputChange}
+                            autoComplete="on"
+                            required
                         />
                         <CreditCardInput
                             className="w-full"
-                            // cardNumberInputProps={{ value: cardNumber, onChange: this.handleCardNumberChange }}
-                            // cardExpiryInputProps={{ value: expiry, onChange: this.handleCardExpiryChange }}
-                            // cardCVCInputProps={{ value: cvc, onChange: this.handleCardCVCChange }}
+                            cardNumberInputProps={{
+                                value: userDetails.cardNumber,
+                                onChange: (e: React.ChangeEvent) =>
+                                    onCreditCardInputChange(e, 'cardNumber'),
+                            }}
+                            cardExpiryInputProps={{
+                                value: userDetails.expiry,
+                                onChange: (e: React.ChangeEvent) =>
+                                    onCreditCardInputChange(e, 'expiry'),
+                            }}
+                            cardCVCInputProps={{
+                                value: userDetails.cvc,
+                                onChange: (e: React.ChangeEvent) =>
+                                    onCreditCardInputChange(e, 'cvc'),
+                            }}
                             fieldClassName="input"
                         />
-                    </div>
-                </div>
 
-                {/* Checkout */}
-                <Button
-                    text="Let's Go"
-                    block
-                    className="fixed md:position-unset bottom-0 rounded-none md:rounded-md px-0 md:mx-2"
-                />
+                        {/* Checkout */}
+                        <Button
+                            text="Let's Go"
+                            type="submit"
+                            block
+                            disabled={formState.disabled}
+                            className="rounded-sm"
+                        />
+
+                        {/* Error */}
+                        {formState.error && (
+                            <div className="text-red-600 text-sm">{formState.errorMessage}</div>
+                        )}
+
+                        {/* Success */}
+                        {formState.submitted && (
+                            <div className="text-green-600 text-sm">
+                                Your order has been placed successfully.
+                            </div>
+                        )}
+                    </form>
+                </div>
             </main>
-        </div>
+        </Layout>
     );
 };
 
