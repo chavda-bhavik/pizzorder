@@ -17,6 +17,7 @@ export interface CartContextType {
         customizationDetails: CustomizationDetails
     ) => void;
     updateQuantity: (id: string, quantity: number) => void;
+    clearCart: () => void;
 }
 
 export const CartContext = createContext<CartContextType | null>(null);
@@ -27,7 +28,7 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
         total: 0,
         subtotal: 0,
         tax: 0,
-        deliveryCharge: configContext?.config.deliveryCharge || 0,
+        deliveryCharge: 0,
     });
     const [items, setSetItems] = useState<CartItemType[]>([]);
 
@@ -78,6 +79,11 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
         setSetItems(newItemsList);
     };
 
+    const clearCart = () => {
+        setSetItems([]);
+        updateTotalInfo([]);
+    };
+
     const updateTotalInfo = (items: CartItemType[]) => {
         let newTotalInfo = {
             ...totalInfo,
@@ -88,6 +94,8 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
         newTotalInfo.total = Math.round(
             newTotalInfo.subtotal + newTotalInfo.tax + newTotalInfo.deliveryCharge
         );
+        if (newTotalInfo.total)
+            newTotalInfo.deliveryCharge = configContext?.config.deliveryCharge || 0;
         setTotalInfo(newTotalInfo);
     };
 
@@ -110,6 +118,7 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
         items,
 
         addToCart,
+        clearCart,
         updateQuantity,
     };
 

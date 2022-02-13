@@ -18,6 +18,7 @@ const Checkout: React.FC<CheckoutProps> = ({}) => {
         error: false,
         errorMessage: '',
         disabled: false,
+        orderId: '',
     });
     const [userDetails, setUserDetails] = useState({
         name: '',
@@ -70,16 +71,22 @@ const Checkout: React.FC<CheckoutProps> = ({}) => {
                         extraCheese: !!item.extraCheese,
                     };
                 }) || [];
+
             let response = await placeOrder({
                 user: userDetails,
                 pizzas: pizzaDetails,
             });
-            console.log(response);
-            setFormState({
-                ...formState,
-                submitted: true,
-                submitting: false,
-            });
+            if (typeof response !== 'string') {
+                setFormState({
+                    ...formState,
+                    orderId: response.id!,
+                    submitted: true,
+                    submitting: false,
+                });
+                cartContext?.clearCart();
+            } else {
+                throw new Error(response);
+            }
         } catch (error) {
             setFormState({
                 ...formState,
