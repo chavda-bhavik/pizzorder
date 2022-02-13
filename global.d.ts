@@ -60,4 +60,31 @@ interface TotalInfo {
     deliveryCharge: number;
 }
 
+interface ConfigType {
+    extraCheesePrice: number;
+    deliveryCharge: number;
+    taxRate: number;
+    toppingPrice: number;
+}
+
+interface UserDetails {
+    name: string;
+    phone: string;
+    address: string;
+    cardNumber: string;
+    expiry: string;
+    cvc: string;
+}
+
+interface OrderDataType {
+    id?: string;
+    user: UserDetails;
+    pizzas: {
+        id: string;
+        size: string;
+        extraCheese: boolean;
+        toppings: string[];
+    }[];
+}
+
 declare module 'react-credit-card-input';
