@@ -1,10 +1,11 @@
 import { useContext, useState } from 'react';
 
-import { Drawer } from '@/components/Drawer';
 import Switcher from '@/components/Switcher';
+import { Drawer } from '@/components/Drawer';
 import { CartContext } from '@/context/CartContext';
 import { Ingredient } from '@/components/Ingredient';
 import { CheeseSelector } from '@/components/CheeseSelector';
+import { ConfigContext } from '@/context/ConfigContext';
 
 interface PizzaDetailsProps {
     pizza: PizzaItemType;
@@ -14,6 +15,7 @@ interface PizzaDetailsProps {
 }
 
 const PizzaDetails: React.FC<PizzaDetailsProps> = ({ pizza, show, onClose, ingredients }) => {
+    const configContext = useContext(ConfigContext);
     const cartContext = useContext(CartContext);
     const [details, setDetails] = useState<CustomizationDetails>({
         extraCheese: false,
@@ -22,18 +24,23 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ pizza, show, onClose, ingre
         price: pizza.prices.medium,
     });
 
-    const onDetailsChange = (extraCheese: boolean | null, size?: null | PizzaSizeTypes, topping?: string | null) => {
+    const onDetailsChange = (
+        extraCheese: boolean | null,
+        size?: null | PizzaSizeTypes,
+        topping?: string | null
+    ) => {
         let newDetails = { ...details };
         let newPrice = pizza.prices[size || details.size];
         if (extraCheese !== null) {
             newDetails.extraCheese = extraCheese;
-            newPrice += 75;
+            newPrice += configContext?.config.extraCheesePrice!;
         }
         if (size) newDetails.size = size;
         if (topping) {
-            if (newDetails.toppings.includes(topping)) newDetails.toppings.splice(newDetails.toppings.indexOf(topping), 1);
+            if (newDetails.toppings.includes(topping))
+                newDetails.toppings.splice(newDetails.toppings.indexOf(topping), 1);
             else newDetails.toppings.push(topping);
-            newPrice += newDetails.toppings.length * 60;
+            newPrice += newDetails.toppings.length * configContext?.config.toppingPrice!;
         }
         setDetails({
             ...newDetails,
@@ -53,7 +60,9 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ pizza, show, onClose, ingre
                 <div className="pt-3 pb-20 px-5 space-y-8 bg-classy-white">
                     {/* Title */}
                     <div className="flex flex-col justify-center">
-                        <h3 className="font-semibold font-sans text-xl md:text-2xl">{pizza.title}</h3>
+                        <h3 className="font-semibold font-sans text-xl md:text-2xl">
+                            {pizza.title}
+                        </h3>
                         <p className="font-sans text-lg">{pizza.subtitle}</p>
                     </div>
 
@@ -92,7 +101,10 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ pizza, show, onClose, ingre
                     {pizza.extraCheeseAvailabe && (
                         <div className="space-y-3">
                             <h4 className="title">Extra Cheese</h4>
-                            <CheeseSelector added={details.extraCheese} onToggle={(value) => onDetailsChange(value)} />
+                            <CheeseSelector
+                                added={details.extraCheese}
+                                onToggle={(value) => onDetailsChange(value)}
+                            />
                         </div>
                     )}
 
@@ -115,7 +127,10 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ pizza, show, onClose, ingre
                     </div>
                 </div>
                 {/* Add To Cart */}
-                <button className="btn btn-primary w-full fixed bottom-0 rounded-none flex flex-row justify-between py-2 px-3" onClick={onAddToCart}>
+                <button
+                    className="btn btn-primary w-full fixed bottom-0 rounded-none flex flex-row justify-between py-2 px-3"
+                    onClick={onAddToCart}
+                >
                     Add To Cart
                     <div className="border-black px-2 text-xl font-medium font-sans">
                         <span className="rupee">{details.price}</span>

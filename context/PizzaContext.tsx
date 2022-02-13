@@ -12,20 +12,24 @@ export interface PizzaContextType {
 
 export const PizzaContext = createContext<PizzaContextType | null>(null);
 
-const PizzaProvider: React.FC<{}> = ({ children }: any) => {
+interface PizzaContextProps {
+    ingredientsData: IngredientItemType[];
+}
+
+const PizzaProvider: React.FC<PizzaContextProps> = ({ children, ingredientsData }) => {
     const [pizzas, setPizzas] = useState<PizzaItemType[]>([]);
     const [details, setDetails] = useState<PizzaItemType>();
-    const [ingredients, setIngredients] = useState<IngredientItemType[]>([]);
+    const [ingredients, setIngredients] = useState<IngredientItemType[]>(ingredientsData);
 
     const storePizzas = (pizzas: PizzaItemType[]) => {
         setPizzas(pizzas);
     };
     const storePizzaDetails = (pizza: PizzaItemType) => {
         setDetails(pizza);
-    }
+    };
     const storeIngredients = (ingredients: IngredientItemType[]) => {
         setIngredients(ingredients);
-    }
+    };
 
     const contextValue: PizzaContextType = {
         pizzas,
@@ -34,14 +38,10 @@ const PizzaProvider: React.FC<{}> = ({ children }: any) => {
 
         storePizzas,
         storePizzaDetails,
-        storeIngredients
+        storeIngredients,
     };
 
-    return (
-        <PizzaContext.Provider value={contextValue}>
-            {children}
-        </PizzaContext.Provider>
-    );
+    return <PizzaContext.Provider value={contextValue}>{children}</PizzaContext.Provider>;
 };
 
 export default PizzaProvider;

@@ -4,6 +4,7 @@ import { motion, Variants } from 'framer-motion';
 import { Icon } from '@/components/Icon';
 import { Button } from '@/components/Button';
 import { DividedContent } from '../DividedContent';
+import Link from 'next/link';
 
 interface CheckoutProps {
     collapsed?: boolean;
@@ -25,7 +26,10 @@ const collapseVariants: Variants = {
 export const Checkout: React.FC<CheckoutProps> = ({ collapsed, setCollapsed, totalInfo }) => {
     return (
         <div className="fixed bottom-0 md:bottom-auto md:left-[50%] px-2 pb-2 w-full md:w-[50%] bg-classy-deemLight border-t-4 border-classy-lightBrown md:border-transparent">
-            <div className="flex justify-center md:hidden" onClick={() => setCollapsed && setCollapsed(!collapsed)}>
+            <div
+                className="flex justify-center md:hidden"
+                onClick={() => setCollapsed && setCollapsed(!collapsed)}
+            >
                 <Icon icon={collapsed ? 'chevronDown' : 'chevronUp'} className="rotate-180" />
             </div>
             <motion.div
@@ -53,7 +57,11 @@ export const Checkout: React.FC<CheckoutProps> = ({ collapsed, setCollapsed, tot
                     </DividedContent>
                 )}
             </motion.div>
-            <Button text={'Proceed to Checkout'} />
+            <Link href="/checkout">
+                <a>
+                    <Button text={'Proceed to Checkout'} />
+                </a>
+            </Link>
         </div>
     );
 };

@@ -156,7 +156,7 @@
         @apply p-2 text-center font-archivo-bold text-lg flex flex-row justify-center items-center gap-x-1 rounded-2xl;
     }
     .btn-primary {
-        @apply bg-classy-golden text-black w-full hover:bg-classy-slate transition-colors duration-300;
+        @apply bg-classy-golden text-black w-full hover:bg-classy-slate hover:text-gray-100 transition-colors duration-300 disabled:bg-classy-slate disabled:text-gray-100;
     }
     .btn-disabled {
         @apply bg-classy-lightGolden text-gray-900 cursor-not-allowed;
