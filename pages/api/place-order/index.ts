@@ -12,7 +12,7 @@ export default function handler(
         }
 
         // Validate the request body
-        let body = JSON.parse(req.body) as OrderDataType;
+        let body = req.body as OrderDataType;
         if (
             !body.user || !body.user.name || !body.user.phone || !body.user.address || !body.user.cardNumber || !body.user.cvc || !body.user.expiry ||
             !Array.isArray(body.pizzas) || body.pizzas.length === 0

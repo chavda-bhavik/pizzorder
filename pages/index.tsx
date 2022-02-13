@@ -7,6 +7,7 @@ import { Layout } from '@/components/Layout';
 import { PizzaItem } from "@/components/PizzaItem";
 import { getPizzas, getPizzaDetails } from '@/api';
 import { PizzaContext } from '@/context/PizzaContext';
+import Router, { useRouter } from 'next/router';
 
 const DynamicPizzaDetails = dynamic(() => import('@/components/PizzaDetails'), { ssr: false });
 
@@ -15,6 +16,7 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = ({ pizzas }) => {
+    const router = useRouter();
     const [open, setOpen] = useState(false);
     const pizzaContext = useContext(PizzaContext);
 
@@ -22,12 +24,37 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
         pizzaContext?.storePizzas(pizzas);
     }, [pizzaContext, pizzas]);
 
+    useEffect(() => {
+        (async () => {
+            if (router.query.id) {
+                const data = await getPizzaDetails(router.query.id as string);
+                pizzaContext?.storePizzaDetails(data);
+                setOpen(true);
+            }
+        })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [router.query.id]);
+
     const handleSelectPizza = async (id: string) => {
         try {
             let pizza = await getPizzaDetails(id);
             pizzaContext?.storePizzaDetails(pizza);
             setOpen(true);
+            router.push(
+                {
+                    pathname: '/',
+                    query: {
+                        id,
+                    },
+                },
+                undefined,
+                { shallow: true }
+            );
         } catch (error) {}
+    };
+    const handleClose = () => {
+        setOpen(false);
+        router.push('/', undefined, { shallow: true });
     };
 
     return (
@@ -54,7 +81,7 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
             </main>
             {open && (
                 <DynamicPizzaDetails
-                    onClose={() => setOpen(false)}
+                    onClose={handleClose}
                     show={true}
                     pizza={pizzaContext?.pizzaDetails!}
                     ingredients={pizzaContext?.ingredients!}
