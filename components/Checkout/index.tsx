@@ -1,10 +1,10 @@
+import Link from 'next/link';
 import classNames from 'classnames';
 import { motion, Variants } from 'framer-motion';
 
 import { Icon } from '@/components/Icon';
 import { Button } from '@/components/Button';
 import { DividedContent } from '../DividedContent';
-import Link from 'next/link';
 
 interface CheckoutProps {
     collapsed?: boolean;
@@ -59,7 +59,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ collapsed, setCollapsed, tot
             </motion.div>
             <Link href="/checkout">
                 <a>
-                    <Button text={'Proceed to Checkout'} />
+                    <Button text={'Proceed to Checkout'} disabled={!totalInfo || totalInfo.total === 0} />
                 </a>
             </Link>
         </div>
