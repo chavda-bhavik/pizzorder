@@ -1,5 +1,6 @@
-import { Icon } from '@/components/Icon';
 import classNames from 'classnames';
+
+import { Icon } from '@/components/Icon';
 
 interface CheeseSelectorProps {
     added?: boolean;
