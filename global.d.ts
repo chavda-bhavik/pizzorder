@@ -1,20 +1,10 @@
 type IconsType =
-    | 'plus'
-    | 'plusCircle'
-    | 'minus'
-    | 'check'
-    | 'close'
-    | 'shoppingCart'
-    | 'pizzaSlice'
-    | 'search'
-    | 'loader'
-    | 'adjustments'
-    | 'chevronUp'
-    | 'chevronDown'
-    | 'trash'
-    | 'heart'
-    | 'checkFill'
-    | 'shoppingCartCheckFill' | 'pencil';
+    | 'plus' | 'plusCircle' | 'minus'
+    | 'check' | 'close' | 'shoppingCart'
+    | 'pizzaSlice' | 'search' | 'loader'
+    | 'adjustments' | 'chevronUp' | 'chevronDown'
+    | 'trash' | 'heart' | 'checkFill'
+    | 'shoppingCartCheckFill' | 'pencil' | 'heartFill';
 
 type IconsSizesType = 'sm' | 'md' | 'lg';
 
