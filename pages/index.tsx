@@ -1,16 +1,12 @@
-import { useState, useContext, useEffect } from 'react';
-import type { NextPage, GetStaticProps } from "next";
+import { useContext, useEffect } from 'react';
+import type { NextPage, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic'
 
-import { Drawer } from '@/components/Drawer';
 import { Search } from '@/components/Search';
 import { Layout } from '@/components/Layout';
-import { PizzaItem } from "@/components/PizzaItem";
+import { PizzaItem } from '@/components/PizzaItem';
 import { getPizzas, getPizzaDetails } from '@/api';
 import { PizzaContext } from '@/context/PizzaContext';
-
-const DynamicPizzaDetails = dynamic(() => import('@/components/PizzaDetails'), { ssr: false });
 
 interface HomeProps {
     pizzas: PizzaItemType[];
@@ -18,7 +14,6 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ pizzas }) => {
     const router = useRouter();
-    const [open, setOpen] = useState(false);
     const pizzaContext = useContext(PizzaContext);
 
     useEffect(() => {
@@ -30,7 +25,6 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
             if (router.query.id) {
                 const data = await getPizzaDetails(router.query.id as string);
                 pizzaContext?.storePizzaDetails(data);
-                setOpen(true);
             }
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,7 +34,6 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
         try {
             let pizza = await getPizzaDetails(id);
             pizzaContext?.storePizzaDetails(pizza);
-            setOpen(true);
             router.push(
                 {
                     pathname: '/',
@@ -52,10 +45,6 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
                 { shallow: true }
             );
         } catch (error) {}
-    };
-    const handleClose = () => {
-        setOpen(false);
-        router.push('/', undefined, { shallow: true });
     };
 
     return (
@@ -80,15 +69,6 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
                         ))}
                 </div>
             </main>
-
-            <Drawer open={open} onClose={handleClose}>
-                <DynamicPizzaDetails
-                    onClose={handleClose}
-                    show={open}
-                    pizza={pizzaContext?.pizzaDetails!}
-                    ingredients={pizzaContext?.ingredients!}
-                />
-            </Drawer>
         </Layout>
     );
 };

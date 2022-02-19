@@ -30,22 +30,22 @@ export const OrderSuccessfull: React.FC<OrderSuccessfullProps> = ({ onClose, sho
                     variants={{
                         show: {
                             opacity: 1,
-                            translateY: 0
+                            translateY: 0,
                         },
                         hide: {
                             opacity: 0,
-                            translateY: '100%'
-                        }
+                            translateY: '100%',
+                        },
                     }}
                     transition={{
                         duration: 0.4,
-                        ease: 'easeInOut'
+                        ease: 'easeInOut',
                     }}
                     animate={show ? 'show' : 'hide'}
                     initial="hide"
                     className="bg-gray-50 absolute bottom-0 inset-x-0 w-max mx-auto rounded-md px-5 py-3 text-center"
                 >
-                    <p className='text-lg font-sans font-medium text-center leading-5 mb-4'>
+                    <p className="text-lg font-sans font-medium text-center leading-5 mb-4">
                         Thank You.
                     </p>
 
@@ -54,15 +54,21 @@ export const OrderSuccessfull: React.FC<OrderSuccessfullProps> = ({ onClose, sho
                         height={240}
                         width={240}
                         alt="Order Placed"
-                        className='mx-auto'
+                        className="mx-auto"
                     />
 
-                    <p className='text-lg font-sans font-medium text-center leading-5 mb-4'>
-                        Your Order is Placed successfully.<br />
+                    <p className="text-lg font-sans font-medium text-center leading-5 mb-4">
+                        Your Order is Placed successfully.
+                        <br />
                         It will be delivered to you soon.
                     </p>
 
-                    <Button text='Continue Shopping' onClick={continueShoppingClick} className="rounded-md p-1" />
+                    <Button
+                        text="Continue Shopping"
+                        block
+                        onClick={continueShoppingClick}
+                        className="rounded-md p-1"
+                    />
                 </motion.div>
             </div>
         </Backdrop>

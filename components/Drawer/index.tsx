@@ -38,9 +38,7 @@ export const Drawer: React.FC<DrawerProps> = ({ open = false, children, onClose 
                 }}
                 aria-hidden="true"
             >
-                <div className="h-full flex flex-col shadow-xl overflow-y-auto">
-                    {open ? children : null}
-                </div>
+                <div className="h-full flex flex-col shadow-xl overflow-y-auto">{children}</div>
 
                 {/* Close button, show/hide based on slide-over state.
 

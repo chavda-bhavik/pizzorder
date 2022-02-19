@@ -14,7 +14,7 @@ type IconsType =
     | 'trash'
     | 'heart'
     | 'checkFill'
-    | 'shoppingCartCheckFill';
+    | 'shoppingCartCheckFill' | 'pencil';
 
 type IconsSizesType = 'sm' | 'md' | 'lg';
 
@@ -48,7 +48,7 @@ type CartItemType = {
 
 interface CustomizationDetails {
     extraCheese: boolean;
-    size: PizzaSizeTypes;
+    size?: PizzaSizeTypes;
     toppings: string[];
     price: number;
 }

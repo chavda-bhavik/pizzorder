@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, createContext, useContext, useEffect } from 'react';
 import { ConfigContext } from './ConfigContext';
 
 export interface CartContextType {
@@ -11,6 +11,12 @@ export interface CartContextType {
     items: CartItemType[];
 
     addToCart: (
+        id: string,
+        imageUrl: string,
+        title: string,
+        customizationDetails: CustomizationDetails
+    ) => void;
+    updateCartItem: (
         id: string,
         imageUrl: string,
         title: string,
@@ -44,21 +50,19 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
 
         if (itemIndex > -1) {
             // check if same pizza with same toppings || extra cheese || size is already in the cart
-            if (items[itemIndex].extraCheese !== customizationDetails.extraCheese) {
-                addNew = true;
-            } else if (
+            if (items[itemIndex].extraCheese !== customizationDetails.extraCheese) addNew = true;
+            else if (
                 customizationDetails.toppings &&
                 !customizationDetails.toppings.every((toppingId) =>
                     items[itemIndex].ingredients?.includes(toppingId)
                 )
-            ) {
+            )
                 addNew = true;
-            } else if (
+            else if (
                 customizationDetails.size &&
                 items[itemIndex].size !== customizationDetails.size
-            ) {
+            )
                 addNew = true;
-            }
         } else addNew = true;
 
         if (addNew) {
@@ -98,7 +102,25 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
             newTotalInfo.deliveryCharge = configContext?.config.deliveryCharge || 0;
         setTotalInfo(newTotalInfo);
     };
-
+    const updateCartItem = (
+        id: string,
+        imageUrl: string,
+        title: string,
+        customizationDetails: CustomizationDetails
+    ) => {
+        let newItemsList = [...items];
+        let itemIndex = newItemsList.findIndex((i) => i.pizza.id === id);
+        if (itemIndex > -1) {
+            newItemsList[itemIndex].pizza.imageUrl = imageUrl;
+            newItemsList[itemIndex].pizza.title = title;
+            newItemsList[itemIndex].extraCheese = customizationDetails.extraCheese;
+            newItemsList[itemIndex].ingredients = customizationDetails.toppings;
+            newItemsList[itemIndex].size = customizationDetails.size;
+            newItemsList[itemIndex].price = customizationDetails.price;
+        }
+        updateTotalInfo(newItemsList);
+        setSetItems(newItemsList);
+    };
     const updateQuantity = (id: string, quantity: number) => {
         let newItemsList = [...items];
         let itemIndex = newItemsList.findIndex((i) => i.pizza.id === id);
@@ -119,6 +141,7 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
 
         addToCart,
         clearCart,
+        updateCartItem,
         updateQuantity,
     };
 
