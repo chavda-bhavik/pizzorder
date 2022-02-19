@@ -9,6 +9,7 @@ import { Ingredient } from '@/components/Ingredient';
 import { PizzaContext } from '@/context/PizzaContext';
 import { ConfigContext } from '@/context/ConfigContext';
 import { CheeseSelector } from '@/components/CheeseSelector';
+import { Icon } from '../Icon';
 
 interface PizzaDetailsProps {
     onClose?: () => void;
@@ -79,18 +80,42 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ onClose }) => {
             onClose && onClose();
         }
     };
+    const onLikeClick = (e: React.MouseEvent<HTMLElement>) => {
+        e.stopPropagation();
+        if (pizzaItemDetails) {
+            pizzaContext?.toggleLike(pizzaItemDetails.id);
+        }
+    };
 
     return (
         <div className=" h-full relative">
             {/* Pizza Image */}
             <div className="relative w-full h-56 sm:h-64 lg:h-72">
                 {pizzaItemDetails && (
-                    <Image
-                        src={pizzaItemDetails.imageUrl}
-                        loading="lazy"
-                        alt={pizzaItemDetails.title}
-                        layout="fill"
-                    />
+                    <>
+                        <Image
+                            src={pizzaItemDetails.imageUrl}
+                            loading="lazy"
+                            alt={pizzaItemDetails.title}
+                            layout="fill"
+                        />
+                        <div className="absolute top-0 right-0 h-10 w-11 bg-shadow rotate-180" />
+                        <button className="absolute right-2 top-1 h-5 w-5" onClick={onLikeClick}>
+                            <Icon
+                                icon={
+                                    pizzaContext?.likedPizzas.includes(pizzaItemDetails?.id)
+                                        ? 'heartFill'
+                                        : 'heart'
+                                }
+                                className={
+                                    pizzaContext?.likedPizzas.includes(pizzaItemDetails?.id)
+                                        ? 'text-red-500'
+                                        : 'text-white'
+                                }
+                                size="sm"
+                            />
+                        </button>
+                    </>
                 )}
             </div>
             <div className="pb-20 space-y-8 bg-classy-white">
