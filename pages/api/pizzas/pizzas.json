@@ -9,54 +9,90 @@
             "large": 499
         },
         "extraCheeseAvailabe": true,
-        "imageUrl": "/images/pizzas/margherita.png"
+        "imageUrl": "/images/pizzas/margherita.webp"
     },
     {
-        "id": "fe610c89-db88-4355-84e6-3ad88196457e",
-        "title": "Capricciosa",
-        "subtitle": "Veg delight - onion, capsicum, grilled mushroom, corn & paneer",
+        "id": "6b949743-2c3c-4c9b-8daf-83e43fb76018",
+        "title": "Farmhouse",
+        "subtitle": "Delightful combination of onion, capsicum, garlic and fresh tomatoes",
         "prices": {
-            "small": 299,
-            "medium": 499,
-            "large": 599
+            "small": 239,
+            "medium": 419,
+            "large": 629
         },
-        "extraCheeseAvailabe": false,
-        "imageUrl": "/images/pizzas/capricciosa.jpg"
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/farmhouse.webp"
     },
     {
-        "id": "652bd6e7-e78c-4b59-a5e5-23727ab48b64",
-        "title": "Quattro Stagioni",
+        "id": "bab541e1-0797-469e-bfb0-b4811340565c",
+        "title": "Veg Extravaganza",
         "subtitle": "Black olives, capsicum, onion, grilled mushroom, corn, tomato, jalapeno & extra cheese",
         "prices": {
-            "small": 349,
+            "small": 279,
             "medium": 449,
-            "large": 599
+            "large": 729
         },
-        "extraCheeseAvailabe": false,
-        "imageUrl": "/images/pizzas/quattro-stagioni.png"
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/new_veg_extravaganza.webp"
     },
     {
-        "id": "20f21581-ca38-4717-ad28-401b24c5ac6f",
-        "title": "Hawaii",
-        "subtitle": "Mexican herbs sprinkled on onion, capsicum, tomato & jalapeno",
+        "id": "0919b2ed-0776-406c-9b0c-e52145176169",
+        "title": "Veggie Paradise",
+        "subtitle": "The awesome foursome! Golden corn, black olives, capsicum, red paprika",
         "prices": {
-            "small": 349,
-            "medium": 449,
-            "large": 599
+            "small": 239,
+            "medium": 419,
+            "large": 629
         },
-        "extraCheeseAvailabe": false,
-        "imageUrl": "/images/pizzas/hawaii.png"
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/new_veggie_paradise.webp"
     },
     {
         "id": "f7275580-a924-4c4f-ba54-a13e125b00c1",
-        "title": "Pugliese",
-        "subtitle": "The awesome foursome! Golden corn, black olives, capsicum, red paprika",
+        "title": "Cheese n Corn",
+        "subtitle": "Sweet & Juicy Golden corn and 100% real mozzarella cheese in a delectable combination !",
         "prices": {
-            "small": 349,
-            "medium": 449,
-            "large": 699
+            "small": 179,
+            "medium": 319,
+            "large": 519
         },
         "extraCheeseAvailabe": true,
-        "imageUrl": "/images/pizzas/pugliese.png"
+        "imageUrl": "/images/pizzas/new_cheese_n_corn.webp"
+    },
+    {
+        "id": "20f21581-ca38-4717-ad28-401b24c5ac6f",
+        "title": "Pepper Barbecue Chicken",
+        "subtitle": "Pepper barbecue chicken for that extra zing",
+        "prices": {
+            "small": 239,
+            "medium": 419,
+            "large": 629
+        },
+        "extraCheeseAvailabe": false,
+        "imageUrl": "/images/pizzas/new_pepper_barbeque_chicken.webp"
+    },
+    {
+        "id": "652bd6e7-e78c-4b59-a5e5-23727ab48b64",
+        "title": "Chicken Sausage",
+        "subtitle": "American classic! Spicy, herbed chicken sausage on pizza",
+        "prices": {
+            "small": 199,
+            "medium": 349,
+            "large": 569
+        },
+        "extraCheeseAvailabe": false,
+        "imageUrl": "/images/pizzas/new_chicken_sausage.webp"
+    },
+    {
+        "id": "fe610c89-db88-4355-84e6-3ad88196457e",
+        "title": "The Unthinkable Pizza",
+        "subtitle": "Loaded with Plant Based Protein topping along with Black Olives & Red Paprika enjoy this unique 100% Vegetarian pizza with a 100% Chicken like taste!",
+        "prices": {
+            "small": 279,
+            "medium": 499,
+            "large": 729
+        },
+        "extraCheeseAvailabe": false,
+        "imageUrl": "/images/pizzas/unthickable-pizza.jpg"
     }
 ]
