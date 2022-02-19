@@ -3,12 +3,10 @@ import classNames from 'classnames';
 import { Icon } from '../Icon';
 
 interface ButtonProps {
-    text?: string;
     onClick?: () => void;
     type?: 'button' | 'submit' | 'reset';
-    icon?: IconsType;
-    iconSize?: IconsSizesType;
-    variant?: 'primary';
+    size?: 'sm' | 'md' | 'lg';
+    variant?: 'primary' | 'secondary';
     block?: boolean;
     loading?: boolean;
     disabled?: boolean;
@@ -17,27 +15,28 @@ interface ButtonProps {
 }
 
 export const Button: React.FC<ButtonProps> = ({
-    text,
     onClick,
     type,
-    icon,
-    iconSize,
+    size = 'md',
     variant = 'primary',
     block = false,
     loading,
     disabled,
     className,
+    children,
 }) => {
-    let iconContent = null;
-    if (icon) iconContent = <Icon icon={icon} size={iconSize} className="ml-1" />;
-    if (loading) iconContent = <Icon icon="loader" size={iconSize} className="ml-1" />;
+    let loader = <Icon icon="loader" size={size} className="ml-1" />;
     return (
         <button
             className={classNames(
                 'btn',
                 {
                     'btn-primary': variant === 'primary',
+                    'btn-secondary': variant === 'secondary',
                     'btn-disabled': disabled || loading,
+                    'btn-sm': size === 'sm',
+                    'btn-md': size === 'md',
+                    'btn-lg': size === 'lg',
                     'w-full': block,
                 },
                 className
@@ -46,8 +45,7 @@ export const Button: React.FC<ButtonProps> = ({
             type={type}
             onClick={onClick}
         >
-            {text}
-            {iconContent}
+            {loading ? loader : children}
         </button>
     );
 };

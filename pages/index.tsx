@@ -51,7 +51,7 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
         <Layout>
             <main className="space-y-6 py-2 px-4">
                 {/* Shoutout */}
-                <h1 className="text-3xl md:text-4xl font-noto-sans-bold my-2 md:my-4">
+                <h1 className="title-lg my-2 md:my-4">
                     Pizza&apos;s that makes your meal delightfull
                 </h1>
                 <Search />
@@ -73,22 +73,13 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
     );
 };
 
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-    let pizzas: PizzaItemType[] = [];
-    try {
-        pizzas = await getPizzas();
-        return {
-            props: {
-                pizzas,
-            },
-        };
-    } catch (error) {
-        return {
-            props: {
-                pizzas,
-            },
-        };
-    }
+export const getServerSideProps: GetStaticProps = async () => {
+    const pizzas = await getPizzas();
+    return {
+        props: {
+            pizzas,
+        },
+    };
 };
 
 export default Home;

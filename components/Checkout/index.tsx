@@ -65,11 +65,9 @@ export const Checkout: React.FC<CheckoutProps> = ({
             </motion.div>
             <Link href="/checkout">
                 <a>
-                    <Button
-                        block
-                        text={'Proceed to Checkout'}
-                        disabled={!totalInfo || totalInfo.total === 0 || editing}
-                    />
+                    <Button block disabled={!totalInfo || totalInfo.total === 0 || editing}>
+                        Proceed to Checkout
+                    </Button>
                 </a>
             </Link>
         </div>

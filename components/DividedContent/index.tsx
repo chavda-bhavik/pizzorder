@@ -31,7 +31,7 @@ export const DividedContent: React.FC<DividedContentProps> = ({ children, classN
                     // rendering normal content
                     return (
                         <div className="flex justify-between px-1">
-                            <p className="font-noto-sans">{child.props.title}</p>
+                            <p>{child.props.title}</p>
                             <p className="font-noto-sans-bold">{child.props.children}</p>
                         </div>
                     );
