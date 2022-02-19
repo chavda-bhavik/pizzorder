@@ -65,6 +65,8 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
                                 pizza={pizza}
                                 key={i}
                                 onClick={() => handleSelectPizza(pizza.id)}
+                                liked={pizzaContext?.likedPizzas.includes(pizza.id)}
+                                toggleLike={pizzaContext?.toggleLike}
                             />
                         ))}
                 </div>

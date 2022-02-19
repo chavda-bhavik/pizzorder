@@ -3,12 +3,14 @@ import React, { useState, createContext } from 'react';
 export interface PizzaContextType {
     show: boolean;
     editing: boolean;
+    likedPizzas: string[];
     pizzas: PizzaItemType[];
     ingredients: IngredientItemType[];
     pizzaDetails?: PizzaItemType;
     customizationDetails: CustomizationDetails;
 
     hide: () => void;
+    toggleLike: (id: string) => void;
     storePizzas: (pizzas: PizzaItemType[]) => void;
     storePizzaDetails: (pizza: PizzaItemType, details?: CustomizationDetails) => void;
     updateCustomizationDetails: (customizationDetails: CustomizationDetails) => void;
@@ -25,6 +27,7 @@ const PizzaProvider: React.FC<PizzaContextProps> = ({ children, ingredientsData 
     const [show, setShow] = useState<boolean>(false);
     const [editing, setEditing] = useState<boolean>(false);
     const [details, setDetails] = useState<PizzaItemType>();
+    const [likedPizzas, setLikedPizzas] = useState<string[]>([]);
     const [pizzas, setPizzas] = useState<PizzaItemType[]>([]);
     const [customizationDetails, setCustomizationDetails] = useState<CustomizationDetails>({
         extraCheese: false,
@@ -58,20 +61,29 @@ const PizzaProvider: React.FC<PizzaContextProps> = ({ children, ingredientsData 
     const storeIngredients = (ingredients: IngredientItemType[]) => {
         setIngredients(ingredients);
     };
+    const toggleLike = (id: string) => {
+        if (likedPizzas.includes(id)) {
+            setLikedPizzas(likedPizzas.filter((pizzaId) => pizzaId !== id));
+        } else {
+            setLikedPizzas([...likedPizzas, id]);
+        }
+    };
 
     const contextValue: PizzaContextType = {
         show,
         pizzas,
         editing,
         ingredients,
+        likedPizzas,
         customizationDetails,
         pizzaDetails: details,
 
         hide: () => setShow(false),
+        toggleLike,
         storePizzas,
+        storeIngredients,
         storePizzaDetails,
         updateCustomizationDetails,
-        storeIngredients,
     };
 
     return <PizzaContext.Provider value={contextValue}>{children}</PizzaContext.Provider>;
