@@ -51,7 +51,7 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
         <Layout>
             <main className="space-y-6 py-2 px-4">
                 {/* Shoutout */}
-                <h1 className="text-3xl md:text-4xl font-archivo-bold my-2 md:my-4">
+                <h1 className="text-3xl md:text-4xl font-noto-sans-bold my-2 md:my-4">
                     Pizza&apos;s that makes your meal delightfull
                 </h1>
                 <Search />

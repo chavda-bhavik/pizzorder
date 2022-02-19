@@ -10,7 +10,7 @@ interface IconButtonProps {
 }
 
 export const IconButton: React.FC<IconButtonProps> = ({ variant, icon, iconSize, onClick, className }) => {
-    let classes = 'p-2 text-lg font-archivo-bold transition-colors duration-300 rounded-full';
+    let classes = 'p-2 text-lg font-noto-sans-bold transition-colors duration-300 rounded-full';
 
     return (
         <button
