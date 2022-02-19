@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { IconButton } from '../IconButton';
+import { Button } from '../Button';
+import { Icon } from '../Icon';
 
 interface CartItemProps {
     item: CartItemType;
@@ -21,23 +22,28 @@ export const CartItem: React.FC<CartItemProps> = ({
     };
     const quantityActionContent = (
         <>
-            <IconButton
-                icon={item.quantity === 1 ? 'trash' : 'minus'}
-                iconSize="sm"
+            <Button
                 onClick={() => handleQuantityChange('down')}
+                size="sm"
                 variant="secondary"
-            />
+                className="rounded-full py-2"
+            >
+                <Icon icon={item.quantity === 1 ? 'trash' : 'minus'} size="sm" />
+            </Button>
             <span className="py-1 px-3 text-xl font-noto-sans-bold">{item.quantity}</span>
-            <IconButton
-                icon="plus"
-                iconSize="sm"
+            <Button
                 onClick={() => handleQuantityChange('up')}
-                variant="primary"
-            />
+                size="sm"
+                className="rounded-full py-2"
+            >
+                <Icon icon="plus" size="sm" />
+            </Button>
         </>
     );
     const editContent = (
-        <IconButton icon="pencil" iconSize="sm" variant="secondary" onClick={onEditClick} />
+        <Button variant="secondary" onClick={onEditClick} size="sm" className="rounded-full py-2">
+            <Icon icon="pencil" size="sm" />
+        </Button>
     );
     return (
         <div className="flex flex-row w-full bg-classy-white rounded-lg border-2 border-classy-slate p-2 gap-2">

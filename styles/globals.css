@@ -25,6 +25,7 @@ src: local(''),
     body {
         @apply font-noto-sans;
     }
+
     /* Utility */
     .bg-glassmorphic {
         @apply bg-gray-50 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-75;
@@ -49,6 +50,10 @@ src: local(''),
     .position-unset {
         position: unset;
     }
+    .rupee::before {
+        content: '₹';
+    }
+
     /* Title */
     .title {
         @apply font-semibold text-lg md:text-xl;
@@ -59,16 +64,27 @@ src: local(''),
     .title-lg {
         @apply font-noto-sans-bold text-2xl md:text-3xl my-3;
     }
+
     /* Button */
     .btn {
-        @apply p-2 text-center font-noto-sans-bold text-lg flex flex-row justify-center items-center gap-x-1 rounded-2xl;
+        @apply text-center font-noto-sans-bold rounded-lg outline-none;
     }
     .btn-primary {
         @apply bg-classy-golden text-black hover:bg-classy-slate hover:text-gray-100 transition-colors duration-300 disabled:bg-classy-slate disabled:text-gray-100;
     }
+    .btn-secondary {
+        @apply bg-classy-slate text-black hover:bg-classy-golden transition-colors duration-300 disabled:bg-classy-white disabled:text-gray-100;
+    }
     .btn-disabled {
         @apply bg-classy-lightGolden text-gray-900 cursor-not-allowed;
     }
+    .btn-sm {
+        @apply px-2 py-1 text-sm;
+    }
+    .btn-md {
+        @apply px-3 py-2 text-base;
+    }
+
     /* Input */
     .input {
         @apply p-2 rounded-md bg-classy-white focus:ring-2 ring-classy-slate focus:outline-none border-2 border-classy-slate;
@@ -76,6 +92,7 @@ src: local(''),
     .input-label {
         @apply text-black font-noto-sans-bold;
     }
+
     /* Animations */
     .animate-rotate-center {
         animation: rotate-center 500ms
@@ -91,6 +108,7 @@ src: local(''),
         }
     }
 
+    /* Shadows */
     .text-shadow {
         text-shadow: 0px 0px 8px black;
     }
@@ -103,24 +121,22 @@ src: local(''),
     .text-shadow-none {
         text-shadow: none;
     }
+
     /* PizzaItem */
     .bg-shadow {
         background-image: url(https://pizzaonline.dominos.co.in/static/assets/icons/shadow.svg);
         background-repeat: no-repeat;
         background-size: 100% 100%;
     }
+
     /* Drawer */
     .drawer {
         transition: all 330ms ease-out;
     }
-
     .drawer-open {
         transform: translateX(0%);
     }
     .drawer-close {
         transform: translateX(-100%);
-    }
-    .rupee::before {
-        content: '₹';
     }
 }

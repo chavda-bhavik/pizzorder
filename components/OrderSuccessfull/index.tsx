@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Router from 'next/router';
-import { motion, transform } from 'framer-motion';
+import { motion } from 'framer-motion';
 
-import { Backdrop } from "../Backdrop";
+import { Backdrop } from '../Backdrop';
 import { Button } from '../Button';
 
 interface OrderSuccessfullProps {
@@ -13,7 +13,7 @@ interface OrderSuccessfullProps {
 export const OrderSuccessfull: React.FC<OrderSuccessfullProps> = ({ onClose, show }) => {
     const continueShoppingClick = () => {
         Router.push('/');
-    }
+    };
     return (
         <Backdrop onClose={onClose} open={show} className="p-2">
             <div className="relative w-full h-full">
@@ -63,14 +63,11 @@ export const OrderSuccessfull: React.FC<OrderSuccessfullProps> = ({ onClose, sho
                         It will be delivered to you soon.
                     </p>
 
-                    <Button
-                        text="Continue Shopping"
-                        block
-                        onClick={continueShoppingClick}
-                        className="rounded-md p-1"
-                    />
+                    <Button block onClick={continueShoppingClick} className="rounded-md p-1">
+                        Continue Shopping
+                    </Button>
                 </motion.div>
             </div>
         </Backdrop>
     );
-}
+};

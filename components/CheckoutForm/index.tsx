@@ -78,30 +78,23 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({ handleSubmit, formDi
                 className="w-full"
                 cardNumberInputProps={{
                     value: userDetails.cardNumber,
-                    onChange: (e: React.ChangeEvent) =>
-                        onCreditCardInputChange(e, 'cardNumber'),
+                    onChange: (e: React.ChangeEvent) => onCreditCardInputChange(e, 'cardNumber'),
                 }}
                 cardExpiryInputProps={{
                     value: userDetails.expiry,
-                    onChange: (e: React.ChangeEvent) =>
-                        onCreditCardInputChange(e, 'expiry'),
+                    onChange: (e: React.ChangeEvent) => onCreditCardInputChange(e, 'expiry'),
                 }}
                 cardCVCInputProps={{
                     value: userDetails.cvc,
-                    onChange: (e: React.ChangeEvent) =>
-                        onCreditCardInputChange(e, 'cvc'),
+                    onChange: (e: React.ChangeEvent) => onCreditCardInputChange(e, 'cvc'),
                 }}
                 fieldClassName="input"
             />
 
             {/* Checkout */}
-            <Button
-                text="Let's Go"
-                type="submit"
-                block
-                disabled={formDisabled}
-                className="rounded-sm"
-            />
+            <Button type="submit" block disabled={formDisabled}>
+                Let&apos;s Go
+            </Button>
         </form>
     );
 }

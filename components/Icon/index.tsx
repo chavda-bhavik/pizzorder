@@ -1,5 +1,4 @@
-import React from "react";
-import classnames from "classnames";
+import classnames from 'classnames';
 
 const icons: any = {
     plus: {
@@ -109,36 +108,30 @@ const icons: any = {
 };
 
 const sizes = {
-	sm: 24,
-	md: 32,
-	lg: 40,
+    sm: 24,
+    md: 32,
+    lg: 40,
 };
 
 interface IconProps {
-	icon: IconsType;
-	size?: IconsSizesType;
-	className?: string;
-	fill?: string;
+    icon: IconsType;
+    size?: IconsSizesType;
+    className?: string;
 }
 
-export const Icon: React.FC<IconProps> = ({
-	icon,
-	size = "md",
-	className = "",
-	fill,
-}) => {
-	return (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox={icons[icon].viewBox}
-			width={sizes[size]}
-			height={sizes[size]}
-			preserveAspectRatio="xMinYMin"
-			className={classnames(className, " text-center")}
-			fill="currentColor"
-			role="img"
-		>
-			{icons[icon].path}
-		</svg>
-	);
+export const Icon: React.FC<IconProps> = ({ icon, size = 'md', className = '' }) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox={icons[icon].viewBox}
+            width={sizes[size]}
+            height={sizes[size]}
+            preserveAspectRatio="xMinYMin"
+            className={classnames(className, ' text-center')}
+            fill="currentColor"
+            role="img"
+        >
+            {icons[icon].path}
+        </svg>
+    );
 };

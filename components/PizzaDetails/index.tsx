@@ -1,13 +1,14 @@
 import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
 
+import { Button } from '../Button';
 import Switcher from '@/components/Switcher';
+import { countPizzaPrice } from '@/util/helper';
 import { CartContext } from '@/context/CartContext';
 import { Ingredient } from '@/components/Ingredient';
-import { CheeseSelector } from '@/components/CheeseSelector';
-import { ConfigContext } from '@/context/ConfigContext';
 import { PizzaContext } from '@/context/PizzaContext';
-import { countPizzaPrice } from '@/util/helper';
+import { ConfigContext } from '@/context/ConfigContext';
+import { CheeseSelector } from '@/components/CheeseSelector';
 
 interface PizzaDetailsProps {
     onClose?: () => void;
@@ -168,15 +169,16 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ onClose }) => {
                 </div>
             </div>
             {/* Add To Cart */}
-            <button
-                className="btn btn-primary w-full fixed bottom-0 rounded-none flex flex-row justify-between py-2 px-3"
+            <Button
+                block
                 onClick={onAddToCart}
+                className="fixed bottom-0 rounded-none flex flex-row justify-between px-3"
             >
                 {pizzaContext?.editing ? 'Update Pizza' : 'Add To Cart'}
                 <div className="border-black px-2 text-xl font-medium font-sans">
                     <span className="rupee">{customizationDetails.price}</span>
                 </div>
-            </button>
+            </Button>
         </div>
     );
 };
