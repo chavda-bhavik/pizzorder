@@ -10,6 +10,7 @@ interface CheckoutProps {
     collapsed?: boolean;
     setCollapsed?: (collapsed: boolean) => void;
     totalInfo?: TotalInfo;
+    editing?: boolean;
 }
 
 const collapseVariants: Variants = {
@@ -23,7 +24,12 @@ const collapseVariants: Variants = {
     },
 };
 
-export const Checkout: React.FC<CheckoutProps> = ({ collapsed, setCollapsed, totalInfo }) => {
+export const Checkout: React.FC<CheckoutProps> = ({
+    collapsed,
+    setCollapsed,
+    totalInfo,
+    editing = false,
+}) => {
     return (
         <div className="fixed bottom-0 md:bottom-auto md:left-[50%] px-2 pb-2 w-full md:w-[50%] bg-classy-deemLight border-t-4 border-classy-lightBrown md:border-transparent">
             <div
@@ -59,7 +65,11 @@ export const Checkout: React.FC<CheckoutProps> = ({ collapsed, setCollapsed, tot
             </motion.div>
             <Link href="/checkout">
                 <a>
-                    <Button text={'Proceed to Checkout'} disabled={!totalInfo || totalInfo.total === 0} />
+                    <Button
+                        block
+                        text={'Proceed to Checkout'}
+                        disabled={!totalInfo || totalInfo.total === 0 || editing}
+                    />
                 </a>
             </Link>
         </div>
