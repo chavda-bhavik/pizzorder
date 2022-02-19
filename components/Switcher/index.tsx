@@ -1,8 +1,7 @@
-import classNames from 'classnames'
-import React from 'react'
+import classNames from 'classnames';
 
 interface SwitcherProps {
-    className?: string
+    className?: string;
 }
 
 interface SwitchProps {
@@ -14,7 +13,7 @@ interface SwitchProps {
 }
 
 const Switch: React.FC<SwitchProps> = ({
-    onClick = () => { },
+    onClick = () => {},
     active = false,
     title,
     subTitle,
@@ -39,10 +38,7 @@ const Switch: React.FC<SwitchProps> = ({
     );
 };
 
-const Switcher: React.FC<SwitcherProps> = ({
-    className,
-    children,
-}) => {
+const Switcher: React.FC<SwitcherProps> = ({ className, children }) => {
     return (
         <div
             className={classNames(
@@ -56,5 +52,5 @@ const Switcher: React.FC<SwitcherProps> = ({
 };
 
 export default Object.assign(Switcher, {
-    Switch
+    Switch,
 });

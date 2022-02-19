@@ -46,11 +46,9 @@ const Cart: React.FC<CartProps> = ({}) => {
                 >
                     <div className="flex flex-row justify-between items-center content-center">
                         <h2 className="title-lg">Your Cart</h2>
-                        <Button
-                            className="py-0 px-2 rounded-md"
-                            text={editing ? 'Done' : 'Edit Cart'}
-                            onClick={handleEditClick}
-                        />
+                        <Button size="sm" onClick={handleEditClick}>
+                            {editing ? 'Done' : 'Edit Cart'}
+                        </Button>
                     </div>
                     <div className="space-y-2">
                         {cartContext?.items.map((item, i) => (

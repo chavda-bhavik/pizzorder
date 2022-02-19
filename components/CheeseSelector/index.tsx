@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 
 import { Icon } from '@/components/Icon';
+import { Button } from '../Button';
 
 interface CheeseSelectorProps {
     added?: boolean;
@@ -15,18 +16,20 @@ export const CheeseSelector: React.FC<CheeseSelectorProps> = ({ added = false, o
                 size="sm"
                 className={classNames({
                     'text-green-700': added,
-                    'text-classy-slate': !added
+                    'text-classy-slate': !added,
                 })}
             />
             <div className="flex-grow px-2">
                 <p>I want to add extra cheese @ 75.00</p>
             </div>
-            <button
-                className="border border-classy-slate px-2 py-1 rounded-md bg-classy-slate hover:bg-classy-golden transition-colors duration-400"
+            <Button
+                className=""
+                variant="secondary"
+                size="md"
                 onClick={() => onToggle && onToggle(!added)}
             >
                 {added ? 'Remove' : 'Add'}
-            </button>
+            </Button>
         </div>
     );
-}
+};
