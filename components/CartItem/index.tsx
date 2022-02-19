@@ -1,6 +1,4 @@
-import React from 'react'
 import Image from 'next/image';
-import { Icon } from '../Icon';
 import { IconButton } from '../IconButton';
 
 interface CartItemProps {
@@ -29,7 +27,7 @@ export const CartItem: React.FC<CartItemProps> = ({
                 onClick={() => handleQuantityChange('down')}
                 variant="secondary"
             />
-            <span className="py-1 px-3 text-xl font-archivo-bold">{item.quantity}</span>
+            <span className="py-1 px-3 text-xl font-noto-sans-bold">{item.quantity}</span>
             <IconButton
                 icon="plus"
                 iconSize="sm"
@@ -53,7 +51,7 @@ export const CartItem: React.FC<CartItemProps> = ({
                 />
             </div>
             <div className="flex flex-col justify-center flex-grow">
-                <h3 className="text-lg font-archivo-semibold">{item.pizza.title}</h3>
+                <h3 className="text-lg font-noto-sans-bold">{item.pizza.title}</h3>
                 <p className="text-base rupee">{item.price}</p>
             </div>
             <div className="flex flex-row items-center">

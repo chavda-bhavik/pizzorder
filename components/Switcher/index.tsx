@@ -31,9 +31,9 @@ const Switch: React.FC<SwitchProps> = ({
             )}
             onClick={onClick}
         >
-            <p className="mb-0 font-archivo-bold" dangerouslySetInnerHTML={{ __html: title }} />
+            <p className="mb-0 font-noto-sans-bold" dangerouslySetInnerHTML={{ __html: title }} />
             {subTitle ? (
-                <p className="mb-0 text-sm font-archivo" dangerouslySetInnerHTML={{ __html: subTitle }} />
+                <p className="mb-0 text-sm" dangerouslySetInnerHTML={{ __html: subTitle }} />
             ) : null}
         </div>
     );

@@ -21,7 +21,7 @@ export const DividedContent: React.FC<DividedContentProps> = ({ children, classN
                     return (
                         <>
                             <hr />
-                            <div className="flex justify-between text-lg font-archivo-semibold px-1">
+                            <div className="flex justify-between text-lg font-noto-sans-bold px-1">
                                 <p>{child.props.title}</p>
                                 <p>{child.props.children}</p>
                             </div>
@@ -31,8 +31,8 @@ export const DividedContent: React.FC<DividedContentProps> = ({ children, classN
                     // rendering normal content
                     return (
                         <div className="flex justify-between px-1">
-                            <p className="font-archivo-light">{child.props.title}</p>
-                            <p className="font-archivo-semibold">{child.props.children}</p>
+                            <p className="font-noto-sans">{child.props.title}</p>
+                            <p className="font-noto-sans-bold">{child.props.children}</p>
                         </div>
                     );
                 } else return null;
