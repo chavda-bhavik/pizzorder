@@ -14,14 +14,14 @@ class MyDocument extends Document {
 
 	render() {
 		return (
-			<Html>
-				<Head />
-				<body>
-					<Main />
-					<NextScript />
-				</body>
-			</Html>
-		);
+            <Html lang="en">
+                <Head />
+                <body>
+                    <Main />
+                    <NextScript />
+                </body>
+            </Html>
+        );
 	}
 }
 

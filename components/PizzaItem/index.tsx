@@ -20,12 +20,12 @@ export const PizzaItem: React.FC<PizzaProps> = ({ pizza, onClick }) => {
                     layout="fill"
                 />
                 <div className="absolute bottom-0 left-0 w-20 h-11 bg-shadow" />
-                <h4 className="absolute bottom-0 left-0 text-lg font-noto-sans-bold text-classy-white pl-1 pb-1 leading-4">
+                <div className="absolute bottom-0 left-0 text-lg font-noto-sans-bold text-classy-white pl-1 pb-1 leading-4">
                     <span className="rupee">{pizza.prices.medium}</span>
-                </h4>
+                </div>
             </div>
             <div className="text-left pt-2 px-3 pb-4 rounded-b-md flex-grow">
-                <h3 className="font-sans font-semibold text-lg mb-1">{pizza.title}</h3>
+                <h2 className="font-sans font-semibold text-lg mb-1">{pizza.title}</h2>
                 <p className="text-gray-900 font-sans text-sm leading-4">{pizza.subtitle}</p>
             </div>
         </div>
