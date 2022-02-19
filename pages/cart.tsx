@@ -5,17 +5,36 @@ import { CartItem } from '@/components/CartItem';
 import { Checkout } from '@/components/Checkout';
 import { Layout } from '@/components/Layout';
 import { CartContext } from '@/context/CartContext';
+import { Button } from '@/components/Button';
+import { getPizzaDetails } from '@/api';
+import { PizzaContext } from '@/context/PizzaContext';
 
 interface CartProps {}
 
 const Cart: React.FC<CartProps> = ({}) => {
     const cartContext = useContext(CartContext);
+    const pizzaContext = useContext(PizzaContext);
     const [collapsed, setCollapsed] = useState(false);
+    const [editing, setEditing] = useState(false);
 
     const handleQuantityChange = (id: string, quantity: number) => {
         cartContext?.updateQuantity(id, quantity);
     };
-
+    const handleEditClick = () => {
+        setEditing(!editing);
+    };
+    const handleEditCartItemClick = async (index: number) => {
+        let cartItem = cartContext?.items[index];
+        if (cartItem) {
+            let pizza = await getPizzaDetails(cartItem.pizza.id!);
+            pizzaContext?.storePizzaDetails(pizza, {
+                extraCheese: Boolean(cartItem.extraCheese),
+                price: cartItem.price,
+                toppings: cartItem.ingredients || [],
+                size: cartItem.size,
+            });
+        }
+    };
     return (
         <Layout>
             <main className="py-2 md:grid md:grid-cols-2 relative">
@@ -25,14 +44,34 @@ const Cart: React.FC<CartProps> = ({}) => {
                         'mb-28': collapsed,
                     })}
                 >
-                    <h2 className="title-lg">Your Cart</h2>
+                    <div className="flex flex-row justify-between items-center content-center">
+                        <h2 className="title-lg">Your Cart</h2>
+                        <Button
+                            className="py-0 px-2 rounded-md"
+                            text={editing ? 'Done' : 'Edit Cart'}
+                            onClick={handleEditClick}
+                        />
+                    </div>
                     <div className="space-y-2">
                         {cartContext?.items.map((item, i) => (
-                            <CartItem key={i} item={item} onQuantityChange={(quantity) => handleQuantityChange(item.pizza.id!, quantity)} />
+                            <CartItem
+                                key={i}
+                                item={item}
+                                editing={editing}
+                                onEditClick={() => handleEditCartItemClick(i)}
+                                onQuantityChange={(quantity) =>
+                                    handleQuantityChange(item.pizza.id!, quantity)
+                                }
+                            />
                         ))}
                     </div>
                 </div>
-                <Checkout collapsed={collapsed} setCollapsed={setCollapsed} totalInfo={cartContext?.totalInfo} />
+                <Checkout
+                    editing={editing}
+                    collapsed={collapsed}
+                    setCollapsed={setCollapsed}
+                    totalInfo={cartContext?.totalInfo}
+                />
             </main>
         </Layout>
     );

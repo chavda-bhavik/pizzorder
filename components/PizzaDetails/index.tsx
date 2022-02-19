@@ -1,68 +1,106 @@
-import { useContext, useState } from 'react';
+import Image from 'next/image';
+import { useContext, useEffect, useState } from 'react';
 
 import Switcher from '@/components/Switcher';
 import { CartContext } from '@/context/CartContext';
 import { Ingredient } from '@/components/Ingredient';
 import { CheeseSelector } from '@/components/CheeseSelector';
 import { ConfigContext } from '@/context/ConfigContext';
-import Image from 'next/image';
+import { PizzaContext } from '@/context/PizzaContext';
+import { countPizzaPrice } from '@/util/helper';
 
 interface PizzaDetailsProps {
-    pizza: PizzaItemType;
-    show: boolean;
-    onClose: () => void;
-    ingredients: IngredientItemType[];
+    onClose?: () => void;
 }
 
-const PizzaDetails: React.FC<PizzaDetailsProps> = ({ pizza, show, onClose, ingredients }) => {
+const PizzaDetails: React.FC<PizzaDetailsProps> = ({ onClose }) => {
     const configContext = useContext(ConfigContext);
     const cartContext = useContext(CartContext);
-    const [details, setDetails] = useState<CustomizationDetails>({
+    const pizzaContext = useContext(PizzaContext);
+    const [customizationDetails, setCustomizationDetails] = useState<CustomizationDetails>({
         extraCheese: false,
-        size: 'medium',
         toppings: [],
-        price: pizza.prices.medium,
+        price: 0,
     });
+    const [pizzaItemDetails, setPizzaItemDetails] = useState<PizzaItemType>();
 
-    const onDetailsChange = (
-        extraCheese: boolean | null,
-        size?: null | PizzaSizeTypes,
-        topping?: string | null
-    ) => {
-        let newDetails = { ...details };
-        let newPrice = pizza.prices[size || details.size];
-        if (extraCheese !== null) {
-            newDetails.extraCheese = extraCheese;
-            newPrice += configContext?.config.extraCheesePrice!;
+    useEffect(() => {
+        if (pizzaContext?.pizzaDetails) {
+            setPizzaItemDetails(pizzaContext.pizzaDetails);
         }
-        if (size) newDetails.size = size;
-        if (topping) {
-            if (newDetails.toppings.includes(topping))
-                newDetails.toppings.splice(newDetails.toppings.indexOf(topping), 1);
-            else newDetails.toppings.push(topping);
-            newPrice += newDetails.toppings.length * configContext?.config.toppingPrice!;
+    }, [pizzaContext?.pizzaDetails]);
+
+    useEffect(() => {
+        if (pizzaContext?.customizationDetails) {
+            setCustomizationDetails(pizzaContext.customizationDetails);
         }
-        setDetails({
-            ...newDetails,
-            price: newPrice,
-        });
+    }, [pizzaContext?.customizationDetails]);
+
+    const onDetailsChange = (extraCheese?: boolean, size?: PizzaSizeTypes, topping?: string) => {
+        if (pizzaContext && pizzaItemDetails && configContext) {
+            let newDetails = { ...pizzaContext.customizationDetails };
+            if (typeof extraCheese !== 'undefined') newDetails.extraCheese = extraCheese;
+            if (size) newDetails.size = size;
+            if (topping) {
+                if (newDetails.toppings.includes(topping))
+                    newDetails.toppings.splice(newDetails.toppings.indexOf(topping), 1);
+                else newDetails.toppings.push(topping);
+            }
+            pizzaContext?.updateCustomizationDetails({
+                ...newDetails,
+                price: countPizzaPrice(
+                    pizzaItemDetails,
+                    configContext.config,
+                    size || 'medium',
+                    extraCheese,
+                    newDetails.toppings
+                ),
+            });
+        }
     };
     const onAddToCart = () => {
-        cartContext?.addToCart(pizza.id, pizza.imageUrl, pizza.title, details);
-        onClose();
+        if (pizzaItemDetails && pizzaContext) {
+            if (pizzaContext.editing) {
+                cartContext?.updateCartItem(
+                    pizzaItemDetails.id,
+                    pizzaItemDetails.imageUrl,
+                    pizzaItemDetails.title,
+                    customizationDetails
+                );
+            } else {
+                cartContext?.addToCart(
+                    pizzaItemDetails.id,
+                    pizzaItemDetails.imageUrl,
+                    pizzaItemDetails.title,
+                    pizzaContext.customizationDetails
+                );
+            }
+            onClose && onClose();
+        }
     };
 
     return (
         <div className=" h-full relative">
             {/* Pizza Image */}
             <div className="relative w-full h-56 sm:h-64 lg:h-72">
-                <Image src={pizza.imageUrl} loading="lazy" alt={pizza.title} layout="fill" />
+                {pizzaItemDetails && (
+                    <Image
+                        src={pizzaItemDetails.imageUrl}
+                        loading="lazy"
+                        alt={pizzaItemDetails.title}
+                        layout="fill"
+                    />
+                )}
             </div>
             <div className="pb-20 space-y-8 bg-classy-white">
                 {/* Title */}
                 <div className="flex flex-col justify-center px-5 bg-classy-deemLight pt-4 pb-5">
-                    <h3 className="font-semibold font-sans text-xl md:text-2xl">{pizza.title}</h3>
-                    <p className="font-sans text-lg">{pizza.subtitle}</p>
+                    <h3 className="font-semibold font-sans text-xl md:text-2xl">
+                        {pizzaItemDetails ? pizzaItemDetails.title : ''}
+                    </h3>
+                    <p className="font-sans text-lg">
+                        {pizzaItemDetails ? pizzaItemDetails.subtitle : ''}
+                    </p>
                 </div>
 
                 <div className="space-y-8 px-5">
@@ -70,39 +108,39 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ pizza, show, onClose, ingre
                     <div className="space-y-3">
                         <h4 className="title">Select Size</h4>
                         <Switcher>
-                            {pizza.prices.small && (
+                            {pizzaItemDetails && pizzaItemDetails.prices.small && (
                                 <Switcher.Switch
-                                    title={`Small <span class='rupee'>${pizza.prices.small}</span>`}
+                                    title={`Small <span class='rupee'>${pizzaItemDetails.prices.small}</span>`}
                                     subTitle="Serves 2"
-                                    active={details.size === 'small'}
-                                    onClick={() => onDetailsChange(null, 'small')}
+                                    active={customizationDetails.size === 'small'}
+                                    onClick={() => onDetailsChange(undefined, 'small')}
                                 />
                             )}
-                            {pizza.prices.medium && (
+                            {pizzaItemDetails && pizzaItemDetails.prices.medium && (
                                 <Switcher.Switch
-                                    title={`Medium <span class='rupee'>${pizza.prices.medium}</span>`}
+                                    title={`Medium <span class='rupee'>${pizzaItemDetails.prices.medium}</span>`}
                                     subTitle="Serves 4"
-                                    active={details.size === 'medium'}
-                                    onClick={() => onDetailsChange(null, 'medium')}
+                                    active={customizationDetails.size === 'medium'}
+                                    onClick={() => onDetailsChange(undefined, 'medium')}
                                 />
                             )}
-                            {pizza.prices.large && (
+                            {pizzaItemDetails && pizzaItemDetails.prices.large && (
                                 <Switcher.Switch
-                                    title={`Large <span class='rupee'>${pizza.prices.large}</span>`}
+                                    title={`Large <span class='rupee'>${pizzaItemDetails.prices.large}</span>`}
                                     subTitle="Serves 7"
-                                    active={details.size === 'large'}
-                                    onClick={() => onDetailsChange(null, 'large')}
+                                    active={customizationDetails.size === 'large'}
+                                    onClick={() => onDetailsChange(undefined, 'large')}
                                 />
                             )}
                         </Switcher>
                     </div>
 
                     {/* Extra Cheese */}
-                    {pizza.extraCheeseAvailabe && (
+                    {pizzaItemDetails && pizzaItemDetails.extraCheeseAvailabe && (
                         <div className="space-y-3">
                             <h4 className="title">Extra Cheese</h4>
                             <CheeseSelector
-                                added={details.extraCheese}
+                                added={customizationDetails.extraCheese}
                                 onToggle={(value) => onDetailsChange(value)}
                             />
                         </div>
@@ -115,12 +153,14 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ pizza, show, onClose, ingre
                             <h5>Add Veg Toppings @ 60.00 each</h5>
                         </div>
                         <div className="flex flex-row gap-x-3 pb-3 px-1 md:gap-x-4 overflow-x-scroll">
-                            {ingredients.map((ingredient, index) => (
+                            {pizzaContext?.ingredients.map((ingredient, index) => (
                                 <Ingredient
                                     ingredient={ingredient}
                                     key={index}
-                                    added={details.toppings.includes(ingredient.id)}
-                                    onToggle={(value) => onDetailsChange(null, null, value)}
+                                    added={customizationDetails.toppings.includes(ingredient.id)}
+                                    onToggle={(value) =>
+                                        onDetailsChange(undefined, undefined, value)
+                                    }
                                 />
                             ))}
                         </div>
@@ -132,9 +172,9 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ pizza, show, onClose, ingre
                 className="btn btn-primary w-full fixed bottom-0 rounded-none flex flex-row justify-between py-2 px-3"
                 onClick={onAddToCart}
             >
-                Add To Cart
+                {pizzaContext?.editing ? 'Update Pizza' : 'Add To Cart'}
                 <div className="border-black px-2 text-xl font-medium font-sans">
-                    <span className="rupee">{details.price}</span>
+                    <span className="rupee">{customizationDetails.price}</span>
                 </div>
             </button>
         </div>
