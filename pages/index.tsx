@@ -68,7 +68,7 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
                 <Search />
 
                 {/* Listing */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 max-w-7xl">
                     {/* Pizza */}
                     {pizzas &&
                         pizzas.map((pizza, i) => (
@@ -81,7 +81,7 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
                 </div>
             </main>
 
-            <Drawer open={open} onClose={handleClose} >
+            <Drawer open={open} onClose={handleClose}>
                 <DynamicPizzaDetails
                     onClose={handleClose}
                     show={open}
