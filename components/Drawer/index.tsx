@@ -50,15 +50,13 @@ export const Drawer: React.FC<DrawerProps> = ({ open = false, children, onClose 
                 Leaving: "ease-in-out duration-500"
                 From: "opacity-100"
                 To: "opacity-0" */}
-                <div className="absolute top-0 right-0 -mr-8 md:-mr-12 pt-4 pl-2 flex sm:-ml-10 md:pr-4">
+                <div className="absolute top-0 right-0 -mr-8 md:-mr-12 pt-4 pl-2 sm:-ml-10 md:pr-4">
                     <button
                         type="button"
                         onClick={onClose}
                         className="rounded-md text-gray-50 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
                     >
-                        <span className="sr-only">
-                            Close panel
-                        </span>
+                        <span className="sr-only">Close panel</span>
                         <Icon icon="close" />
                     </button>
                 </div>

@@ -5,6 +5,7 @@ import { CartContext } from '@/context/CartContext';
 import { Ingredient } from '@/components/Ingredient';
 import { CheeseSelector } from '@/components/CheeseSelector';
 import { ConfigContext } from '@/context/ConfigContext';
+import Image from 'next/image';
 
 interface PizzaDetailsProps {
     pizza: PizzaItemType;
@@ -54,73 +55,75 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ pizza, show, onClose, ingre
     return (
         <div className=" h-full relative">
             {/* Pizza Image */}
-            <img src={pizza.imageUrl} loading="lazy" alt={pizza.title} />
-            <div className="pt-3 pb-20 px-5 space-y-8 bg-classy-white">
+            <div className="relative w-full h-56 sm:h-64 lg:h-72">
+                <Image src={pizza.imageUrl} loading="lazy" alt={pizza.title} layout="fill" />
+            </div>
+            <div className="pb-20 space-y-8 bg-classy-white">
                 {/* Title */}
-                <div className="flex flex-col justify-center">
-                    <h3 className="font-semibold font-sans text-xl md:text-2xl">
-                        {pizza.title}
-                    </h3>
+                <div className="flex flex-col justify-center px-5 bg-classy-deemLight pt-4 pb-5">
+                    <h3 className="font-semibold font-sans text-xl md:text-2xl">{pizza.title}</h3>
                     <p className="font-sans text-lg">{pizza.subtitle}</p>
                 </div>
 
-                {/* Size */}
-                <div className="space-y-3">
-                    <h4 className="title">Select Size</h4>
-                    <Switcher>
-                        {pizza.prices.small && (
-                            <Switcher.Switch
-                                title={`Small <span class='rupee'>${pizza.prices.small}</span>`}
-                                subTitle="Serves 2"
-                                active={details.size === 'small'}
-                                onClick={() => onDetailsChange(null, 'small')}
-                            />
-                        )}
-                        {pizza.prices.medium && (
-                            <Switcher.Switch
-                                title={`Medium <span class='rupee'>${pizza.prices.medium}</span>`}
-                                subTitle="Serves 4"
-                                active={details.size === 'medium'}
-                                onClick={() => onDetailsChange(null, 'medium')}
-                            />
-                        )}
-                        {pizza.prices.large && (
-                            <Switcher.Switch
-                                title={`Large <span class='rupee'>${pizza.prices.large}</span>`}
-                                subTitle="Serves 7"
-                                active={details.size === 'large'}
-                                onClick={() => onDetailsChange(null, 'large')}
-                            />
-                        )}
-                    </Switcher>
-                </div>
-
-                {/* Extra Cheese */}
-                {pizza.extraCheeseAvailabe && (
+                <div className="space-y-8 px-5">
+                    {/* Size */}
                     <div className="space-y-3">
-                        <h4 className="title">Extra Cheese</h4>
-                        <CheeseSelector
-                            added={details.extraCheese}
-                            onToggle={(value) => onDetailsChange(value)}
-                        />
+                        <h4 className="title">Select Size</h4>
+                        <Switcher>
+                            {pizza.prices.small && (
+                                <Switcher.Switch
+                                    title={`Small <span class='rupee'>${pizza.prices.small}</span>`}
+                                    subTitle="Serves 2"
+                                    active={details.size === 'small'}
+                                    onClick={() => onDetailsChange(null, 'small')}
+                                />
+                            )}
+                            {pizza.prices.medium && (
+                                <Switcher.Switch
+                                    title={`Medium <span class='rupee'>${pizza.prices.medium}</span>`}
+                                    subTitle="Serves 4"
+                                    active={details.size === 'medium'}
+                                    onClick={() => onDetailsChange(null, 'medium')}
+                                />
+                            )}
+                            {pizza.prices.large && (
+                                <Switcher.Switch
+                                    title={`Large <span class='rupee'>${pizza.prices.large}</span>`}
+                                    subTitle="Serves 7"
+                                    active={details.size === 'large'}
+                                    onClick={() => onDetailsChange(null, 'large')}
+                                />
+                            )}
+                        </Switcher>
                     </div>
-                )}
 
-                {/* Toppings */}
-                <div className="space-y-3">
-                    <div>
-                        <h4 className="title">Toppings</h4>
-                        <h5>Add Veg Toppings @ 60.00 each</h5>
-                    </div>
-                    <div className="flex flex-row gap-x-3 pb-3 px-1 md:gap-x-4 overflow-x-scroll">
-                        {ingredients.map((ingredient, index) => (
-                            <Ingredient
-                                ingredient={ingredient}
-                                key={index}
-                                added={details.toppings.includes(ingredient.id)}
-                                onToggle={(value) => onDetailsChange(null, null, value)}
+                    {/* Extra Cheese */}
+                    {pizza.extraCheeseAvailabe && (
+                        <div className="space-y-3">
+                            <h4 className="title">Extra Cheese</h4>
+                            <CheeseSelector
+                                added={details.extraCheese}
+                                onToggle={(value) => onDetailsChange(value)}
                             />
-                        ))}
+                        </div>
+                    )}
+
+                    {/* Toppings */}
+                    <div className="space-y-3">
+                        <div>
+                            <h4 className="title">Toppings</h4>
+                            <h5>Add Veg Toppings @ 60.00 each</h5>
+                        </div>
+                        <div className="flex flex-row gap-x-3 pb-3 px-1 md:gap-x-4 overflow-x-scroll">
+                            {ingredients.map((ingredient, index) => (
+                                <Ingredient
+                                    ingredient={ingredient}
+                                    key={index}
+                                    added={details.toppings.includes(ingredient.id)}
+                                    onToggle={(value) => onDetailsChange(null, null, value)}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
