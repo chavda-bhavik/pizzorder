@@ -15,11 +15,16 @@ type PizzaItemType = {
     title: string;
     subtitle: string;
     imageUrl: string;
+    categories: string[];
     prices: {
-        [key in PizzaSizeTypes]: number;
+        [key in PizzaSizeTypes]?: number;
     };
     extraCheeseAvailabe: boolean;
 };
+
+interface GrouppedPizzaType {
+    [key: string]: Partial<PizzaItemType>[];
+}
 
 type IngredientItemType = {
     id: string;

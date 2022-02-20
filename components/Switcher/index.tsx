@@ -22,7 +22,7 @@ const Switch: React.FC<SwitchProps> = ({
     return (
         <div
             className={classNames(
-                'p-2 rounded text-center hover:bg-classy-golden transition-colors duration-300 flex flex-col justify-center',
+                'p-2 rounded text-center hover:bg-classy-golden transition-colors duration-300 flex flex-col justify-center flex-grow',
                 {
                     'bg-classy-golden': active,
                 },
@@ -42,7 +42,7 @@ const Switcher: React.FC<SwitcherProps> = ({ className, children }) => {
     return (
         <div
             className={classNames(
-                'bg-classy-deemLight rounded grid grid-cols-3 gap-1 p-1 cursor-pointer border-2 border-classy-slate',
+                'bg-classy-deemLight rounded flex flex-row space-x-2 p-1 cursor-pointer border-2 border-classy-slate',
                 className
             )}
         >

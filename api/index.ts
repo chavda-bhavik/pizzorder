@@ -1,6 +1,6 @@
-export async function getPizzas(): Promise<PizzaItemType[]> {
+export async function getPizzas(): Promise<GrouppedPizzaType> {
     let data = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/pizzas`);
-    return data.json() as Promise<PizzaItemType[]>;
+    return data.json() as Promise<GrouppedPizzaType>;
 }
 
 export async function getPizzaDetails(id: string): Promise<PizzaItemType> {

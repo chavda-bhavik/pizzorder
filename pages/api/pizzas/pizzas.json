@@ -3,6 +3,7 @@
         "id": "7213d56c-26e2-461d-b0dc-39badd7da0e6",
         "title": "Margherita",
         "subtitle": "A classic delight with 100% Real mozzarella cheese",
+        "categories": ["BESTSELLERS", "VEG PIZZA"],
         "prices": {
             "small": 249,
             "medium": 349,
@@ -15,6 +16,7 @@
         "id": "6b949743-2c3c-4c9b-8daf-83e43fb76018",
         "title": "Farmhouse",
         "subtitle": "Delightful combination of onion, capsicum, garlic and fresh tomatoes",
+        "categories": ["BESTSELLERS", "VEG PIZZA"],
         "prices": {
             "small": 239,
             "medium": 419,
@@ -27,6 +29,7 @@
         "id": "bab541e1-0797-469e-bfb0-b4811340565c",
         "title": "Veg Extravaganza",
         "subtitle": "Black olives, capsicum, onion, grilled mushroom, corn, tomato, jalapeno & extra cheese",
+        "categories": ["BESTSELLERS", "VEG PIZZA"],
         "prices": {
             "small": 279,
             "medium": 449,
@@ -39,6 +42,7 @@
         "id": "0919b2ed-0776-406c-9b0c-e52145176169",
         "title": "Veggie Paradise",
         "subtitle": "The awesome foursome! Golden corn, black olives, capsicum, red paprika",
+        "categories": ["BESTSELLERS", "VEG PIZZA"],
         "prices": {
             "small": 239,
             "medium": 419,
@@ -51,6 +55,7 @@
         "id": "f7275580-a924-4c4f-ba54-a13e125b00c1",
         "title": "Cheese n Corn",
         "subtitle": "Sweet & Juicy Golden corn and 100% real mozzarella cheese in a delectable combination !",
+        "categories": ["BESTSELLERS", "VEG PIZZA"],
         "prices": {
             "small": 179,
             "medium": 319,
@@ -63,6 +68,7 @@
         "id": "20f21581-ca38-4717-ad28-401b24c5ac6f",
         "title": "Pepper Barbecue Chicken",
         "subtitle": "Pepper barbecue chicken for that extra zing",
+        "categories": ["BESTSELLERS", "CHICKEN LOVERS PIZZA"],
         "prices": {
             "small": 239,
             "medium": 419,
@@ -75,6 +81,7 @@
         "id": "652bd6e7-e78c-4b59-a5e5-23727ab48b64",
         "title": "Chicken Sausage",
         "subtitle": "American classic! Spicy, herbed chicken sausage on pizza",
+        "categories": ["BESTSELLERS", "CHICKEN LOVERS PIZZA"],
         "prices": {
             "small": 199,
             "medium": 349,
@@ -87,6 +94,7 @@
         "id": "fe610c89-db88-4355-84e6-3ad88196457e",
         "title": "The Unthinkable Pizza",
         "subtitle": "Loaded with Plant Based Protein topping along with Black Olives & Red Paprika enjoy this unique 100% Vegetarian pizza with a 100% Chicken like taste!",
+        "categories": ["BESTSELLERS", "VEG PIZZA", "NEW LAUNCHES"],
         "prices": {
             "small": 279,
             "medium": 499,
@@ -94,5 +102,415 @@
         },
         "extraCheeseAvailabe": false,
         "imageUrl": "/images/pizzas/unthickable-pizza.jpg"
+    },
+    {
+        "id": "07b0cdec-3e6b-46e9-9597-6982cd1fc331",
+        "title": "Indo Fusion Chicken Pizza",
+        "subtitle": "Relish the fusion of 5 of your favorite chicken toppings - Peri Peri Chicken, Chicken Pepperoni, Chicken Tikka, Pepper Barbecue Chicken and Chicken Meatballs",
+        "categories": ["CHICKEN LOVERS PIZZA", "NEW LAUNCHES"],
+        "prices": {
+            "small": 389,
+            "medium": 679,
+            "large": 999
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/indo-fusion-chicken-pizza.jpg"
+    },
+    {
+        "id": "94437d86-a4ea-4ad3-922c-3ee700a7ec12",
+        "title": "Chicken Maximus",
+        "subtitle": "Loaded to the Max with Chicken Tikka, Chicken Keema, Chicken Sausage and a double dose of grilled Chicken Rashers.",
+        "categories": ["CHICKEN LOVERS PIZZA", "NON-VEG PIZZA", "NEW LAUNCHES"],
+        "prices": {
+            "small": 369,
+            "medium": 639,
+            "large": 949
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/chicken-maxims.jpg"
+    },
+    {
+        "id": "5518df5f-5c43-4483-b1ba-a72096f4567e",
+        "title": "The 5 Chicken Feast Pizza",
+        "subtitle": "Loaded with 5 different Chicken toppings - grilled Chicken Rashers, Chicken Meatballs, Chicken Tikka, herby Chicken Sausage and flavorful Chicken Keema",
+        "categories": ["CHICKEN LOVERS PIZZA", "NON-VEG PIZZA", "NEW LAUNCHES"],
+        "prices": {
+            "small": 389,
+            "medium": 679,
+            "large": 999
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/5-chiken-feat-pizza.jpg"
+    },
+    {
+        "id": "d2d529dc-42f8-4f5d-bd82-8c4410c0480f",
+        "title": "The Cheese Dominator",
+        "subtitle": "Loaded with 1 Pound of Mozzarella and gooey Liquid Cheese on a Classic Large Pizza topped with a generous helping of herb sprinkle",
+        "categories": ["VEG PIZZA", "The Cheese Dominator"],
+        "prices": {
+            "small": 339,
+            "medium": 59,
+            "large": 879
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/the-cheese-dominator.jpg"
+    },
+    {
+        "id": "1699605d-a123-4496-8c34-d7e4dd743578",
+        "title": "The 4 Cheese Pizza",
+        "subtitle": "Cheese Overloaded pizza with 4 different varieties of cheese and 4 times the cheese of a normal pizza, including a spicy hit of Ghost Pepper flavoured Cheese",
+        "categories": ["VEG PIZZA", "NEW LAUNCHES"],
+        "prices": {
+            "small": 339,
+            "medium": 599,
+            "large": 879
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/the-4-cheese-pizza.jpg"
+    },
+    {
+        "id": "cd4a2658-8f62-473b-9f94-45a3d6f15604",
+        "title": "Double Cheese Margherita",
+        "subtitle": "A classic delight loaded with extra 100% real mozzarella cheese",
+        "categories": ["VEG PIZZA"],
+        "prices": {
+            "small": 199,
+            "medium": 349,
+            "large": 569
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/double-cheese-margherita.webp"
+    },
+    {
+        "id": "41a9721b-55f8-4df6-9159-76892de8333c",
+        "title": "Mexican Green Wave",
+        "subtitle": "Mexican herbs sprinkled on onion, capsicum, tomato & jalapeno",
+        "categories": ["VEG PIZZA"],
+        "prices": {
+            "small": 239,
+            "medium": 419,
+            "large": 629
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/mexican-green-wave.webp"
+    },
+    {
+        "id": "ee1b41e7-c14c-449e-8856-9a35c00200fa",
+        "title": "Deluxe Veggie",
+        "subtitle": "Veg delight - onion, capsicum, grilled mushroom, corn & paneer",
+        "categories": ["VEG PIZZA"],
+        "prices": {
+            "small": 279,
+            "medium": 499,
+            "large": 729
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/deluxe-veggie.webp"
+    },
+    {
+        "id": "21d8cd17-0541-4d54-b109-e046f7b2ccf3",
+        "title": "Fresh Veggie",
+        "subtitle": "Delectable combination of onion & capsicum, a veggie lovers pick",
+        "categories": ["VEG PIZZA"],
+        "prices": {
+            "small": 199,
+            "medium": 349,
+            "large": 569
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/fresh-veggie.webp"
+    },
+    {
+        "id": "b2adb53e-13cd-4ef2-893a-81944d88c560",
+        "title": "Paneer Makhani",
+        "subtitle": "Flavorful twist of spicy makhani sauce topped with paneer & capsicum",
+        "categories": ["VEG PIZZA"],
+        "prices": {
+            "small": 279,
+            "medium": 499,
+            "large": 729
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/paneer-makhani.webp"
+    },
+    {
+        "id": "500c1d36-0921-4126-96a2-3cdf0877b084",
+        "title": "Indi Tandoori Paneer",
+        "subtitle": "It is hot. It is spicy. It is oh-so-Indian. Tandoori paneer with capsicum, red paprika & mint mayo",
+        "categories": ["VEG PIZZA"],
+        "prices": {
+            "small": 279,
+            "medium": 499,
+            "large": 729
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/indi-tandoori-paneer.webp"
+    },
+    {
+        "id": "f0ba82fe-db93-4bfc-9427-2aa169e39cab",
+        "title": "Cheese n Tomato",
+        "subtitle": "A delectable combination of cheese and juicy tomato",
+        "categories": ["VEG PIZZA"],
+        "prices": {
+            "small": 179,
+            "medium": 319,
+            "large": 519
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/cheese-n-tomato.webp"
+    },
+    {
+        "id": "caf4c0d9-cded-4a54-93f1-cfd0ab7bd879",
+        "title": "Achari Do Pyaza",
+        "subtitle": "Tangy & spicy achari flavours on a super cheesy onion pizza- as desi as it gets!",
+        "categories": ["VEG PIZZA"],
+        "prices": {
+            "small": 179,
+            "medium": 319,
+            "large": 519
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/achari-do-pyaza.webp"
+    },
+    {
+        "id": "658f8940-169f-4758-ab3f-be30841de9fd",
+        "title": "Kadhai Paneer",
+        "subtitle": "Paneer chunks in your favourite spicy kadhai masala flavors, with toppings of onion & capsicum",
+        "categories": ["VEG PIZZA"],
+        "prices": {
+            "small": 279,
+            "medium": 499,
+            "large": 729
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/kadhai-paneer.webp"
+    },
+    {
+        "id": "98e03cf7-a4b3-4545-a3dd-77fa28fc3ee6",
+        "title": "Creamy Tomato Pasta Pizza - Veg",
+        "subtitle": "Loaded with a delicious creamy tomato pasta topping , green capsicum, crunchy red and yellow bell peppers and black olives",
+        "categories": ["VEG PIZZA", "NEW LAUNCHES"],
+        "prices": {
+            "small": 239,
+            "medium": 419
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/creamy-tomato-pasta-pizza-veg.jpg"
+    },
+    {
+        "id": "e4bc3598-be37-43b2-995c-6e26ce1d6767",
+        "title": "Chicken Dominator",
+        "subtitle": "Loaded with double pepper barbecue chicken, peri-peri chicken, chicken tikka & grilled chicken rashers",
+        "categories": ["NON-VEG PIZZA"],
+        "prices": {
+            "small": 339,
+            "medium": 599,
+            "large": 879
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/chicken-dominator.webp"
+    },
+    {
+        "id": "ba6de270-afaf-40d5-830d-a785919e015b",
+        "title": "Chicken Golden Delight",
+        "subtitle": "Double pepper barbecue chicken, golden corn and extra cheese, true delight",
+        "categories": ["NON-VEG PIZZA"],
+        "prices": {
+            "small": 279,
+            "medium": 499,
+            "large": 729
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/chicken-golden-delight.webp"
+    },
+    {
+        "id": "6abc1b4b-26cc-4ca5-b1db-84a5265f1461",
+        "title": "Chicken Pepperoni",
+        "subtitle": "A classic American taste! Relish the delectable flavor of Chicken Pepperoni, topped with extra cheese",
+        "categories": ["NON-VEG PIZZA"],
+        "prices": {
+            "small": 339,
+            "medium": 599,
+            "large": 879
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/chicken-pepperoni.webp"
+    },
+    {
+        "id": "010fb376-cd54-4122-8978-cbee34342deb",
+        "title": "Non Veg Supreme",
+        "subtitle": "Supreme combination of black olives, onion, capsicum, grilled mushroom, pepper barbecue chicken, peri-peri chicken & grilled chicken rashers",
+        "categories": ["NON-VEG PIZZA"],
+        "prices": {
+            "small": 339,
+            "medium": 599,
+            "large": 879
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/non-veg-supreme.webp"
+    },
+    {
+        "id": "683171f1-5b2e-4d6c-8040-c0837332560f",
+        "title": "Chicken Fiesta",
+        "subtitle": "Grilled chicken rashers, peri-peri chicken, onion & capsicum, a complete fiesta",
+        "categories": ["NON-VEG PIZZA"],
+        "prices": {
+            "small": 279,
+            "medium": 499,
+            "large": 729
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/chicken-fiesta.webp"
+    },
+    {
+        "id": "c6b6ecd6-c3ec-432c-9ddd-51646088c063",
+        "title": "Pepper Barbecue Chicken",
+        "subtitle": "Pepper barbecue chicken for that extra zing",
+        "categories": ["NON-VEG PIZZA"],
+        "prices": {
+            "small": 239,
+            "medium": 419,
+            "large": 629
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/pepper-barbecue-chicken.webp"
+    },
+    {
+        "id": "56294ef4-54f8-4a93-b4e3-fe79782116aa",
+        "title": "Chicken Sausage",
+        "subtitle": "American classic! Spicy, herbed chicken sausage on pizza",
+        "categories": ["NON-VEG PIZZA", "PIZZA MANIA"],
+        "prices": {
+            "small": 199,
+            "medium": 349,
+            "large": 569
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/chicken-sausage.webp"
+    },
+    {
+        "id": "b86756dd-d891-4042-ae70-c3872278a96d",
+        "title": "Pepper Barbecue & Onion",
+        "subtitle": "A classic favourite with pepper barbeque chicken & onion",
+        "categories": ["NON-VEG PIZZA"],
+        "prices": {
+            "small": 239,
+            "medium": 419,
+            "large": 629
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/pepper-barbecue-onion.webp"
+    },
+    {
+        "id": "b490e539-d744-493a-82cf-c7c3ee128702",
+        "title": "Indi Chicken Tikka",
+        "subtitle": "The wholesome flavour of tandoori masala with Chicken tikka, onion, red paprika & mint mayo",
+        "categories": ["NON-VEG PIZZA"],
+        "prices": {
+            "small": 339,
+            "medium": 599,
+            "large": 879
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/indi-chicken-tikka.webp"
+    },
+    {
+        "id": "7d2a0d71-60e7-4e53-b0fd-63a49982a16a",
+        "title": "Non Veg Loaded",
+        "subtitle": "Chicken sausage, pepper barbecue chicken & peri-peri chicken in a fresh pan crust",
+        "categories": ["PIZZA MANIA"],
+        "prices": {
+            "small": 169
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/pizza-mania-non-veg-loaded.webp"
+    },
+    {
+        "id": "dedc7730-831f-4b3e-8f03-8b58b680e71d",
+        "title": "Veg Loaded",
+        "subtitle": "Tomato, Jalapeno, Corn, Grilled Mushroom & crushed Aranchini Patty in a fresh pan crust",
+        "categories": ["PIZZA MANIA"],
+        "prices": {
+            "small": 149
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/pizza-mania-veg-loaded.webp"
+    },
+    {
+        "id": "db584ddb-ac08-4040-8538-89f46e23b8a9",
+        "title": "Pepper Barbecue Chicken",
+        "subtitle": "Pepper barbecue chicken for that extra zing",
+        "categories": ["PIZZA MANIA"],
+        "prices": {
+            "small": 119
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/pizza-mania-pepper-barbeque-chicken.webp"
+    },
+    {
+        "id": "1f2970e9-04a4-4d6b-8fe6-67914a7648ce",
+        "title": "Paneer & Onion",
+        "subtitle": "Creamy Paneer & Onion",
+        "categories": ["PIZZA MANIA"],
+        "prices": {
+            "small": 109
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/pizza-mania-paneer-n-onion.webp"
+    },
+    {
+        "id": "c82ea3ba-e8e8-41ec-8e03-938d8ae95b7a",
+        "title": "Cheesy",
+        "subtitle": "Cheese lovers paradise, loaded with mozzarella, cheddar & gouda cheese",
+        "categories": ["PIZZA MANIA"],
+        "prices": {
+            "small": 109
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/pizza-mania-cheesy.webp"
+    },
+    {
+        "id": "a1441cc9-42f8-485e-a142-4a99f4af33fb",
+        "title": "Golden Corn",
+        "subtitle": "Sweet & juicy golden corn for that lipsmacking taste",
+        "categories": ["PIZZA MANIA"],
+        "prices": {
+            "small": 89
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/pizza-mania-golden-corn.webp"
+    },
+    {
+        "id": "36c7a6ad-02bb-47e2-9d4c-0fb9e12c9aed",
+        "title": "Capsicum",
+        "subtitle": "Fresh & crisp capsicum for the perfect crunch in pizza",
+        "categories": ["PIZZA MANIA"],
+        "prices": {
+            "small": 85
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/pizza-mania-capsicum.webp"
+    },
+    {
+        "id": "5addda26-9596-483a-86a6-40a2937efce2",
+        "title": "Onion",
+        "subtitle": "Crunchy onion on a cheesy base. The pizza mania classic",
+        "categories": ["PIZZA MANIA"],
+        "prices": {
+            "small": 65
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/pizza-mania-onion.webp"
+    },
+    {
+        "id": "1526002f-80b9-436f-b030-7bbcc5823c5a",
+        "title": "Tomato",
+        "subtitle": "Juicy tomato in a flavourful combination with cheese & tangy sauce",
+        "categories": ["PIZZA MANIA"],
+        "prices": {
+            "small": 59
+        },
+        "extraCheeseAvailabe": true,
+        "imageUrl": "/images/pizzas/pizza-mania-tomato.webp"
     }
 ]
