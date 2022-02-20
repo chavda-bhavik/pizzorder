@@ -33,10 +33,11 @@ const Cart: React.FC<CartProps> = ({}) => {
                 toppings: cartItem.ingredients || [],
                 size: cartItem.size,
             });
+            pizzaContext?.toggleDrawer();
         }
     };
     return (
-        <Layout>
+        <Layout stickyHeader>
             <main className="py-2 md:grid md:grid-cols-2 relative">
                 <div
                     className={classNames('px-2 md:mb-0', {

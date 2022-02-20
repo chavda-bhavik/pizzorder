@@ -2,13 +2,23 @@ import Link from "next/link";
 import { Icon } from "@/components/Icon";
 import { useContext } from "react";
 import { CartContext } from "@/context/CartContext";
+import classNames from 'classnames';
 
-interface HeaderProps { }
+interface HeaderProps {
+    stickyHeader?: boolean;
+}
 
-export const Header: React.FC<HeaderProps> = ({ }) => {
-	const cartContext = useContext(CartContext);
-	return (
-        <header className="py-4 px-2 flex flex-row justify-between border-b border-slate-200 bg-glassmorphic sticky top-0 bg-glassmorphic z-10 shadow-md shadow-classy-slate">
+export const Header: React.FC<HeaderProps> = ({ stickyHeader }) => {
+    const cartContext = useContext(CartContext);
+    return (
+        <header
+            className={classNames(
+                'py-4 px-2 flex flex-row justify-between border-b border-slate-200 bg-glassmorphic z-10 shadow-md shadow-classy-slate',
+                {
+                    'top-0 sticky': stickyHeader,
+                }
+            )}
+        >
             <Link href="/">
                 <a aria-label="Home">
                     <Icon

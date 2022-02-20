@@ -1,17 +1,16 @@
+import { useRouter } from 'next/router';
 import React, { useState, createContext } from 'react';
 
 export interface PizzaContextType {
     show: boolean;
     editing: boolean;
     likedPizzas: string[];
-    pizzas: PizzaItemType[];
     ingredients: IngredientItemType[];
     pizzaDetails?: PizzaItemType;
     customizationDetails: CustomizationDetails;
 
-    hide: () => void;
+    toggleDrawer: (id?: string) => void;
     toggleLike: (id: string) => void;
-    storePizzas: (pizzas: PizzaItemType[]) => void;
     storePizzaDetails: (pizza: PizzaItemType, details?: CustomizationDetails) => void;
     updateCustomizationDetails: (customizationDetails: CustomizationDetails) => void;
     storeIngredients: (ingredients: IngredientItemType[]) => void;
@@ -24,11 +23,11 @@ interface PizzaContextProps {
 }
 
 const PizzaProvider: React.FC<PizzaContextProps> = ({ children, ingredientsData }) => {
+    const router = useRouter();
     const [show, setShow] = useState<boolean>(false);
     const [editing, setEditing] = useState<boolean>(false);
     const [details, setDetails] = useState<PizzaItemType>();
     const [likedPizzas, setLikedPizzas] = useState<string[]>([]);
-    const [pizzas, setPizzas] = useState<PizzaItemType[]>([]);
     const [customizationDetails, setCustomizationDetails] = useState<CustomizationDetails>({
         extraCheese: false,
         toppings: [],
@@ -36,9 +35,6 @@ const PizzaProvider: React.FC<PizzaContextProps> = ({ children, ingredientsData 
     });
     const [ingredients, setIngredients] = useState<IngredientItemType[]>(ingredientsData);
 
-    const storePizzas = (pizzas: PizzaItemType[]) => {
-        setPizzas(pizzas);
-    };
     const storePizzaDetails = (pizza: PizzaItemType, details?: CustomizationDetails) => {
         setDetails(pizza);
         if (details) {
@@ -48,12 +44,11 @@ const PizzaProvider: React.FC<PizzaContextProps> = ({ children, ingredientsData 
             setCustomizationDetails({
                 extraCheese: false,
                 toppings: [],
-                price: pizza.prices.medium,
-                size: 'medium',
+                price: pizza.prices.medium ? pizza.prices.medium : pizza.prices.small!,
+                size: pizza.prices.medium ? 'medium' : 'small',
             });
             setEditing(false);
         }
-        setShow(true);
     };
     const updateCustomizationDetails = (customizationDetails: CustomizationDetails) => {
         setCustomizationDetails(customizationDetails);
@@ -68,19 +63,34 @@ const PizzaProvider: React.FC<PizzaContextProps> = ({ children, ingredientsData 
             setLikedPizzas([...likedPizzas, id]);
         }
     };
+    const handleToggle = (id?: string) => {
+        let queryObj = router.query;
+        if (!show && id) {
+            queryObj.id = id;
+        } else {
+            delete queryObj.id;
+        }
+        router.push(
+            {
+                pathname: router.pathname,
+                query: queryObj,
+            },
+            undefined,
+            { shallow: true }
+        );
+        setShow(!show);
+    };
 
     const contextValue: PizzaContextType = {
         show,
-        pizzas,
         editing,
         ingredients,
         likedPizzas,
         customizationDetails,
         pizzaDetails: details,
 
-        hide: () => setShow(false),
+        toggleDrawer: handleToggle,
         toggleLike,
-        storePizzas,
         storeIngredients,
         storePizzaDetails,
         updateCustomizationDetails,

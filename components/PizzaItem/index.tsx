@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { Icon } from '../Icon';
 
 interface PizzaProps {
-    pizza: PizzaItemType;
+    pizza: Partial<PizzaItemType>;
     onClick?: () => void;
     liked?: boolean;
     toggleLike?: (id: string) => void;
@@ -12,7 +12,7 @@ export const PizzaItem: React.FC<PizzaProps> = ({ pizza, onClick, toggleLike, li
     const onLikeClick = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
         if (toggleLike) {
-            toggleLike(pizza.id);
+            toggleLike(pizza.id!);
         }
     };
     return (
@@ -22,7 +22,7 @@ export const PizzaItem: React.FC<PizzaProps> = ({ pizza, onClick, toggleLike, li
         >
             <div className="relative w-full h-36 sm:h-40 lg:h-44">
                 <Image
-                    src={pizza.imageUrl}
+                    src={pizza.imageUrl!}
                     loading="lazy"
                     className="rounded-t-md"
                     alt={pizza.title}
@@ -30,7 +30,7 @@ export const PizzaItem: React.FC<PizzaProps> = ({ pizza, onClick, toggleLike, li
                 />
                 <div className="absolute bottom-0 left-0 w-20 h-11 bg-shadow" />
                 <div className="absolute bottom-0 left-0 text-lg font-noto-sans-bold text-classy-white pl-1 pb-1 leading-4">
-                    <span className="rupee">{pizza.prices.medium}</span>
+                    <span className="rupee">{pizza.prices?.medium || pizza.prices?.small}</span>
                 </div>
                 <div className="absolute top-0 right-0 h-10 w-11 bg-shadow rotate-180" />
                 <button className="absolute right-2 top-1 h-5 w-5" onClick={onLikeClick}>
