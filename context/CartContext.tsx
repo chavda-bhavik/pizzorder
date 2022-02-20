@@ -1,4 +1,5 @@
-import React, { useState, createContext, useContext, useEffect } from 'react';
+import useLocalStorage from '@/util/hooks/useLocalStorage';
+import React, { useState, createContext, useContext } from 'react';
 import { ConfigContext } from './ConfigContext';
 
 export interface CartContextType {
@@ -36,7 +37,7 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
         tax: 0,
         deliveryCharge: 0,
     });
-    const [items, setSetItems] = useState<CartItemType[]>([]);
+    const [cartItems, setCartItems] = useLocalStorage<CartItemType[]>('cart', []);
 
     const addToCart = (
         id: string,
@@ -44,23 +45,24 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
         title: string,
         customizationDetails: CustomizationDetails
     ) => {
-        let newItemsList = [...items];
+        let newItemsList = [...cartItems];
         let itemIndex = newItemsList.findIndex((i) => i.pizza.id === id);
         let addNew = false;
 
         if (itemIndex > -1) {
             // check if same pizza with same toppings || extra cheese || size is already in the cart
-            if (items[itemIndex].extraCheese !== customizationDetails.extraCheese) addNew = true;
+            if (cartItems[itemIndex].extraCheese !== customizationDetails.extraCheese)
+                addNew = true;
             else if (
                 customizationDetails.toppings &&
                 !customizationDetails.toppings.every((toppingId) =>
-                    items[itemIndex].ingredients?.includes(toppingId)
+                    cartItems[itemIndex].ingredients?.includes(toppingId)
                 )
             )
                 addNew = true;
             else if (
                 customizationDetails.size &&
-                items[itemIndex].size !== customizationDetails.size
+                cartItems[itemIndex].size !== customizationDetails.size
             )
                 addNew = true;
         } else addNew = true;
@@ -80,11 +82,11 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
             newItemsList[itemIndex].quantity++;
         }
         updateTotalInfo(newItemsList);
-        setSetItems(newItemsList);
+        setCartItems(newItemsList);
     };
 
     const clearCart = () => {
-        setSetItems([]);
+        setCartItems([]);
         updateTotalInfo([]);
     };
 
@@ -102,13 +104,14 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
             newTotalInfo.deliveryCharge = configContext?.config.deliveryCharge || 0;
         setTotalInfo(newTotalInfo);
     };
+
     const updateCartItem = (
         id: string,
         imageUrl: string,
         title: string,
         customizationDetails: CustomizationDetails
     ) => {
-        let newItemsList = [...items];
+        let newItemsList = [...cartItems];
         let itemIndex = newItemsList.findIndex((i) => i.pizza.id === id);
         if (itemIndex > -1) {
             newItemsList[itemIndex].pizza.imageUrl = imageUrl;
@@ -119,10 +122,11 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
             newItemsList[itemIndex].price = customizationDetails.price;
         }
         updateTotalInfo(newItemsList);
-        setSetItems(newItemsList);
+        setCartItems(newItemsList);
     };
+
     const updateQuantity = (id: string, quantity: number) => {
-        let newItemsList = [...items];
+        let newItemsList = [...cartItems];
         let itemIndex = newItemsList.findIndex((i) => i.pizza.id === id);
         if (itemIndex > -1) {
             if (quantity === 0) {
@@ -131,13 +135,13 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
                 newItemsList[itemIndex].quantity = quantity;
             }
             updateTotalInfo(newItemsList);
-            setSetItems(newItemsList);
+            setCartItems(newItemsList);
         }
     };
 
     const contextValue: CartContextType = {
         totalInfo,
-        items,
+        items: cartItems,
 
         addToCart,
         clearCart,
