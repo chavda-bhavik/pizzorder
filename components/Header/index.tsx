@@ -13,9 +13,9 @@ export const Header: React.FC<HeaderProps> = ({ stickyHeader }) => {
     return (
         <header
             className={classNames(
-                'py-4 px-2 flex flex-row justify-between border-b border-slate-200 bg-glassmorphic z-10 shadow-md shadow-classy-slate',
+                'py-4 px-2 flex flex-row justify-between border-b-2 border-classy-slate bg-glassmorphic z-10',
                 {
-                    'top-0 sticky': stickyHeader,
+                    'top-0 sticky shadow-md shadow-classy-slate': stickyHeader,
                 }
             )}
         >

@@ -1,3 +1,4 @@
+import useLocalStorage from '@/util/hooks/useLocalStorage';
 import { useRouter } from 'next/router';
 import React, { useState, createContext } from 'react';
 
@@ -27,7 +28,7 @@ const PizzaProvider: React.FC<PizzaContextProps> = ({ children, ingredientsData 
     const [show, setShow] = useState<boolean>(false);
     const [editing, setEditing] = useState<boolean>(false);
     const [details, setDetails] = useState<PizzaItemType>();
-    const [likedPizzas, setLikedPizzas] = useState<string[]>([]);
+    const [likedPizzas, setLikedPizzas] = useLocalStorage<string[]>('likes', []);
     const [customizationDetails, setCustomizationDetails] = useState<CustomizationDetails>({
         extraCheese: false,
         toppings: [],
