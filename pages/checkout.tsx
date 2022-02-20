@@ -77,7 +77,7 @@ const Checkout: React.FC<CheckoutProps> = ({}) => {
     }
 
     return (
-        <Layout>
+        <Layout stickyHeader>
             <main className="py-5 space-y-7 max-w-lg">
                 {/* Order Details */}
                 <div className="space-y-3 px-2">

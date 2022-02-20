@@ -12,12 +12,14 @@ interface LayoutProps {
     title?: string;
     description?: string;
     className?: string;
+    stickyHeader?: boolean;
 }
 
 export const Layout: React.FC<LayoutProps> = ({
     title = 'Pizzorder',
     description = 'Get your faviourite pizza delivered to your door step in just a few minutes with Pizzorder',
     className = '',
+    stickyHeader,
     children,
 }) => {
     const pizzaContext = useContext(PizzaContext);
@@ -29,10 +31,10 @@ export const Layout: React.FC<LayoutProps> = ({
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <div className={classNames('bg-classy-deemLight min-h-screen', className)}>
-                <Header />
+                <Header stickyHeader={stickyHeader} />
                 {children}
-                <Drawer open={pizzaContext?.show} onClose={pizzaContext?.hide}>
-                    <DynamicPizzaDetails onClose={pizzaContext?.hide} />
+                <Drawer open={pizzaContext?.show} onClose={() => pizzaContext?.toggleDrawer()}>
+                    <DynamicPizzaDetails onClose={() => pizzaContext?.toggleDrawer()} />
                 </Drawer>
             </div>
         </>
