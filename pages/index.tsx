@@ -77,7 +77,7 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
     return (
         <Layout>
             <main className="space-y-6">
-                <div className="space-x-1 overflow-y-auto flex flex-row px-4 pt-2 pb-1 max-w-7xl sticky top-0 z-20 bg-classy-deemLight   border-b border-slate-200 shadow-md shadow-classy-slate">
+                <div className="space-x-1 overflow-y-auto flex flex-row px-4 pt-2 pb-1 max-w-7xl sticky top-0 z-20 bg-classy-deemLight   border-b-4 border-classy-slate">
                     {pizzas &&
                         Object.keys(pizzas).map((category, i) => (
                             <h1
