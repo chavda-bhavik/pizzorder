@@ -1,13 +1,16 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import classNames from 'classnames';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
+import { Icon } from '@/components/Icon';
 import { Layout } from '@/components/Layout';
-import { PizzaItem } from '@/components/PizzaItem';
-import { getPizzas, getPizzaDetails } from '@/api';
 import { PizzaContext } from '@/context/PizzaContext';
-import { CategoryTag } from '@/components/CategoryTag';
+import { CategoriesTile } from '@/components/CategoriesTile';
+
+import { PizzaList } from '@/components/PizzaList';
+import { CartContext } from '@/context/CartContext';
+import { getPizzas, getPizzaDetails } from '@/api';
+import { StickyBottomWidget } from '@/components/StickyBottomWidget';
 
 interface HomeProps {
     pizzas: GrouppedPizzaType;
@@ -17,6 +20,7 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
     const router = useRouter();
     const [selected, setSelected] = useState<number>(0);
     const pizzaContext = useContext(PizzaContext);
+    const cartContext = useContext(CartContext);
     const sectionRefs = useRef<Array<HTMLDivElement | null>>([]);
 
     useEffect(() => {
@@ -77,52 +81,40 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
     return (
         <Layout>
             <main className="space-y-6">
-                <div className="space-x-1 overflow-y-auto flex flex-row px-4 pt-2 pb-1 max-w-7xl sticky top-0 z-20 bg-classy-deemLight   border-b-4 border-classy-slate">
-                    {pizzas &&
-                        Object.keys(pizzas).map((category, i) => (
-                            <h1
-                                className={classNames('category-title', {
-                                    'category-selected': i === selected,
-                                })}
-                                onClick={() => scrollToTargetAdjusted(category)}
-                                key={category}
-                            >
-                                {category}
-                            </h1>
-                        ))}
-                </div>
+                {pizzas && (
+                    <CategoriesTile
+                        pizzas={pizzas}
+                        selectedIndex={selected}
+                        onSelect={(id) => scrollToTargetAdjusted(id)}
+                    />
+                )}
 
                 {/* Pizza Listing */}
                 <div className="max-w-7xl space-y-20 px-4 z-10">
-                    {pizzas &&
-                        Object.keys(pizzas).map((category, i) => (
-                            <div
-                                key={category}
-                                id={category}
-                                ref={(el) => (sectionRefs.current[i] = el)}
-                            >
-                                {/* Category Tag */}
-                                <CategoryTag
-                                    category={category}
-                                    onClick={() => scrollToTargetAdjusted(category)}
-                                />
-
-                                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
-                                    {/* Pizza Listing */}
-                                    {pizzas[category].map((pizza, i) => (
-                                        <PizzaItem
-                                            pizza={pizza}
-                                            key={i}
-                                            onClick={() => selectAndShowPizzaDetails(pizza.id!)}
-                                            liked={pizzaContext?.likedPizzas.includes(pizza.id!)}
-                                            toggleLike={pizzaContext?.toggleLike}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
+                    {pizzas && (
+                        <PizzaList
+                            pizzas={pizzas}
+                            likedPizzas={pizzaContext?.likedPizzas || []}
+                            onLikeClick={(id) => pizzaContext?.toggleLike(id)}
+                            onSelectCategory={(id) => scrollToTargetAdjusted(id)}
+                            onSelectPizza={(id) => selectAndShowPizzaDetails(id)}
+                            sectionRefs={sectionRefs}
+                        />
+                    )}
                 </div>
             </main>
+            {/* Cart Widget if Cart Items > 0 */}
+            {(cartContext && cartContext?.items.length > 0) && (
+                <StickyBottomWidget link='/cart'>
+                    <Icon
+                        icon="shoppingCart"
+                        size='sm'
+                    />
+                    <p className="bg-classy-white rounded-xl px-2 py-1 font-sans font-bold">
+                        {cartContext?.items.reduce((sum, item) => sum + item.quantity, 0) || ''}
+                    </p>
+                </StickyBottomWidget>
+            )}
         </Layout>
     );
 };

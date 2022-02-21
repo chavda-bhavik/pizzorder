@@ -1,10 +1,11 @@
+import { useContext } from 'react';
 import Head from "next/head";
 import dynamic from 'next/dynamic';
 import classNames from 'classnames';
 
-import { Header } from '../Header';
+
+import { Header } from '@/components/Header';
 import { Drawer } from '@/components/Drawer';
-import { useContext } from 'react';
 import { PizzaContext } from '@/context/PizzaContext';
 const DynamicPizzaDetails = dynamic(() => import('@/components/PizzaDetails'), { ssr: false });
 
@@ -30,9 +31,11 @@ export const Layout: React.FC<LayoutProps> = ({
                 <meta name="description" content={description} />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className={classNames('bg-classy-deemLight min-h-screen', className)}>
+            <div className={classNames('bg-classy-deemLight relative min-h-screen', className)}>
                 <Header stickyHeader={stickyHeader} />
                 {children}
+
+                {/* Side Drawer for Pizza Details */}
                 <Drawer open={pizzaContext?.show} onClose={() => pizzaContext?.toggleDrawer()}>
                     <DynamicPizzaDetails onClose={() => pizzaContext?.toggleDrawer()} />
                 </Drawer>

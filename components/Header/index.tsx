@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
-import { useContext } from "react";
-import { CartContext } from "@/context/CartContext";
 import classNames from 'classnames';
 
 interface HeaderProps {
@@ -9,7 +7,6 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ stickyHeader }) => {
-    const cartContext = useContext(CartContext);
     return (
         <header
             className={classNames(
@@ -24,17 +21,6 @@ export const Header: React.FC<HeaderProps> = ({ stickyHeader }) => {
                     <Icon
                         icon="pizzaSlice"
                         className="cursor-pointer hover:text-classy-golden transition-colors duration-300"
-                    />
-                </a>
-            </Link>
-            <Link href="/cart">
-                <a className="relative block group cursor-pointer" aria-label="Cart">
-                    <div className="absolute right-0 -top-2  transition-colors duration-300 bg-classy-slate group-hover:bg-classy-lightGolden rounded-full px-1 text-xs font-sans font-bold">
-                        {cartContext?.items.reduce((sum, item) => sum + item.quantity, 0) || ''}
-                    </div>
-                    <Icon
-                        icon="shoppingCart"
-                        className="group-hover:text-classy-golden transition-colors duration-300"
                     />
                 </a>
             </Link>
