@@ -149,7 +149,7 @@
         "categories": ["VEG PIZZA", "The Cheese Dominator"],
         "prices": {
             "small": 339,
-            "medium": 59,
+            "medium": 599,
             "large": 879
         },
         "extraCheeseAvailabe": true,
