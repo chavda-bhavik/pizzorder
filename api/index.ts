@@ -4,7 +4,7 @@ export async function getPizzas(): Promise<GrouppedPizzaType> {
 }
 
 export async function getPizzaDetails(id: string): Promise<PizzaItemType> {
-    let data = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/pizzas/${id}`);
+    let data = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/pizzas?id=${id}`);
     return data.json() as Promise<PizzaItemType>;
 }
 
