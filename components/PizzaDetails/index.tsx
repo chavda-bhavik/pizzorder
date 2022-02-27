@@ -39,7 +39,7 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ onClose }) => {
     }, [pizzaContext?.customizationDetails]);
 
     const onDetailsChange = (extraCheese?: boolean, size?: PizzaSizeTypes, topping?: string) => {
-        if (pizzaContext && pizzaItemDetails && configContext) {
+        if (pizzaContext && pizzaItemDetails && configContext && configContext.config) {
             let newDetails = { ...pizzaContext.customizationDetails };
             if (typeof extraCheese !== 'undefined') newDetails.extraCheese = extraCheese;
             if (size) newDetails.size = size;
@@ -179,16 +179,19 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ onClose }) => {
                             <h5>Add Veg Toppings @ 60.00 each</h5>
                         </div>
                         <div className="flex flex-row gap-x-3 pb-3 px-1 md:gap-x-4 overflow-x-scroll">
-                            {pizzaContext?.ingredients.map((ingredient, index) => (
-                                <Ingredient
-                                    ingredient={ingredient}
-                                    key={index}
-                                    added={customizationDetails.toppings.includes(ingredient.id)}
-                                    onToggle={(value) =>
-                                        onDetailsChange(undefined, undefined, value)
-                                    }
-                                />
-                            ))}
+                            {pizzaContext?.ingredients &&
+                                pizzaContext?.ingredients.map((ingredient, index) => (
+                                    <Ingredient
+                                        ingredient={ingredient}
+                                        key={index}
+                                        added={customizationDetails.toppings.includes(
+                                            ingredient.id
+                                        )}
+                                        onToggle={(value) =>
+                                            onDetailsChange(undefined, undefined, value)
+                                        }
+                                    />
+                                ))}
                         </div>
                     </div>
                 </div>

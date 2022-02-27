@@ -1,18 +1,22 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 
 export interface ConfigContextType {
-    config: ConfigType;
+    config?: ConfigType;
+    storeConfig: (config: ConfigType) => void;
 }
 
 export const ConfigContext = createContext<ConfigContextType | null>(null);
 
 interface ConfigProviderProps {
     children: React.ReactNode;
-    configData: ConfigType;
 }
-const ConfigProvider: React.FC<ConfigProviderProps> = ({ children, configData }) => {
+const ConfigProvider: React.FC<ConfigProviderProps> = ({ children }) => {
+    const [config, setConfig] = useState<ConfigType>();
+
     const contextValue: ConfigContextType = {
-        config: configData,
+        config,
+
+        storeConfig: (config) => setConfig(config),
     };
 
     return <ConfigContext.Provider value={contextValue}>{children}</ConfigContext.Provider>;

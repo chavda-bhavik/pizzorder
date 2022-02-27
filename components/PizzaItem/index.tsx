@@ -33,7 +33,11 @@ export const PizzaItem: React.FC<PizzaProps> = ({ pizza, onClick, toggleLike, li
                     <span className="rupee">{pizza.prices?.medium || pizza.prices?.small}</span>
                 </div>
                 <div className="absolute top-0 right-0 h-10 w-11 bg-shadow rotate-180" />
-                <button className="absolute right-2 top-1 h-5 w-5" onClick={onLikeClick}>
+                <button
+                    className="absolute right-2 top-1 h-5 w-5"
+                    onClick={onLikeClick}
+                    aria-label="Toggle Pizza Like"
+                >
                     <Icon
                         icon={liked ? 'heartFill' : 'heart'}
                         className={liked ? 'text-red-500' : 'text-white'}

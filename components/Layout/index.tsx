@@ -1,12 +1,13 @@
-import { useContext } from 'react';
-import Head from "next/head";
+import { useContext, useEffect } from 'react';
+import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import classNames from 'classnames';
 
-
 import { Header } from '@/components/Header';
 import { Drawer } from '@/components/Drawer';
+import { getConfig, getIngredients } from '@/api';
 import { PizzaContext } from '@/context/PizzaContext';
+import { ConfigContext } from '@/context/ConfigContext';
 const DynamicPizzaDetails = dynamic(() => import('@/components/PizzaDetails'), { ssr: false });
 
 interface LayoutProps {
@@ -14,6 +15,7 @@ interface LayoutProps {
     description?: string;
     className?: string;
     stickyHeader?: boolean;
+    onDrawerClose?: () => void;
 }
 
 export const Layout: React.FC<LayoutProps> = ({
@@ -21,9 +23,29 @@ export const Layout: React.FC<LayoutProps> = ({
     description = 'Get your faviourite pizza delivered to your door step in just a few minutes with Pizzorder',
     className = '',
     stickyHeader,
+    onDrawerClose,
     children,
 }) => {
+    const configContext = useContext(ConfigContext);
     const pizzaContext = useContext(PizzaContext);
+
+    useEffect(() => {
+        (async () => {
+            if (typeof window !== 'undefined') {
+                let config = await getConfig();
+                const ingredientsData = await getIngredients();
+                configContext?.storeConfig(config);
+                pizzaContext?.storeIngredients(ingredientsData);
+            }
+        })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const onDrawerCloseClick = () => {
+        if (onDrawerClose) onDrawerClose();
+        pizzaContext?.toggleDrawer();
+    };
+
     return (
         <>
             <Head>
@@ -36,8 +58,8 @@ export const Layout: React.FC<LayoutProps> = ({
                 {children}
 
                 {/* Side Drawer for Pizza Details */}
-                <Drawer open={pizzaContext?.show} onClose={() => pizzaContext?.toggleDrawer()}>
-                    <DynamicPizzaDetails onClose={() => pizzaContext?.toggleDrawer()} />
+                <Drawer open={pizzaContext?.show} onClose={onDrawerCloseClick}>
+                    <DynamicPizzaDetails onClose={onDrawerCloseClick} />
                 </Drawer>
             </div>
         </>

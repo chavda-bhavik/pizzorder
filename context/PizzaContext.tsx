@@ -6,7 +6,7 @@ export interface PizzaContextType {
     show: boolean;
     editing: boolean;
     likedPizzas: string[];
-    ingredients: IngredientItemType[];
+    ingredients?: IngredientItemType[];
     pizzaDetails?: PizzaItemType;
     customizationDetails: CustomizationDetails;
 
@@ -19,11 +19,9 @@ export interface PizzaContextType {
 
 export const PizzaContext = createContext<PizzaContextType | null>(null);
 
-interface PizzaContextProps {
-    ingredientsData: IngredientItemType[];
-}
+interface PizzaContextProps {}
 
-const PizzaProvider: React.FC<PizzaContextProps> = ({ children, ingredientsData }) => {
+const PizzaProvider: React.FC<PizzaContextProps> = ({ children }) => {
     const router = useRouter();
     const [show, setShow] = useState<boolean>(false);
     const [editing, setEditing] = useState<boolean>(false);
@@ -34,7 +32,7 @@ const PizzaProvider: React.FC<PizzaContextProps> = ({ children, ingredientsData 
         toppings: [],
         price: 0,
     });
-    const [ingredients, setIngredients] = useState<IngredientItemType[]>(ingredientsData);
+    const [ingredients, setIngredients] = useState<IngredientItemType[]>();
 
     const storePizzaDetails = (pizza: PizzaItemType, details?: CustomizationDetails) => {
         setDetails(pizza);

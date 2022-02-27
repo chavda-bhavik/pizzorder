@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 
 import { Icon } from '@/components/Icon';
@@ -18,6 +18,7 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ pizzas }) => {
     const router = useRouter();
+    const [selectedPizzaId, setSelectedPizzaId] = useState<string>();
     const [selected, setSelected] = useState<number>(0);
     const pizzaContext = useContext(PizzaContext);
     const cartContext = useContext(CartContext);
@@ -47,13 +48,19 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
     }, []);
 
     useEffect(() => {
+        if (typeof router.query.id === 'string') {
+            setSelectedPizzaId(router.query.id);
+        }
+    }, [router.query.id]);
+
+    useEffect(() => {
         (async () => {
-            if (typeof router.query.id === 'string') {
-                await selectAndShowPizzaDetails(router.query.id);
+            if (selectedPizzaId) {
+                await selectAndShowPizzaDetails(selectedPizzaId);
             }
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [selectedPizzaId]);
 
     const selectAndShowPizzaDetails = async (id: string) => {
         try {
@@ -62,7 +69,9 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
             pizzaContext?.toggleDrawer(id);
         } catch (error) {}
     };
-
+    const onPizzaDraweClose = () => {
+        setSelectedPizzaId(undefined);
+    };
     const scrollToTargetAdjusted = (id: string) => {
         var element = document.getElementById(id);
         if (element) {
@@ -79,7 +88,7 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
     };
 
     return (
-        <Layout>
+        <Layout onDrawerClose={onPizzaDraweClose}>
             <main className="space-y-6">
                 {pizzas && (
                     <CategoriesTile
@@ -97,19 +106,16 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
                             likedPizzas={pizzaContext?.likedPizzas || []}
                             onLikeClick={(id) => pizzaContext?.toggleLike(id)}
                             onSelectCategory={(id) => scrollToTargetAdjusted(id)}
-                            onSelectPizza={(id) => selectAndShowPizzaDetails(id)}
+                            onSelectPizza={(id) => setSelectedPizzaId(id)}
                             sectionRefs={sectionRefs}
                         />
                     )}
                 </div>
             </main>
             {/* Cart Widget if Cart Items > 0 */}
-            {(cartContext && cartContext?.items.length > 0) && (
-                <StickyBottomWidget link='/cart'>
-                    <Icon
-                        icon="shoppingCart"
-                        size='sm'
-                    />
+            {cartContext && cartContext?.items.length > 0 && (
+                <StickyBottomWidget link="/cart">
+                    <Icon icon="shoppingCart" size="sm" />
                     <p className="bg-classy-white rounded-xl px-2 py-1 font-sans font-bold">
                         {cartContext?.items.reduce((sum, item) => sum + item.quantity, 0) || ''}
                     </p>
@@ -119,10 +125,13 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
     );
 };
 
-Home.getInitialProps = async () => {
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     const pizzas = await getPizzas();
     return {
-        pizzas,
+        props: {
+            pizzas,
+        },
+        revalidate: 3600,
     };
 };
 
