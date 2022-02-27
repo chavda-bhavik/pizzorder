@@ -1,24 +1,42 @@
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Icon } from '../Icon';
 
 interface PizzaProps {
-    pizza: Partial<PizzaItemType>;
-    onClick?: () => void;
     liked?: boolean;
+    onClick?: () => void;
+    pizza: Partial<PizzaItemType>;
     toggleLike?: (id: string) => void;
+    setHeight?: (height: number) => void;
 }
 
-export const PizzaItem: React.FC<PizzaProps> = ({ pizza, onClick, toggleLike, liked }) => {
+export const PizzaItem: React.FC<PizzaProps> = ({
+    pizza,
+    onClick,
+    toggleLike,
+    liked,
+    setHeight,
+}) => {
+    const itemRef = useRef<HTMLDivElement>(null);
+
     const onLikeClick = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
         if (toggleLike) {
             toggleLike(pizza.id!);
         }
     };
+
+    useEffect(() => {
+        if (itemRef.current && setHeight) {
+            setHeight(itemRef.current.clientHeight);
+        }
+    }, [setHeight]);
+
     return (
         <div
             className="bg-classy-white flex flex-col cursor-pointer border border-classy-slate shadow-sm shadow-classy-slate rounded-md duration-300"
             onClick={onClick}
+            ref={itemRef}
         >
             <div className="relative w-full h-36 sm:h-40 lg:h-44">
                 <Image

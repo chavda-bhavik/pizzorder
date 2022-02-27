@@ -30,7 +30,6 @@ export default function handler(
                     title: item.title,
                     subtitle: item.subtitle,
                     imageUrl: item.imageUrl,
-                    categories,
                     prices: {
                         medium: item.prices.medium,
                         small: item.prices.small,
