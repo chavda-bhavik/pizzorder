@@ -144,7 +144,7 @@
 
     /* Home */
     .category-title {
-        @apply whitespace-nowrap font-sans font-semibold text-sm uppercase px-4 py-1 border-2 border-transparent hover:border-classy-slate cursor-pointer transition-colors duration-300;
+        @apply whitespace-nowrap font-sans font-semibold text-sm uppercase px-4 py-1 border-2 border-transparent md:hover:border-classy-slate cursor-pointer transition-colors duration-300;
     }
     .category-selected {
         @apply border-classy-slate border-2;

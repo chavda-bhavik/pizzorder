@@ -1,7 +1,7 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import type { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { FixedSizeList as List } from 'react-window';
+import { VariableSizeList as List } from 'react-window';
 
 import { Icon } from '@/components/Icon';
 import { Layout } from '@/components/Layout';
@@ -9,11 +9,9 @@ import { PizzaContext } from '@/context/PizzaContext';
 import { CategoriesTile } from '@/components/CategoriesTile';
 
 import { PizzaList } from '@/components/PizzaList';
-import { PizzaItem } from '@/components/PizzaItem';
 import { CartContext } from '@/context/CartContext';
 import { getPizzas, getPizzaDetails } from '@/api';
 import { StickyBottomWidget } from '@/components/StickyBottomWidget';
-import useMediaQuery from '@/util/hooks/useMediaQuery';
 
 interface HomeProps {
     pizzas: GrouppedPizzaType;
@@ -21,43 +19,17 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ pizzas }) => {
     const router = useRouter();
-    const [pizzaList, setPizzaList] = useState<Partial<PizzaItemType>[]>([]);
-    const [selectedPizzaId, setSelectedPizzaId] = useState<string>();
-    const [selected, setSelected] = useState<number>(0);
-    const pizzaContext = useContext(PizzaContext);
+    const sizeMap = useRef({});
+    const listRef = useRef<any>();
     const cartContext = useContext(CartContext);
-    const SM = useMediaQuery('(min-width: 640px)');
-    const LG = useMediaQuery('(min-width: 1024px)');
-
-    // const sectionRefs = useRef<Array<HTMLDivElement | null>>([]);
+    const pizzaContext = useContext(PizzaContext);
+    const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
+    const [categoryList, setCategoryList] = useState<string[]>([]);
+    const [selectedPizzaId, setSelectedPizzaId] = useState<string>();
 
     useEffect(() => {
-        // sectionRefs.current = sectionRefs.current.slice(0, Object.keys(pizzas).length);
-        let newPizzaList: Partial<PizzaItemType>[] = [];
-        Object.keys(pizzas).forEach((category, i) => {
-            newPizzaList = [...newPizzaList, ...pizzas[category]];
-        });
-        setPizzaList(newPizzaList);
+        setCategoryList(Object.keys(pizzas));
     }, [pizzas]);
-
-    // useEffect(() => {
-    //     const handleScroll = () => {
-    //         const scrollTop = window.scrollY;
-    //         sectionRefs.current.forEach((section, index) => {
-    //             if (
-    //                 section &&
-    //                 scrollTop >= section.offsetTop - 70 &&
-    //                 scrollTop < section.offsetTop + section.offsetHeight
-    //             ) {
-    //                 setSelected(index);
-    //             }
-    //         });
-    //     };
-    //     document.addEventListener('scroll', handleScroll);
-    //     return () => {
-    //         document.removeEventListener('scroll', handleScroll);
-    //     };
-    // }, []);
 
     useEffect(() => {
         if (typeof router.query.id === 'string') {
@@ -84,62 +56,54 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
     const onPizzaDraweClose = () => {
         setSelectedPizzaId(undefined);
     };
-    const scrollToTargetAdjusted = (id: string) => {
-        var element = document.getElementById(id);
-        if (element) {
-            var headerOffset = 45 + 5;
-            var elementPosition = element.getBoundingClientRect().top;
-            var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-            // window.location.hash = id;
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth',
-            });
-        }
-    };
-
-    let listObj = {
-        columns: LG ? 3 : SM ? 2 : 1,
-    };
+    const setSize = useCallback((index, size) => {
+        sizeMap.current = { ...sizeMap.current, [index]: size };
+        listRef.current.resetAfterIndex(index);
+    }, []);
+    const getSize = useCallback(index => {
+        // @ts-ignore
+        return sizeMap.current[index] || 500;
+    }, []);
+    const scrollToIndex = (index: number) => {
+        listRef.current.scrollToItem(index, "start");
+        setSelectedCategoryIndex(index);
+    }
 
     return (
         <Layout onDrawerClose={onPizzaDraweClose}>
-            <main className="space-y-6">
-                {/* {pizzas && (
+            <main>
+                {categoryList.length > 0 && (
                     <CategoriesTile
-                        pizzas={pizzas}
-                        selectedIndex={selected}
-                        onSelect={(id) => scrollToTargetAdjusted(id)}
+                        categories={categoryList}
+                        selectedIndex={selectedCategoryIndex}
+                        onSelect={(i) => scrollToIndex(i)}
                     />
-                )} */}
+                )}
 
                 {/* Pizza Listing */}
-                <div className="max-w-7xl space-y-20 z-10">
-                    {/* <PizzaList
-                                pizzas={pizzas}
-                                likedPizzas={pizzaContext?.likedPizzas || []}
-                                onLikeClick={(id) => pizzaContext?.toggleLike(id)}
-                                onSelectCategory={(id) => scrollToTargetAdjusted(id)}
-                                onSelectPizza={(id) => setSelectedPizzaId(id)}
-                                sectionRefs={sectionRefs}
-                            /> */}
-                    {pizzaList.length > 0 && (
+                <div className="max-w-7xl space-y-20 z-10 mt-2">
+                    {categoryList.length > 0 && (
                         <List
-                            height={window.innerHeight - 90}
-                            itemCount={pizzaList.length / listObj.columns}
-                            itemSize={LG ? 290 : SM ? 280 : 265}
+                            height={window.innerHeight - 122}
+                            itemCount={categoryList.length}
+                            itemSize={getSize}
                             width={window.innerWidth}
+                            ref={listRef}
+                            onItemsRendered={(data) => {
+                                if (data.visibleStopIndex !== selectedCategoryIndex)
+                                    setSelectedCategoryIndex(data.visibleStopIndex);
+                            }}
                         >
                             {(props) => (
                                 <div style={props.style}>
-                                    <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-3 max-w-7xl m-2">
-                                        {pizzaList
-                                            .slice(props.index, props.index + listObj.columns)
-                                            .map((item, i) => (
-                                                <PizzaItem key={item.id} pizza={item} />
-                                            ))}
-                                    </div>
+                                    <PizzaList
+                                        pizzas={pizzas[categoryList[props.index]]}
+                                        onSelectPizza={(id) => setSelectedPizzaId(id)}
+                                        likedPizzas={pizzaContext?.likedPizzas || []}
+                                        setSize={(size) => setSize(props.index, size)}
+                                        category={categoryList[props.index]}
+                                        onLikeClick={(id) => pizzaContext?.toggleLike(id)}
+                                    />
                                 </div>
                             )}
                         </List>
