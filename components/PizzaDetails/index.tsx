@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
 
-import { Button } from '../Button';
+import { Button } from '@/components/Button';
 import Switcher from '@/components/Switcher';
 import { countPizzaPrice } from '@/util/helper';
 import { CartContext } from '@/context/CartContext';
@@ -9,7 +9,7 @@ import { Ingredient } from '@/components/Ingredient';
 import { PizzaContext } from '@/context/PizzaContext';
 import { ConfigContext } from '@/context/ConfigContext';
 import { CheeseSelector } from '@/components/CheeseSelector';
-import { Icon } from '../Icon';
+import { Icon } from '@/components/Icon';
 
 interface PizzaDetailsProps {
     onClose?: () => void;
@@ -121,10 +121,10 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ onClose }) => {
             <div className="pb-20 space-y-8 bg-classy-white">
                 {/* Title */}
                 <div className="flex flex-col justify-center px-5 bg-classy-deemLight pt-4 pb-5">
-                    <h3 className="font-semibold font-sans text-xl md:text-2xl">
+                    <h3 className="font-semibold font-sans text-lg sm:text-xl md:text-2xl">
                         {pizzaItemDetails ? pizzaItemDetails.title : ''}
                     </h3>
-                    <p className="font-sans text-lg">
+                    <p className="font-sans text-sm md:ext-lg">
                         {pizzaItemDetails ? pizzaItemDetails.subtitle : ''}
                     </p>
                 </div>

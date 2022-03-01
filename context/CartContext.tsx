@@ -31,7 +31,7 @@ export const CartContext = createContext<CartContextType | null>(null);
 
 const CartProvider: React.FC<{}> = ({ children }: any) => {
     const configContext = useContext(ConfigContext);
-    const [totalInfo, setTotalInfo] = useState<TotalInfo>({
+    const [totalInfo, setTotalInfo] = useLocalStorage<TotalInfo>('total', {
         total: 0,
         subtotal: 0,
         tax: 0,
@@ -151,7 +151,7 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
         addToCart,
         clearCart,
         updateCartItem,
-        updateQuantity,
+        updateQuantity
     };
 
     return <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>;

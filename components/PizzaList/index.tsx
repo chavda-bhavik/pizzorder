@@ -1,7 +1,7 @@
-import { MutableRefObject, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 
-import { CategoryTag } from "../CategoryTag"
-import { PizzaItem } from "../PizzaItem"
+import { CategoryTag } from "@/components/CategoryTag"
+import { PizzaItem } from "@/components/PizzaItem"
 
 interface PizzaListProps {
     category?: string;

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import { Icon } from '../Icon';
+import { Icon } from '@/components/Icon';
 
 interface ButtonProps {
     onClick?: () => void;

@@ -8,6 +8,7 @@ import { Drawer } from '@/components/Drawer';
 import { getConfig, getIngredients } from '@/api';
 import { PizzaContext } from '@/context/PizzaContext';
 import { ConfigContext } from '@/context/ConfigContext';
+
 const DynamicPizzaDetails = dynamic(() => import('@/components/PizzaDetails'), { ssr: false });
 
 interface LayoutProps {

@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { Button } from '../Button';
-import { Icon } from '../Icon';
+import { Button } from '@/components/Button';
+import { Icon } from '@/components/Icon';
 
 interface CartItemProps {
     item: CartItemType;
@@ -57,7 +57,7 @@ export const CartItem: React.FC<CartItemProps> = ({
                 />
             </div>
             <div className="flex flex-col justify-center flex-grow">
-                <h3 className="text-lg font-noto-sans-bold">{item.pizza.title}</h3>
+                <h3 className="text-base md:text-lg font-noto-sans-bold">{item.pizza.title}</h3>
                 <p className="text-base rupee">{item.price}</p>
             </div>
             <div className="flex flex-row items-center">

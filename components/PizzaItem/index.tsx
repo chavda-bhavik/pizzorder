@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { Icon } from '../Icon';
+import { Icon } from '@/components/Icon';
 
 interface PizzaProps {
     liked?: boolean;
