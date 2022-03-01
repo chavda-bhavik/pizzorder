@@ -31,7 +31,7 @@ export const CartContext = createContext<CartContextType | null>(null);
 
 const CartProvider: React.FC<{}> = ({ children }: any) => {
     const configContext = useContext(ConfigContext);
-    const [totalInfo, setTotalInfo] = useState<TotalInfo>({
+    const [totalInfo, setTotalInfo] = useLocalStorage<TotalInfo>('total', {
         total: 0,
         subtotal: 0,
         tax: 0,
@@ -91,18 +91,23 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
     };
 
     const updateTotalInfo = (items: CartItemType[]) => {
-        let newTotalInfo = {
-            ...totalInfo,
-        };
-        newTotalInfo.subtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
-        newTotalInfo.tax = newTotalInfo.subtotal * configContext?.config.taxRate!;
-        newTotalInfo.tax = Number(newTotalInfo.tax.toFixed(2));
-        newTotalInfo.total = Math.round(
-            newTotalInfo.subtotal + newTotalInfo.tax + newTotalInfo.deliveryCharge
-        );
-        if (newTotalInfo.total)
-            newTotalInfo.deliveryCharge = configContext?.config.deliveryCharge || 0;
-        setTotalInfo(newTotalInfo);
+        if (configContext?.config) {
+            let newTotalInfo = {
+                ...totalInfo,
+            };
+            newTotalInfo.subtotal = items.reduce(
+                (acc, item) => acc + item.price * item.quantity,
+                0
+            );
+            newTotalInfo.tax = newTotalInfo.subtotal * configContext?.config.taxRate!;
+            newTotalInfo.tax = Number(newTotalInfo.tax.toFixed(2));
+            newTotalInfo.total = Math.round(
+                newTotalInfo.subtotal + newTotalInfo.tax + newTotalInfo.deliveryCharge
+            );
+            if (newTotalInfo.total)
+                newTotalInfo.deliveryCharge = configContext?.config.deliveryCharge || 0;
+            setTotalInfo(newTotalInfo);
+        }
     };
 
     const updateCartItem = (
@@ -146,7 +151,7 @@ const CartProvider: React.FC<{}> = ({ children }: any) => {
         addToCart,
         clearCart,
         updateCartItem,
-        updateQuantity,
+        updateQuantity
     };
 
     return <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>;

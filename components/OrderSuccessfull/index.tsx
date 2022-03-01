@@ -2,15 +2,15 @@ import Image from 'next/image';
 import Router from 'next/router';
 import { motion } from 'framer-motion';
 
-import { Backdrop } from '../Backdrop';
-import { Button } from '../Button';
+import { Backdrop } from '@/components/Backdrop';
+import { Button } from '@/components/Button';
 
 interface OrderSuccessfullProps {
     show?: boolean;
     onClose?: () => void;
 }
 
-export const OrderSuccessfull: React.FC<OrderSuccessfullProps> = ({ onClose, show }) => {
+const OrderSuccessfull: React.FC<OrderSuccessfullProps> = ({ onClose, show }) => {
     const continueShoppingClick = () => {
         Router.push('/');
     };
@@ -71,3 +71,5 @@ export const OrderSuccessfull: React.FC<OrderSuccessfullProps> = ({ onClose, sho
         </Backdrop>
     );
 };
+
+export default OrderSuccessfull;

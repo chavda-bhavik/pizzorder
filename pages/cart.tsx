@@ -1,12 +1,13 @@
 import { useContext, useState } from 'react';
 import classNames from 'classnames';
 
+import { Button } from '@/components/Button';
+import { Layout } from '@/components/Layout';
 import { CartItem } from '@/components/CartItem';
 import { Checkout } from '@/components/Checkout';
-import { Layout } from '@/components/Layout';
-import { CartContext } from '@/context/CartContext';
-import { Button } from '@/components/Button';
+
 import { getPizzaDetails } from '@/api';
+import { CartContext } from '@/context/CartContext';
 import { PizzaContext } from '@/context/PizzaContext';
 
 interface CartProps {}
@@ -52,17 +53,18 @@ const Cart: React.FC<CartProps> = ({}) => {
                         </Button>
                     </div>
                     <div className="space-y-2">
-                        {cartContext?.items.map((item, i) => (
-                            <CartItem
-                                key={i}
-                                item={item}
-                                editing={editing}
-                                onEditClick={() => handleEditCartItemClick(i)}
-                                onQuantityChange={(quantity) =>
-                                    handleQuantityChange(item.pizza.id!, quantity)
-                                }
-                            />
-                        ))}
+                        {cartContext?.items &&
+                            cartContext?.items.map((item, i) => (
+                                <CartItem
+                                    key={i}
+                                    item={item}
+                                    editing={editing}
+                                    onEditClick={() => handleEditCartItemClick(i)}
+                                    onQuantityChange={(quantity) =>
+                                        handleQuantityChange(item.pizza.id!, quantity)
+                                    }
+                                />
+                            ))}
                     </div>
                 </div>
                 <Checkout

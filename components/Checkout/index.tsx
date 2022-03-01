@@ -4,7 +4,7 @@ import { motion, Variants } from 'framer-motion';
 
 import { Icon } from '@/components/Icon';
 import { Button } from '@/components/Button';
-import { DividedContent } from '../DividedContent';
+import { DividedContent } from '@/components/DividedContent';
 
 interface CheckoutProps {
     collapsed?: boolean;

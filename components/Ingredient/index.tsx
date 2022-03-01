@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import classNames from 'classnames';
-import { Button } from '../Button';
+
+import { Button } from '@/components/Button';
 
 interface IngredientProps {
     ingredient: IngredientItemType;

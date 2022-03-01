@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Icon } from "@/components/Icon";
 import classNames from 'classnames';
+
+import { Icon } from "@/components/Icon";
 
 interface HeaderProps {
     stickyHeader?: boolean;

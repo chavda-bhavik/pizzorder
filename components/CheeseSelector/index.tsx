@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import { Icon } from '@/components/Icon';
-import { Button } from '../Button';
+import { Button } from '@/components/Button';
 
 interface CheeseSelectorProps {
     added?: boolean;

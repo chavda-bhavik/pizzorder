@@ -1,20 +1,20 @@
 import classNames from 'classnames';
 
 interface CategoriesTileProps {
-    pizzas: GrouppedPizzaType;
+    categories: string[];
     selectedIndex?: number;
-    onSelect: (id: string) => void;
+    onSelect: (index: number) => void;
 }
 
-export const CategoriesTile: React.FC<CategoriesTileProps> = ({ pizzas, selectedIndex, onSelect }) => {
+export const CategoriesTile: React.FC<CategoriesTileProps> = ({ categories, selectedIndex, onSelect }) => {
     return (
-        <div className="space-x-1 overflow-y-auto flex flex-row px-4 pt-2 pb-1 max-w-7xl sticky top-0 z-20 bg-classy-deemLight   border-b-4 border-classy-slate">
-            {Object.keys(pizzas).map((category, i) => (
+        <div className="space-x-1 overflow-y-auto flex flex-row px-4 pt-2 pb-1 max-w-7xl sticky top-0 z-20 bg-classy-deemLight border-b-4 border-classy-slate">
+            {categories.map((category, i) => (
                 <h1
                     className={classNames('category-title', {
                         'category-selected': i === selectedIndex,
                     })}
-                    onClick={() => onSelect(category)}
+                    onClick={() => onSelect(i)}
                     key={category}
                 >
                     {category}

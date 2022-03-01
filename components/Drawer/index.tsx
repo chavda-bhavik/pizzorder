@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import { Icon } from '../Icon';
+import { Icon } from '@/components/Icon';
 
-import { Backdrop } from '../Backdrop';
+import { Backdrop } from '@/components/Backdrop';
 
 interface DrawerProps {
     open?: boolean;
