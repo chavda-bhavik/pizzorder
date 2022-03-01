@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 
 import { placeOrder } from '@/api';
 import { Layout } from '@/components/Layout';
 import { CartContext } from '@/context/CartContext';
 import { CheckoutForm } from '@/components/CheckoutForm';
 import { DividedContent } from '@/components/DividedContent';
-import { OrderSuccessfull } from '@/components/OrderSuccessfull';
+
+const DynamicPizzaDetails = dynamic(() => import('@/components/OrderSuccessfull'), { ssr: false });
 
 interface CheckoutProps {}
 
@@ -109,8 +111,7 @@ const Checkout: React.FC<CheckoutProps> = ({}) => {
                     )}
                 </div>
             </main>
-
-            <OrderSuccessfull show={formState.submitted && !formState.error} />
+            {formState.submitted && !formState.error && (<DynamicPizzaDetails show />)}
         </Layout>
     );
 };

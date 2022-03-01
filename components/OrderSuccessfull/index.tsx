@@ -10,7 +10,7 @@ interface OrderSuccessfullProps {
     onClose?: () => void;
 }
 
-export const OrderSuccessfull: React.FC<OrderSuccessfullProps> = ({ onClose, show }) => {
+const OrderSuccessfull: React.FC<OrderSuccessfullProps> = ({ onClose, show }) => {
     const continueShoppingClick = () => {
         Router.push('/');
     };
@@ -71,3 +71,5 @@ export const OrderSuccessfull: React.FC<OrderSuccessfullProps> = ({ onClose, sho
         </Backdrop>
     );
 };
+
+export default OrderSuccessfull;
