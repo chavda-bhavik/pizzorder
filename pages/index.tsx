@@ -81,7 +81,7 @@ const Home: NextPage<HomeProps> = ({ pizzas }) => {
                 )}
 
                 {/* Pizza Listing */}
-                <div className="max-w-7xl space-y-20 z-10 mt-2">
+                <div className="z-10 mt-2">
                     {categoryList.length > 0 && (
                         <List
                             height={window.innerHeight - 122}

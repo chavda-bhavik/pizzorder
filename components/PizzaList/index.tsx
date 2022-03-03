@@ -23,7 +23,7 @@ export const PizzaList: React.FC<PizzaListProps> = ({ pizzas, category, onSelect
     return <div
         key={category}
         id={category}
-        className="p-2"
+        className="p-2 max-w-7xl"
         ref={itemRef}
     >
         {/* Category Tag */}
