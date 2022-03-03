@@ -42,7 +42,7 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ onClose }) => {
         if (pizzaContext && pizzaItemDetails && configContext && configContext.config) {
             let newDetails = { ...pizzaContext.customizationDetails };
             if (typeof extraCheese !== 'undefined') newDetails.extraCheese = extraCheese;
-            if (size) newDetails.size = size;
+            if (typeof size !== 'undefined') newDetails.size = size;
             if (topping) {
                 if (newDetails.toppings.includes(topping))
                     newDetails.toppings.splice(newDetails.toppings.indexOf(topping), 1);
@@ -53,8 +53,8 @@ const PizzaDetails: React.FC<PizzaDetailsProps> = ({ onClose }) => {
                 price: countPizzaPrice(
                     pizzaItemDetails,
                     configContext.config,
-                    size || 'medium',
-                    extraCheese,
+                    newDetails.size || 'medium',
+                    newDetails.extraCheese || false,
                     newDetails.toppings
                 ),
             });
