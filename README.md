@@ -2,8 +2,10 @@
   <h2>Pizzorder (Web Application to order pizza online)</h2>
 
   ### Online Pizza ordering application built in NextJS
+  
+  ![Pizzorder Conver](https://user-images.githubusercontent.com/50201755/156737784-671f3064-d359-4e63-9f02-233c958bcb8e.png)
 
-  <a href="https://pizzorder.vercel.app">Live demo</a>
+  <a href="https://pizzorder.vercel.app" target="_blank">Live demo</a> | <a href="https://user-images.githubusercontent.com/50201755/156584869-b2bb2e7e-2eb3-4a12-9fbd-2d55b633a0ca.mp4" target="_blank">See Video</a>
 </div>
 
 ### Running in your local 🏃
